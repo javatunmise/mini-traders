@@ -1,0 +1,52 @@
+﻿@model site.ViewComponents.GroupsGrid.GroupsGridInfo;
+
+@{
+    string title = Model.Title;
+    var items = Model.ViewData;
+
+    int pageSize = 6;
+    int pageIndex = 0;
+    int currentPage = 0;
+    int count = items.Count();
+    //var colors = new[] { "#f9b32a", "#2b4555", "#e66d18" };
+    var colorIndex = 0;
+}
+
+<div class="top-slr groups-grid-single">
+    <div class="sec-title">
+        <h5>@title</h5>
+    </div>
+    <div>
+        @while (currentPage < count)
+        {
+            var columnItems = items.Skip(currentPage).Take(pageSize);
+            <div class="row">
+                @foreach (var item in columnItems)
+                {
+                    <div class="col-md-2">
+                        <div class="gh-image">
+                            <a href="@item.DestinationUrl">
+                                @if (!Model.UseImages)
+                                {
+                                    <i alt="" class="fa fa-@item.ImageUrl" style="height: 80px; font-size: 80px; color: #e66d18"></i>
+                                }
+                                else
+                                {
+                                    <img alt="" src="@item.ImageUrl" style="height: 80px;" />
+                                }
+                            </a>
+                        </div>
+                        <div class="gh-content">
+                            <p><a href="@item.DestinationUrl">@item.Text</a></p>
+                        </div>
+                    </div>
+
+                    colorIndex++;
+                }
+            </div>
+            <div class="row">&nbsp;</div>
+            currentPage = pageIndex * pageSize + pageSize;
+            pageIndex++;
+        }
+    </div>
+</div>

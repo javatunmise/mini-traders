@@ -1,0 +1,50 @@
+﻿@{ 
+    string[] categories = new[] { "Electronics", "Fashion", "Beddings", "Wedding Accessories", "Fashion", "Beddings" };
+    var count = categories.Length;
+    List<string> rowOneCategories = count > 4 ? categories.Take(4).ToList() : categories.ToList();
+    List<string> rowTwoCategories = count > 4 ? categories.Skip(4)
+                                                            .Take(count < 8 ? count - 4 : 4).ToList() : categories.ToList();
+}
+
+    <div class="container">
+        <div class="row">
+            @foreach (var category in rowOneCategories)
+            {
+                <div class="col-md-3">
+                    <div class="service-box d-flex">
+                        <div class="sr-img">
+                            <img src="images/service-1.png" alt="" style="width:40px; height:40px">
+                        </div>
+                        <div class="">
+                            <div>&nbsp;</div>
+                            <h6>@category</h6>
+                            @*<p>Ullam et rem cum totam accusantium quos dolorem.</p>*@
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        @if (rowTwoCategories.Any())
+        {
+            <div class="row">&nbsp;</div>
+            <div class="row">
+                @foreach (var category in rowTwoCategories)
+                {
+                    <div class="col-md-3">
+                        <div class="service-box d-flex">
+                            <div class="sr-img">
+                                <img src="images/service-1.png" alt="" style="width:40px; height:40px">
+                            </div>
+                            <div class="">
+                                <div>&nbsp;</div>
+                                <h6>@category</h6>
+                                @*<p>Ullam et rem cum totam accusantium quos dolorem.</p>*@
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+        }
+    </div>

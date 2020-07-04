@@ -1,0 +1,9 @@
+C:\my projects\dev\dotnet\first-choice-mkthub\siteinfo\bin\Debug\netstandard2.0\siteinfo.deps.json
+C:\my projects\dev\dotnet\first-choice-mkthub\siteinfo\bin\Debug\netstandard2.0\siteinfo.dll
+C:\my projects\dev\dotnet\first-choice-mkthub\siteinfo\bin\Debug\netstandard2.0\siteinfo.pdb
+C:\my projects\dev\dotnet\first-choice-mkthub\siteinfo\obj\Debug\netstandard2.0\siteinfo.csproj.CoreCompileInputs.cache
+C:\my projects\dev\dotnet\first-choice-mkthub\siteinfo\obj\Debug\netstandard2.0\siteinfo.AssemblyInfoInputs.cache
+C:\my projects\dev\dotnet\first-choice-mkthub\siteinfo\obj\Debug\netstandard2.0\siteinfo.AssemblyInfo.cs
+C:\my projects\dev\dotnet\first-choice-mkthub\siteinfo\obj\Debug\netstandard2.0\siteinfo.dll
+C:\my projects\dev\dotnet\first-choice-mkthub\siteinfo\obj\Debug\netstandard2.0\siteinfo.pdb
+C:\my projects\dev\dotnet\first-choice-mkthub\siteinfo\obj\Debug\netstandard2.0\siteinfo.csprojAssemblyReference.cache
