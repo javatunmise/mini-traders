@@ -1,0 +1,49 @@
+﻿@model  IEnumerable<site.Data.MarketLocation>
+
+@{
+    var locations = Model.ToList();
+    int pageIndex = 0;
+    int currentPage = 0;
+    int count = locations.Count();
+    var curLocation = "All Location";
+
+    Func<int, int> findPageSize = (_count) => {
+        return 10;
+    };
+
+    var curPath = Context.Request.Path;
+    if (curPath.StartsWithSegments("/locations"))
+    {
+        curLocation = curPath.Value.Split('/')[2];
+        curLocation = locations[int.Parse(curLocation.Split('-').First()) - 1].Name;
+    }
+
+    int pageSize = findPageSize(count);
+
+}
+
+
+<div class="location-box">
+    <span>@curLocation<i class="fa fa-angle-down"></i></span>
+    <div class="container menu">
+        
+        <div class="row">
+            @while (currentPage < count)
+            {
+                var columnItems = locations.Skip(currentPage).Take(pageSize);
+
+                <div class="col-md-4">
+                    <ul class="list-unstyled">
+                        @foreach (var loc in columnItems)
+                        {
+                            var path = $"{loc.Id}-{loc.Name.ToLower().Replace(" ", "")}";
+                            <li><a href="~/locations/@path">@loc.Name</a></li>
+                        }
+                    </ul>
+                </div>
+                currentPage = pageIndex * pageSize + pageSize;
+                pageIndex++;
+            }
+            </div>
+    </div>
+</div>

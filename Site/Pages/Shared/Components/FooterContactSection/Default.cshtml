@@ -1,0 +1,32 @@
+﻿@model site.Data.Site
+@{ 
+    var site = Model;
+}
+
+<div class="f-contact">
+    <h5>Contact Info</h5>
+    <div class="f-add">
+        <i class="fa fa-map-marker"></i>
+        <span>Address :</span>
+        <p>@site.Address</p>
+    </div>
+    <div class="f-email">
+        <i class="fa fa-envelope"></i>
+        <span>Email :</span>
+        <p>@site.Email</p>
+    </div>
+    <div class="f-phn">
+        <i class="fa fa-phone"></i>
+        <span>Phone :</span>
+        <p>@site.PhoneNumber</p>
+    </div>
+    <div class="f-social">
+        <ul class="list-unstyled list-inline">
+            <li class="list-inline-item"><a href="@site.FacebookUrl" target="_blank"><i class="fa fa-facebook"></i></a></li>
+            <li class="list-inline-item"><a href="@site.TwitterUrl" target="_blank"><i class="fa fa-twitter"></i></a></li>
+            <li class="list-inline-item"><a href="@site.LinkedInUrl" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+            <li class="list-inline-item"><a href="@site.GoogleUrl" target="_blank"><i class="fa fa-google-plus"></i></a></li>
+            <li class="list-inline-item"><a href="@site.InstagramUrl" target="_blank"><i class="fa fa-instagram"></i></a></li>
+        </ul>
+    </div>
+</div>

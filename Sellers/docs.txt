@@ -1,0 +1,18 @@
+﻿- Guests / Anonymous / Visitors can browse the site without login
+- When "Start Seling" is clicked
+	a. Ask for login if not already 
+	b. Complete Seller form
+	c. admin approval (optional)
+	d. Start posting ads and services
+
+- When seller form complete (notify approver)
+- When approval completes (notify seller)
+- After approval, seller can start creation of services and products
+- Use multiple company names? No, register as a new person; YES
+
+Entities
+- Account: for login
+- Complete the seller form
+- Get your store
+- products (account-id, store-id)
+- services (account-id, store-id)

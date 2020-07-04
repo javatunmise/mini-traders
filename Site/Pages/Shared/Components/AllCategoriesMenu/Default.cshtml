@@ -1,0 +1,38 @@
+﻿@model IEnumerable<site.Data.Category>
+@{
+    var topCategorieis = Model.Where(c => c.Parent == null);
+
+    Func<site.Data.Category, string> GetPath = (category) => $"{category.Id}-{category.Name}";
+}
+
+<p><i class="fa fa-bars"></i>All Categories</p>
+<ul class="list-unstyled gt-menu all-categories">
+    @foreach (var category in topCategorieis)
+    {
+        <li>
+            <a href="~/categories/@GetPath(category)" )">
+                <span class="fa fa-@(string.IsNullOrWhiteSpace(category.IconClass) ? "cart-plus" : category.IconClass)"></span>&nbsp;&nbsp;
+                @category.Name
+                <i class="fa fa-angle-right @(category.Children.Any() ? "visible" : "invisible")"></i>
+            </a>
+
+            @if (category.Children.Any())
+            {
+                <div class="mega-menu custom">
+                    <div class="mega-menu-container">
+                        @foreach (var child in category.Children.OrderByDescending(c => c.Children.Count()))
+                        {
+                            <div class="section">
+                                <div class="title"><a href="~/categories/@GetPath(child)?parent=@($"{category.Id}|{child.Name}")">@child.Name</a></div>
+                                @foreach (var leafChild in child.Children)
+                                {
+                                    <a href="~/categories/@GetPath(leafChild)?parent=@($"{child.Id}|{child.Name}")">&minus; @leafChild.Name</a>
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        </li>
+    }
+</ul>

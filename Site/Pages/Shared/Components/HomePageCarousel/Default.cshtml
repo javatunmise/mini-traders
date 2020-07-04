@@ -1,0 +1,15 @@
+﻿@model IEnumerable<site.Data.Carousel>
+
+
+<div class="owl-carousel owl-slider">
+    @foreach (var slide in Model)
+    {
+    <div class="slider-item slider-item1">
+        <a href="@slide.DestinationUrl"><img src="@slide.ImageUrl" alt="" class="img-fluid img1 wow fadeInRight effect" data-wow-duration="1s" data-wow-delay="0s" /></a>
+    </div>
+    }
+</div>
+
+
+
+
