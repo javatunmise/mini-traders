@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\my projects\\dev\\dotnet\\first-choice-mkthub\\administrators\\administrators.csproj": {}
+    "C:\\my projects\\dev\\dotnet\\mini-traders\\mini-traders\\administrators\\administrators.csproj": {}
   },
   "projects": {
-    "C:\\my projects\\dev\\dotnet\\first-choice-mkthub\\administrators\\administrators.csproj": {
+    "C:\\my projects\\dev\\dotnet\\mini-traders\\mini-traders\\administrators\\administrators.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\my projects\\dev\\dotnet\\first-choice-mkthub\\administrators\\administrators.csproj",
+        "projectUniqueName": "C:\\my projects\\dev\\dotnet\\mini-traders\\mini-traders\\administrators\\administrators.csproj",
         "projectName": "administrators",
-        "projectPath": "C:\\my projects\\dev\\dotnet\\first-choice-mkthub\\administrators\\administrators.csproj",
+        "projectPath": "C:\\my projects\\dev\\dotnet\\mini-traders\\mini-traders\\administrators\\administrators.csproj",
         "packagesPath": "C:\\Users\\tunmisefasipe\\.nuget\\packages\\",
-        "outputPath": "C:\\my projects\\dev\\dotnet\\first-choice-mkthub\\administrators\\obj\\",
+        "outputPath": "C:\\my projects\\dev\\dotnet\\mini-traders\\mini-traders\\administrators\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

@@ -1,11 +1,11 @@
-﻿@model site.ViewComponents.FooterColumn.FooterLinks
+﻿@model site.Data.FooterLinks
+<div class="widget">
+    <h4 class="widget-title pb-1">@Model.Title</h4>
 
-<div class="f-cat">
-    <h5>@Model?.Title</h5>
-    <ul class="list-unstyled">
-        @foreach (var link in Model?.Links ?? new List<site.ViewComponents.FooterColumn.FooterLink>())
+    <ul class="links">
+        @foreach (var link in Model.Links)
         {
-            <li><a href="@link.Url"><i class="fa fa-angle-right"></i>@link.Text</a></li>
+            <li><a href="@link.Url">@link.Text</a></li>
         }
     </ul>
 </div>

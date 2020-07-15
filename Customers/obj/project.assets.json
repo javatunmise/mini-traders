@@ -184,11 +184,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\my projects\\dev\\dotnet\\first-choice-mkthub\\customers\\customers.csproj",
+      "projectUniqueName": "C:\\my projects\\dev\\dotnet\\mini-traders\\mini-traders\\customers\\customers.csproj",
       "projectName": "customers",
-      "projectPath": "C:\\my projects\\dev\\dotnet\\first-choice-mkthub\\customers\\customers.csproj",
+      "projectPath": "C:\\my projects\\dev\\dotnet\\mini-traders\\mini-traders\\customers\\customers.csproj",
       "packagesPath": "C:\\Users\\tunmisefasipe\\.nuget\\packages\\",
-      "outputPath": "C:\\my projects\\dev\\dotnet\\first-choice-mkthub\\customers\\obj\\",
+      "outputPath": "C:\\my projects\\dev\\dotnet\\mini-traders\\mini-traders\\customers\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

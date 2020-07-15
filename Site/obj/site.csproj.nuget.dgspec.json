@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\my projects\\dev\\dotnet\\first-choice-mkthub\\site\\site.csproj": {}
+    "C:\\my projects\\dev\\dotnet\\mini-traders\\mini-traders\\site\\site.csproj": {}
   },
   "projects": {
-    "C:\\my projects\\dev\\dotnet\\first-choice-mkthub\\siteinfo\\siteinfo.csproj": {
+    "C:\\my projects\\dev\\dotnet\\mini-traders\\mini-traders\\siteinfo\\siteinfo.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\my projects\\dev\\dotnet\\first-choice-mkthub\\siteinfo\\siteinfo.csproj",
+        "projectUniqueName": "C:\\my projects\\dev\\dotnet\\mini-traders\\mini-traders\\siteinfo\\siteinfo.csproj",
         "projectName": "siteinfo",
-        "projectPath": "C:\\my projects\\dev\\dotnet\\first-choice-mkthub\\siteinfo\\siteinfo.csproj",
+        "projectPath": "C:\\my projects\\dev\\dotnet\\mini-traders\\mini-traders\\siteinfo\\siteinfo.csproj",
         "packagesPath": "C:\\Users\\tunmisefasipe\\.nuget\\packages\\",
-        "outputPath": "C:\\my projects\\dev\\dotnet\\first-choice-mkthub\\siteinfo\\obj\\",
+        "outputPath": "C:\\my projects\\dev\\dotnet\\mini-traders\\mini-traders\\siteinfo\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -56,14 +56,14 @@
         }
       }
     },
-    "C:\\my projects\\dev\\dotnet\\first-choice-mkthub\\site\\site.csproj": {
+    "C:\\my projects\\dev\\dotnet\\mini-traders\\mini-traders\\site\\site.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\my projects\\dev\\dotnet\\first-choice-mkthub\\site\\site.csproj",
+        "projectUniqueName": "C:\\my projects\\dev\\dotnet\\mini-traders\\mini-traders\\site\\site.csproj",
         "projectName": "site",
-        "projectPath": "C:\\my projects\\dev\\dotnet\\first-choice-mkthub\\site\\site.csproj",
+        "projectPath": "C:\\my projects\\dev\\dotnet\\mini-traders\\mini-traders\\site\\site.csproj",
         "packagesPath": "C:\\Users\\tunmisefasipe\\.nuget\\packages\\",
-        "outputPath": "C:\\my projects\\dev\\dotnet\\first-choice-mkthub\\site\\obj\\",
+        "outputPath": "C:\\my projects\\dev\\dotnet\\mini-traders\\mini-traders\\site\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -82,8 +82,8 @@
         "frameworks": {
           "netcoreapp2.2": {
             "projectReferences": {
-              "C:\\my projects\\dev\\dotnet\\first-choice-mkthub\\siteinfo\\siteinfo.csproj": {
-                "projectPath": "C:\\my projects\\dev\\dotnet\\first-choice-mkthub\\siteinfo\\siteinfo.csproj"
+              "C:\\my projects\\dev\\dotnet\\mini-traders\\mini-traders\\siteinfo\\siteinfo.csproj": {
+                "projectPath": "C:\\my projects\\dev\\dotnet\\mini-traders\\mini-traders\\siteinfo\\siteinfo.csproj"
               }
             }
           }

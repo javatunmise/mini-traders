@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\my projects\\dev\\dotnet\\first-choice-mkthub\\sellers\\sellers.csproj": {}
+    "C:\\my projects\\dev\\dotnet\\mini-traders\\mini-traders\\sellers\\sellers.csproj": {}
   },
   "projects": {
-    "C:\\my projects\\dev\\dotnet\\first-choice-mkthub\\sellers\\sellers.csproj": {
+    "C:\\my projects\\dev\\dotnet\\mini-traders\\mini-traders\\sellers\\sellers.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\my projects\\dev\\dotnet\\first-choice-mkthub\\sellers\\sellers.csproj",
+        "projectUniqueName": "C:\\my projects\\dev\\dotnet\\mini-traders\\mini-traders\\sellers\\sellers.csproj",
         "projectName": "sellers",
-        "projectPath": "C:\\my projects\\dev\\dotnet\\first-choice-mkthub\\sellers\\sellers.csproj",
+        "projectPath": "C:\\my projects\\dev\\dotnet\\mini-traders\\mini-traders\\sellers\\sellers.csproj",
         "packagesPath": "C:\\Users\\tunmisefasipe\\.nuget\\packages\\",
-        "outputPath": "C:\\my projects\\dev\\dotnet\\first-choice-mkthub\\sellers\\obj\\",
+        "outputPath": "C:\\my projects\\dev\\dotnet\\mini-traders\\mini-traders\\sellers\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

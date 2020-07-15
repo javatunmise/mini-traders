@@ -184,11 +184,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\my projects\\dev\\dotnet\\first-choice-mkthub\\shared\\shared.csproj",
+      "projectUniqueName": "C:\\my projects\\dev\\dotnet\\mini-traders\\mini-traders\\shared\\shared.csproj",
       "projectName": "shared",
-      "projectPath": "C:\\my projects\\dev\\dotnet\\first-choice-mkthub\\shared\\shared.csproj",
+      "projectPath": "C:\\my projects\\dev\\dotnet\\mini-traders\\mini-traders\\shared\\shared.csproj",
       "packagesPath": "C:\\Users\\tunmisefasipe\\.nuget\\packages\\",
-      "outputPath": "C:\\my projects\\dev\\dotnet\\first-choice-mkthub\\shared\\obj\\",
+      "outputPath": "C:\\my projects\\dev\\dotnet\\mini-traders\\mini-traders\\shared\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

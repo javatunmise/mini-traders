@@ -1,32 +1,32 @@
-﻿@model site.Data.Site
-@{ 
+﻿@using site.Helpers;
+
+@model site.Data.Site
+@{
     var site = Model;
 }
 
-<div class="f-contact">
-    <h5>Contact Info</h5>
-    <div class="f-add">
-        <i class="fa fa-map-marker"></i>
-        <span>Address :</span>
-        <p>@site.Address</p>
-    </div>
-    <div class="f-email">
-        <i class="fa fa-envelope"></i>
-        <span>Email :</span>
-        <p>@site.Email</p>
-    </div>
-    <div class="f-phn">
-        <i class="fa fa-phone"></i>
-        <span>Phone :</span>
-        <p>@site.PhoneNumber</p>
-    </div>
-    <div class="f-social">
-        <ul class="list-unstyled list-inline">
-            <li class="list-inline-item"><a href="@site.FacebookUrl" target="_blank"><i class="fa fa-facebook"></i></a></li>
-            <li class="list-inline-item"><a href="@site.TwitterUrl" target="_blank"><i class="fa fa-twitter"></i></a></li>
-            <li class="list-inline-item"><a href="@site.LinkedInUrl" target="_blank"><i class="fa fa-linkedin"></i></a></li>
-            <li class="list-inline-item"><a href="@site.GoogleUrl" target="_blank"><i class="fa fa-google-plus"></i></a></li>
-            <li class="list-inline-item"><a href="@site.InstagramUrl" target="_blank"><i class="fa fa-instagram"></i></a></li>
-        </ul>
-    </div>
-</div>
+<div class="widget mb-2">
+    <h4 class="widget-title mb-1 pb-1">Contact Info</h4>
+    <ul class="contact-info m-b-4">
+        <li>
+            <span class="contact-info-label">Address:</span>@site.Address
+        </li>
+        <li>
+            <span class="contact-info-label">Phone:</span><a href="tel:">@site.PhoneNumber</a>
+        </li>
+        <li>
+            <span class="contact-info-label">Email:</span> <a href="mailto:@(site.Email)">@site.Email</a>
+        </li>
+        <li>
+            <span class="contact-info-label">Working Days/Hours:</span>
+            @site.WorkingHours
+        </li>
+    </ul>
+    <div class="social-icons">
+        <a href="@site.FacebookUrl.DefaultTo("#")" class="social-icon social-facebook icon-facebook" target="_blank" title="Facebook"></a>
+        <a href="@site.TwitterUrl.DefaultTo("#")" class="social-icon social-twitter icon-twitter" target="_blank" title="Twitter"></a>
+        <a href="@site.LinkedInUrl.DefaultTo("#")" class="social-icon social-linkedin fab fa-linkedin-in" target="_blank" title="Linkedin"></a>
+        <a href="@site.GoogleUrl.DefaultTo("#")" class="social-icon sicon-social-google fab fa-google-plus" target="_blank" title="Linkedin"></a>
+        <a href="@site.InstagramUrl.DefaultTo("#")" class="social-icon social-instagram fab fa-instagram" target="_blank" title="Linkedin"></a>
+    </div><!-- End .social-icons -->
+</div><!-- End .widget -->

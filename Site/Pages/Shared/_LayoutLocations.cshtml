@@ -400,10 +400,7 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    @await Component.InvokeAsync("FooterColumn", 
-                        new FooterColumn.FooterLinks("Categories", Enumerable.Range(1, 10)
-                        .Select(id => new FooterColumn.FooterLink ($"Category {id}", $"/categories/{id}")))
-                        )
+                   
                 </div>
                 @*<div class="col-md-3">
                     <div class="f-link">

@@ -6,6 +6,13 @@
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="wwwroot\js\assets\vendor\**" />
+    <Content Remove="wwwroot\js\assets\vendor\**" />
+    <EmbeddedResource Remove="wwwroot\js\assets\vendor\**" />
+    <None Remove="wwwroot\js\assets\vendor\**" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <None Update="app.db" CopyToOutputDirectory="PreserveNewest" />
@@ -20,6 +27,14 @@
 
   <ItemGroup>
     <Folder Include="Data\Repositories\" />
+    <Folder Include="wwwroot\assets\images\" />
+    <Folder Include="wwwroot\fonts\" />
+    <Folder Include="wwwroot\js\assets\" />
+    <Folder Include="wwwroot\lib\simple-line-icons\dist\css\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\js\site.js" />
   </ItemGroup>
 
   <ItemGroup>
