@@ -7,3 +7,12 @@ C:\my projects\dev\dotnet\first-choice-mkthub\customers\obj\Debug\netstandard2.0
 C:\my projects\dev\dotnet\first-choice-mkthub\customers\obj\Debug\netstandard2.0\customers.AssemblyInfo.cs
 C:\my projects\dev\dotnet\first-choice-mkthub\customers\obj\Debug\netstandard2.0\customers.dll
 C:\my projects\dev\dotnet\first-choice-mkthub\customers\obj\Debug\netstandard2.0\customers.pdb
+C:\my projects\dev\dotnet\mini-traders\mini-traders\customers\bin\Debug\netstandard2.0\customers.deps.json
+C:\my projects\dev\dotnet\mini-traders\mini-traders\customers\bin\Debug\netstandard2.0\customers.dll
+C:\my projects\dev\dotnet\mini-traders\mini-traders\customers\bin\Debug\netstandard2.0\customers.pdb
+C:\my projects\dev\dotnet\mini-traders\mini-traders\customers\obj\Debug\netstandard2.0\customers.csprojAssemblyReference.cache
+C:\my projects\dev\dotnet\mini-traders\mini-traders\customers\obj\Debug\netstandard2.0\customers.AssemblyInfoInputs.cache
+C:\my projects\dev\dotnet\mini-traders\mini-traders\customers\obj\Debug\netstandard2.0\customers.AssemblyInfo.cs
+C:\my projects\dev\dotnet\mini-traders\mini-traders\customers\obj\Debug\netstandard2.0\customers.csproj.CoreCompileInputs.cache
+C:\my projects\dev\dotnet\mini-traders\mini-traders\customers\obj\Debug\netstandard2.0\customers.dll
+C:\my projects\dev\dotnet\mini-traders\mini-traders\customers\obj\Debug\netstandard2.0\customers.pdb
