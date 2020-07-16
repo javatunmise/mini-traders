@@ -544,93 +544,38 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
-                            <div class="footer-column">
-                                <div class="module-heading">
-                                    <h4 class="module-title">Help and Support</h4>
-                                </div>
-                                <div>
-                                    <ul>
-                                        <li><a href="/">Term of Use</a></li>
-                                        <li><a href="/">Term of Use</a></li>
-                                        <li><a href="/">Term of Use</a></li>
-                                        <li><a href="/">Term of Use</a></li>
-                                        <li><a href="/">Term of Use</a></li>
-                                        <li><a href="/">Term of Use</a></li>
-                                    </ul>
-                                </div>
-                            </div>
+                            @await Component.InvokeAsync("FooterColumn", site.ViewComponents.FooterColumn.HELP_AND_SUPPORT)
                         </div>
                         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
-                            <div class="footer-column">
-                                <div class="module-heading"><h4 class="module-title">Customer Service</h4></div>
-                                <div>
-                                    <ul>
-                                        <li><a href="/">Term of Use</a></li>
-                                        <li><a href="/">Term of Use</a></li>
-                                        <li><a href="/">Term of Use</a></li>
-                                        <li><a href="/">Term of Use</a></li>
-                                        <li><a href="/">Term of Use</a></li>
-                                        <li><a href="/">Term of Use</a></li>
-                                    </ul>
-                                </div>
-                            </div>
+                            @await Component.InvokeAsync("FooterColumn", site.ViewComponents.FooterColumn.CUSTOMER_SERVICE)
                         </div>
                         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
-                            <div class="footer-column">
-                                <div class="module-heading"><h4 class="module-title">Corporation</h4></div>
-                                <div>
-                                    <ul>
-                                        <li><a href="/">Term of Use</a></li>
-                                        <li><a href="/">Term of Use</a></li>
-                                        <li><a href="/">Term of Use</a></li>
-                                        <li><a href="/">Term of Use</a></li>
-                                        <li><a href="/">Term of Use</a></li>
-                                        <li><a href="/">Term of Use</a></li>
-                                    </ul>
-                                </div>
-                            </div>
+                            @await Component.InvokeAsync("FooterColumn", site.ViewComponents.FooterColumn.CORPORATION)
                         </div>
                         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
-                            <div class="footer-column">
-                                <div class="module-heading">
-                                    <h4 class="module-title">Why Choose Us</h4>
-                                </div>
-                                <div>
-                                    <ul>
-                                        <li><a href="/">Term of Use</a></li>
-                                        <li><a href="/">Term of Use</a></li>
-                                        <li><a href="/">Term of Use</a></li>
-                                        <li><a href="/">Term of Use</a></li>
-                                        <li><a href="/">Term of Use</a></li>
-                                        <li><a href="/">Term of Use</a></li>
-                                    </ul>
-                                </div>
-                            </div>
+                            @await Component.InvokeAsync("FooterColumn", site.ViewComponents.FooterColumn.WHY_CHOOSE_US)
                         </div>
                     </div>
                 </div>
             </div>
             <div class="copyright-bar white-bg">
                 <div class="container">
-                    <div class="col-xs-12 col-sm-7 col-md-12 col-lg-7 del-info"> We have our very own fleet of delivery vans. Your order will be packed with care at our warehouse and delivered right to your door by our friendly DealDots team.</div>
-                    <div class="col-xs-12 col-sm-5 col-md-12 col-lg-5 no-padding">
-                        <!--<div class="clearfix payment-methods"> <ul> <li><img src="https://klbtheme.com/dealsdot/wp-content/uploads/2019/12/1.png" alt="payment-image"></li> <li><img src="https://klbtheme.com/dealsdot/wp-content/uploads/2019/12/2.png" alt="payment-image"></li> <li><img src="https://klbtheme.com/dealsdot/wp-content/uploads/2019/12/3.png" alt="payment-image"></li> <li><img src="https://klbtheme.com/dealsdot/wp-content/uploads/2019/12/4.png" alt="payment-image"></li> </ul></div>-->
+                    @*<div class="col-sm-6 col-md-6 no-padding text-left">
+                        @_site.AboutUsIntro.DefaultTo("About us")
+                    </div>*@
+                    <div class="col-xs-12 col-sm-12 col-md-12 no-padding social">
+                        <ul class="link">
+                            <li class="facebook"><a href="@_site.FacebookUrl.DefaultTo("#")" target="_blank"> <i class="fa fa-facebook"></i></a></li>
+                            <li class="twitter"><a href="@_site.TwitterUrl.DefaultTo("#")" target="_blank"> <i class="fa fa-twitter"></i></a></li>
+                            <li class="google-plus"><a href="@_site.YoutubeUrl.DefaultTo("#")" target="_blank"> <i class="fa fa-youtube"></i></a></li>
+                            <li class="linkedin"><a href="@_site.LinkedInUrl.DefaultTo("#")" target="_blank"> <i class="fa fa-linkedin"></i></a></li>
+                            <li class="youtube"><a href="@_site.InstagramUrl.DefaultTo("#")" target="_blank"> <i class="fa fa-youtube"></i></a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
             <div class="copyright-bar">
                 <div class="container">
-                    <div class="col-xs-12 col-sm-12 no-padding social">
-                        <ul class="link">
-                            <li class="facebook"><a href="https://www.facebook.com/" target="_blank"> <i class="fa fa-facebook"></i></a></li>
-                            <li class="twitter"><a href="https://twitter.com/" target="_blank"> <i class="fa fa-twitter"></i></a></li>
-                            <li class="google-plus"><a href="https://google.com/" target="_blank"> <i class="fa fa-google-plus"></i></a></li>
-                            <li class="rss"><a href="https://themeforest.net/user/klbtheme" target="_blank"> <i class="fa fa-rss"></i></a></li>
-                            <li class="pinterest"><a href="https://pinterest.com/" target="_blank"> <i class="fa fa-pinterest"></i></a></li>
-                            <li class="linkedin"><a href="https://www.linkedin.com/" target="_blank"> <i class="fa fa-linkedin"></i></a></li>
-                            <li class="youtube"><a href="https://www.youtube.com/" target="_blank"> <i class="fa fa-youtube"></i></a></li>
-                        </ul>
-                    </div>
                     <div class="col-xs-12 col-sm-12 no-padding copyright">
                         Copyright @(DateTime.Now.Year). All rights reserved
                     </div>

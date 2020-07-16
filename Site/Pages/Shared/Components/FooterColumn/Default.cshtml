@@ -1,5 +1,5 @@
 ﻿@model site.Data.FooterLinks
-<div class="widget">
+@*<div class="widget">
     <h4 class="widget-title pb-1">@Model.Title</h4>
 
     <ul class="links">
@@ -8,4 +8,20 @@
             <li><a href="@link.Url">@link.Text</a></li>
         }
     </ul>
+</div>*@
+
+
+<div class="footer-column">
+    <div class="module-heading">
+        <h4 class="module-title">@Model.Title</h4>
+    </div>
+    <div>
+
+        <ul>
+            @foreach (var link in Model.Links)
+            {
+                <li><a href="@link.Url">@link.Text</a></li>
+            }
+        </ul>
+    </div>
 </div>

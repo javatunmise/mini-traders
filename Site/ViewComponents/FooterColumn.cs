@@ -9,6 +9,11 @@ namespace site.ViewComponents
 {
     public class FooterColumn : ViewComponent
     {
+        public const string HELP_AND_SUPPORT = "HELP_AND_SUPPORT";
+        public const string CUSTOMER_SERVICE = "CUSTOMER_SERVICE";
+        public const string CORPORATION = "CORPORATION";
+        public const string WHY_CHOOSE_US = "WHY_CHOOSE_US";
+
         private readonly ISiteContentProvider _provider;
 
         public FooterColumn(ISiteContentProvider provider)
@@ -16,20 +21,32 @@ namespace site.ViewComponents
             _provider = provider;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(FooterColumnIndex section)
+        public async Task<IViewComponentResult> InvokeAsync(string section)
         {
             await Task.CompletedTask;
             var linkSection = new FooterLinks("", new List<FooterLink>());
 
-            if (section == FooterColumnIndex.FirstColumn)
+            if (section == HELP_AND_SUPPORT)
             {
-                var footerColumn = await _provider.GetFooterFirstLinkSection();
+                var footerColumn = await _provider.GetFooterHelpAndSupportLinks();
 
                 linkSection = footerColumn ?? linkSection;
             }
-            if (section == FooterColumnIndex.SecondColumn)
+            else if (section == CUSTOMER_SERVICE)
             {
-                var footerColumn = await _provider.GetFooterSecondLinkSection();
+                var footerColumn = await _provider.GetFooterCustomerServiceLinks();
+
+                linkSection = footerColumn ?? linkSection;
+            }
+            else if (section == CORPORATION)
+            {
+                var footerColumn = await _provider.GetFooterCorporationSectionLinks();
+
+                linkSection = footerColumn ?? linkSection;
+            }
+            else if (section == WHY_CHOOSE_US)
+            {
+                var footerColumn = await _provider.GetFooterWhyUsLinks();
 
                 linkSection = footerColumn ?? linkSection;
             }
@@ -38,9 +55,4 @@ namespace site.ViewComponents
         }
 
    }
-
-    public enum FooterColumnIndex
-    {
-        FirstColumn, SecondColumn
-    }
 }

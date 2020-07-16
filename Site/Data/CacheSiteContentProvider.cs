@@ -156,17 +156,17 @@ namespace site.Data
                     Email = "shopatfirstchoice@yahoo.com",
                     Address = "159 Olonade Yaba, Lagos",               
                 FacebookUrl = "http://facebook.com/pages/first-choice-online",
-                GoogleUrl = "",
+                YoutubeUrl = "",
                 InstagramUrl = "",
                 TwitterUrl = "",
                 LinkedInUrl = ""
             };
         }
 
-        public async Task<FooterLinks> GetFooterFirstLinkSection()
+        public async Task<FooterLinks> GetFooterHelpAndSupportLinks()
         {
             await Task.CompletedTask;
-            return new FooterLinks("Customer Service", new List<FooterLink>
+            return new FooterLinks("Help and Support", new List<FooterLink>
             {
                 new FooterLink { Text = "My account", Url ="/pages/1022-my-account" },
                 new FooterLink { Text = "Order History", Url ="/pages/1022-order-history" },
@@ -177,21 +177,42 @@ namespace site.Data
             });
         }
 
-        public async Task<FooterLinks> GetFooterSecondLinkSection()
+        public async Task<FooterLinks> GetFooterCustomerServiceLinks()
         {
             await Task.CompletedTask;
-            return new FooterLinks("Help and Support", new List<FooterLink>
+            return new FooterLinks("Customer Service", new List<FooterLink>
             {
-                new FooterLink { Text = "Help & FAQs", Url ="/pages/1022-help-and-faqs" },
-                new FooterLink { Text = "Order Tracking", Url ="/pages/1022-order-tracking" },
-                new FooterLink { Text = "Shipping & Delivery", Url ="/pages/1022-shipping-and-delivery" },
-                new FooterLink { Text = "Orders History", Url ="/pages/1022-orders-history" },
-                new FooterLink { Text = "Advanced Search", Url ="/pages/1022-advanced-search" },
-                new FooterLink { Text = "My Account", Url ="/pages/1022-my-account" },
-                new FooterLink { Text = "Careers", Url ="/pages/1022-careers" },
-                new FooterLink { Text = "About Us", Url ="/pages/1022-about-us" },
-                new FooterLink { Text = "Corporate Sales", Url ="/pages/1022-corporate-sales" },
-                new FooterLink { Text = "Privacy", Url ="/pages/1022-privacy" }
+new FooterLink { Text = "My account", Url ="/pages/1022-My account "},
+new FooterLink { Text = "Order History", Url ="/pages/1022-Order History "},
+new FooterLink { Text = "FAQ", Url ="/pages/1022-FAQ "},
+new FooterLink { Text = "Specials", Url ="/pages/1022-Specials "},
+new FooterLink { Text = "Help Center", Url ="/pages/1022-Help Center "},
+            });
+        }
+
+        public async Task<FooterLinks> GetFooterCorporationSectionLinks()
+        {
+            await Task.CompletedTask;
+            return new FooterLinks("Our Company", new List<FooterLink>
+            {
+new FooterLink { Text = "About Us", Url ="/pages/1022-About Us "},
+new FooterLink { Text = "Customer Service", Url ="/pages/1022-Customer Service "},
+new FooterLink { Text = "Company", Url ="/pages/1022-Company "},
+new FooterLink { Text = "Investor Relations", Url ="/pages/1022-Investor Relations "},
+new FooterLink { Text = "Advanced Search", Url ="/pages/1022-Advanced Search "},
+            });
+        }
+
+        public async Task<FooterLinks> GetFooterWhyUsLinks()
+        {
+            await Task.CompletedTask;
+            return new FooterLinks("Why Choose Us", new List<FooterLink>
+            {
+new FooterLink { Text = "Shopping Guide", Url ="/pages/1022-Shopping Guide "},
+new FooterLink { Text = "Blog", Url ="/pages/1022-Blog "},
+new FooterLink { Text = "Company", Url ="/pages/1022-Company "},
+new FooterLink { Text = "Invenstor Relations", Url ="/pages/1022-Invenstor Relations "},
+new FooterLink { Text = "Contact Us", Url ="/pages/1022-Contact Us "},
             });
         }
     }

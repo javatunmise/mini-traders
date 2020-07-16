@@ -15,8 +15,10 @@ namespace site.Data
         //Task<IEnumerable<Product>> GetFeaturedProducts();
         //Task<IEnumerable<Product>> GetNewProducts();
 
-        Task<FooterLinks> GetFooterFirstLinkSection();
-        Task<FooterLinks> GetFooterSecondLinkSection();
+        Task<FooterLinks> GetFooterHelpAndSupportLinks();
+        Task<FooterLinks> GetFooterCustomerServiceLinks();
+        Task<FooterLinks> GetFooterCorporationSectionLinks();
+        Task<FooterLinks> GetFooterWhyUsLinks();
     }
 
     public class FooterLinks
@@ -57,7 +59,7 @@ namespace site.Data
         public string Address { get; internal set; }
         public string WorkingHours { get; set; }
         public string FacebookUrl { get; internal set; }
-        public string GoogleUrl { get; internal set; }
+        public string YoutubeUrl { get; internal set; }
         public string InstagramUrl { get; internal set; }
         public string LinkedInUrl { get; internal set; }
         public string TwitterUrl { get; internal set; }
