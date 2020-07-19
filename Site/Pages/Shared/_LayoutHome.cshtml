@@ -438,11 +438,7 @@
                             </div>
                         </div>
                         <div class="col-lg-5 col-md-4 col-sm-5 col-xs-12 top-search-holder">
-                            <div class="search-area">
-                                <form role="search" method="get" id="searchform" action="/">
-                                    <div class="control-group"> <input type="text" class="search-field" value="" name="s" id="s" placeholder="Search"> <button type="submit" class="search-button"> </button> <input type="hidden" name="post_type" value="product"></div>
-                                </form>
-                            </div>
+                            @await Component.InvokeAsync("SearchBox") 
                         </div>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
@@ -494,9 +490,7 @@
                     </div>
                     <div class="col-lg-5 col-md-4 col-sm-5 col-xs-12 top-search-holder">
                         <div class="search-area">
-                            <form role="search" method="get" id="searchform" action="/">
-                                <div class="control-group"> <input type="text" class="search-field" value="" name="s" id="s" placeholder="Search"> <button type="submit" class="search-button"> </button> <input type="hidden" name="post_type" value="product"></div>
-                            </form>
+                            @await Component.InvokeAsync("SearchBox")
                         </div>
                     </div>
                     <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 navmenu">

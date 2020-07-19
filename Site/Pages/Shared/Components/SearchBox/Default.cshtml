@@ -1,9 +1,10 @@
-﻿<div class="header-search header-icon header-search-inline header-search-category w-lg-max mr-lg-4">
+﻿<!--
+<div class="header-search header-icon header-search-inline header-search-category w-lg-max mr-lg-4">
     <a href="#" class="search-toggle" role="button"><i class="icon-search-3"></i></a>
     <form action="~/search" method="get">
         <div class="header-search-wrapper">
             <input type="search" class="form-control" name="q" id="q" placeholder="Search..." required>
-            
+     -->       
             <!--
             <div class="select-custom">
                 <select id="cat" name="cat">
@@ -27,8 +28,14 @@
                 </select>
             </div>
                 -->
-            <!-- End .select-custom -->
-            <button class="btn p-0 icon-search-3" type="submit"></button>
-        </div><!-- End .header-search-wrapper -->
+
+            @*<button class="btn p-0 icon-search-3" type="submit"></button>
+        </div>
     </form>
-</div>
+</div>*@
+
+    <div class="search-area">
+        <form role="search" method="get" id="searchform" action="~/search">
+            <div class="control-group"> <input type="text" class="search-field" value="" name="s" id="s" placeholder="Search"> <button type="submit" class="search-button"> </button> <input type="hidden" name="post_type" value="product"></div>
+        </form>
+    </div>
