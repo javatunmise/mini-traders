@@ -182,11 +182,11 @@ namespace site.Data
             await Task.CompletedTask;
             return new FooterLinks("Customer Service", new List<FooterLink>
             {
-new FooterLink { Text = "My account", Url ="/pages/1022-My account "},
-new FooterLink { Text = "Order History", Url ="/pages/1022-Order History "},
-new FooterLink { Text = "FAQ", Url ="/pages/1022-FAQ "},
-new FooterLink { Text = "Specials", Url ="/pages/1022-Specials "},
-new FooterLink { Text = "Help Center", Url ="/pages/1022-Help Center "},
+                new FooterLink { Text = "My account", Url ="/pages/1022-My account "},
+                new FooterLink { Text = "Order History", Url ="/pages/1022-Order History "},
+                new FooterLink { Text = "FAQ", Url ="/pages/1022-FAQ "},
+                new FooterLink { Text = "Specials", Url ="/pages/1022-Specials "},
+                new FooterLink { Text = "Help Center", Url ="/pages/1022-Help Center "},
             });
         }
 
@@ -195,11 +195,11 @@ new FooterLink { Text = "Help Center", Url ="/pages/1022-Help Center "},
             await Task.CompletedTask;
             return new FooterLinks("Our Company", new List<FooterLink>
             {
-new FooterLink { Text = "About Us", Url ="/pages/1022-About Us "},
-new FooterLink { Text = "Customer Service", Url ="/pages/1022-Customer Service "},
-new FooterLink { Text = "Company", Url ="/pages/1022-Company "},
-new FooterLink { Text = "Investor Relations", Url ="/pages/1022-Investor Relations "},
-new FooterLink { Text = "Advanced Search", Url ="/pages/1022-Advanced Search "},
+                new FooterLink { Text = "About Us", Url ="/pages/1022-About Us "},
+                new FooterLink { Text = "Customer Service", Url ="/pages/1022-Customer Service "},
+                new FooterLink { Text = "Company", Url ="/pages/1022-Company "},
+                new FooterLink { Text = "Investor Relations", Url ="/pages/1022-Investor Relations "},
+                new FooterLink { Text = "Advanced Search", Url ="/pages/1022-Advanced Search "},
             });
         }
 
@@ -208,11 +208,11 @@ new FooterLink { Text = "Advanced Search", Url ="/pages/1022-Advanced Search "},
             await Task.CompletedTask;
             return new FooterLinks("Why Choose Us", new List<FooterLink>
             {
-new FooterLink { Text = "Shopping Guide", Url ="/pages/1022-Shopping Guide "},
-new FooterLink { Text = "Blog", Url ="/pages/1022-Blog "},
-new FooterLink { Text = "Company", Url ="/pages/1022-Company "},
-new FooterLink { Text = "Invenstor Relations", Url ="/pages/1022-Invenstor Relations "},
-new FooterLink { Text = "Contact Us", Url ="/pages/1022-Contact Us "},
+                new FooterLink { Text = "Shopping Guide", Url ="/pages/1022-Shopping Guide "},
+                new FooterLink { Text = "Blog", Url ="/pages/1022-Blog "},
+                new FooterLink { Text = "Company", Url ="/pages/1022-Company "},
+                new FooterLink { Text = "Invenstor Relations", Url ="/pages/1022-Invenstor Relations "},
+                new FooterLink { Text = "Contact Us", Url ="/pages/1022-Contact Us "},
             });
         }
     }

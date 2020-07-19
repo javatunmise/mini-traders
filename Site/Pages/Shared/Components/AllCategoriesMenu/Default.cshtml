@@ -5,34 +5,588 @@
     Func<site.Data.Category, string> GetPath = (category) => $"{category.Id}-{category.Name}";
 }
 
-<p><i class="fa fa-bars"></i>All Categories</p>
-<ul class="list-unstyled gt-menu all-categories">
-    @foreach (var category in topCategorieis)
-    {
-        <li>
-            <a href="~/categories/@GetPath(category)" )">
-                <span class="fa fa-@(string.IsNullOrWhiteSpace(category.IconClass) ? "cart-plus" : category.IconClass)"></span>&nbsp;&nbsp;
-                @category.Name
-                <i class="fa fa-angle-right @(category.Children.Any() ? "visible" : "invisible")"></i>
-            </a>
+@*<p><i class="fa fa-bars"></i>All Categories</p>
+    <ul class="list-unstyled gt-menu all-categories">
+        @foreach (var category in topCategorieis)
+        {
+            <li>
+                <a href="~/categories/@GetPath(category)" )">
+                    <span class="fa fa-@(string.IsNullOrWhiteSpace(category.IconClass) ? "cart-plus" : category.IconClass)"></span>&nbsp;&nbsp;
+                    @category.Name
+                    <i class="fa fa-angle-right @(category.Children.Any() ? "visible" : "invisible")"></i>
+                </a>
 
-            @if (category.Children.Any())
-            {
-                <div class="mega-menu custom">
-                    <div class="mega-menu-container">
-                        @foreach (var child in category.Children.OrderByDescending(c => c.Children.Count()))
-                        {
-                            <div class="section">
-                                <div class="title"><a href="~/categories/@GetPath(child)?parent=@($"{category.Id}|{child.Name}")">@child.Name</a></div>
-                                @foreach (var leafChild in child.Children)
-                                {
-                                    <a href="~/categories/@GetPath(leafChild)?parent=@($"{child.Id}|{child.Name}")">&minus; @leafChild.Name</a>
-                                }
-                            </div>
-                        }
+                @if (category.Children.Any())
+                {
+                    <div class="mega-menu custom">
+                        <div class="mega-menu-container">
+                            @foreach (var child in category.Children.OrderByDescending(c => c.Children.Count()))
+                            {
+                                <div class="section">
+                                    <div class="title"><a href="~/categories/@GetPath(child)?parent=@($"{category.Id}|{child.Name}")">@child.Name</a></div>
+                                    @foreach (var leafChild in child.Children)
+                                    {
+                                        <a href="~/categories/@GetPath(leafChild)?parent=@($"{child.Id}|{child.Name}")">&minus; @leafChild.Name</a>
+                                    }
+                                </div>
+                            }
+                        </div>
                     </div>
-                </div>
-            }
-        </li>
-    }
-</ul>
+                }
+            </li>
+        }
+    </ul>*@
+
+<div class="sidebar">
+    <div class="side-menu side-menu-inner animate-dropdown outer-bottom-xs">
+        <nav class="yamm megamenu-horizontal">
+            <ul class="nav">
+                <li class="menu-item">
+                    <a href="/vendor/amazon/" title="On Sale!">On Sale! <span>7584</span></a>
+                </li>
+                <li class="dropdown menu-item">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" target="_self" title="Clothing">Clothing</a>
+                    <ul class="dropdown-menu mega-menu" style="display: none;">
+                        <li class="yamm-content">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-3">
+                                    <ul class="links list-unstyled">
+                                        <li>
+                                            <a href="/product-category/clothing/" target="_self" title="Dresses">Dresses</a>
+                                        </li>
+                                        <li>
+                                            <a href="/product-category/clothing/" target="_self" title="Shoes">Shoes</a>
+                                        </li>
+                                        <li>
+                                            <a href="/product-category/clothing/" target="_self" title="Jackets">Jackets</a>
+                                        </li>
+                                        <li>
+                                            <a href="/product-category/clothing/" target="_self" title="Sunglasses">Sunglasses</a>
+                                        </li>
+                                        <li>
+                                            <a href="/product-category/clothing/" target="_self" title="Sport Wear">Sport Wear</a>
+                                        </li>
+                                        <li>
+                                            <a href="/product-category/clothing/" target="_self" title="Blazers">Blazers</a>
+                                        </li>
+                                        <li>
+                                            <a href="/product-category/clothing/" target="_self" title="Shirts">Shirts</a>
+                                        </li>
+                                        <li>
+                                            <a href="/product-category/clothing/" target="_self" title="Shorts">Shorts</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-sm-12 col-md-3">
+                                    <ul class="links list-unstyled">
+                                        <li>
+                                            <a href="#" target="_self" title="Handbags">Handbags</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Jwellery">Jwellery</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Swimwear">Swimwear</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Tops">Tops</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Flats">Flats</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Shoes">Shoes</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Winter Wear">Winter Wear</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Night Suits">Night Suits</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-sm-12 col-md-3">
+                                    <ul class="links list-unstyled">
+                                        <li>
+                                            <a href="#" target="_blank" title="Toys &amp; Games">Toys &amp; Games</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_blank" title="Jeans">Jeans</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_blank" title="Shirts">Shirts</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_blank" title="Shoes">Shoes</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_blank" title="School Bags">School Bags</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_blank" title="Lunch Box">Lunch Box</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_blank" title="Footwear">Footwear</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_blank" title="Wipes">Wipes</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-sm-12 col-md-3">
+                                    <ul class="links list-unstyled">
+                                        <li>
+                                            <a href="#" target="_self" title="Sandals">Sandals</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Shorts">Shorts</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Dresses">Dresses</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Jwellery">Jwellery</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Bags">Bags</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Night Dress">Night Dress</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Swim Wear">Swim Wear</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Toys">Toys</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown menu-item">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" target="_self" title="Electronics">Electronics</a>
+                    <ul class="dropdown-menu mega-menu" style="display: none;">
+                        <li class="yamm-content">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-4">
+                                    <ul class="links list-unstyled">
+                                        <li>
+                                            <a href="#" target="_self" title="Gaming">Gaming</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Laptop Skins">Laptop Skins</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Apple">Apple</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Dell">Dell</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Lenovo">Lenovo</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Microsoft">Microsoft</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Asus">Asus</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Adapters">Adapters</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Batteries">Batteries</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Cooling Pads">Cooling Pads</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-sm-12 col-md-3">
+                                    <ul class="links list-unstyled">
+                                        <li>
+                                            <a href="#" target="_self" title="Routers &amp; Modems">Routers &amp; Modems</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="CPUs, Processors">CPUs, Processors</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="PC Gaming Store">PC Gaming Store</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Graphics Cards">Graphics Cards</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Components">Components</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Webcam">Webcam</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Memory (RAM)">Memory (RAM)</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Motherboards">Motherboards</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Keyboards">Keyboards</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Headphones">Headphones</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="dropdown-banner-holder">
+                                    <a href="#"><img alt="" src="/wp-content/uploads/2019/12/banner-side.png"></a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown menu-item">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" target="_self" title="Shoes">Shoes</a>
+                    <ul class="dropdown-menu mega-menu" style="">
+                        <li class="yamm-content">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-3">
+                                    <ul class="links list-unstyled">
+                                        <li>
+                                            <a href="#" target="_self" title="Dresses">Dresses</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Shoes">Shoes</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Jackets">Jackets</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Sunglasses">Sunglasses</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Sport Wear">Sport Wear</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Blazers">Blazers</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Shirts">Shirts</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Shorts">Shorts</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-sm-12 col-md-3">
+                                    <ul class="links list-unstyled">
+                                        <li>
+                                            <a href="#" target="_self" title="Handbags">Handbags</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Jwellery">Jwellery</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Swimwear">Swimwear</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Tops">Tops</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Flats">Flats</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Shoes">Shoes</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Winter Wear">Winter Wear</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Night Suits">Night Suits</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-sm-12 col-md-3">
+                                    <ul class="links list-unstyled">
+                                        <li>
+                                            <a href="#" target="_blank" title="Toys &amp; Games">Toys &amp; Games</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_blank" title="Jeans">Jeans</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_blank" title="Shirts">Shirts</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_blank" title="Shoes">Shoes</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_blank" title="School Bags">School Bags</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_blank" title="Lunch Box">Lunch Box</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_blank" title="Footwear">Footwear</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_blank" title="Wipes">Wipes</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-sm-12 col-md-3">
+                                    <ul class="links list-unstyled">
+                                        <li>
+                                            <a href="#" target="_self" title="Sandals">Sandals</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Shorts">Shorts</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Dresses">Dresses</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Jwellery">Jwellery</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Bags">Bags</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Night Dress">Night Dress</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Swim Wear">Swim Wear</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Toys">Toys</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown menu-item">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" target="_self" title="Watches">Watches</a>
+                    <ul class="dropdown-menu mega-menu" style="display: none;">
+                        <li class="yamm-content">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-4">
+                                    <ul class="links list-unstyled">
+                                        <li>
+                                            <a href="#" target="_self" title="Gaming">Gaming</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Laptop Skins">Laptop Skins</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Apple">Apple</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Dell">Dell</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Lenovo">Lenovo</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Microsoft">Microsoft</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Asus">Asus</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Adapters">Adapters</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Batteries">Batteries</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Cooling Pads">Cooling Pads</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-sm-12 col-md-3">
+                                    <ul class="links list-unstyled">
+                                        <li>
+                                            <a href="#" target="_self" title="Routers &amp; Modems">Routers &amp; Modems</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="CPUs, Processors">CPUs, Processors</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="PC Gaming Store">PC Gaming Store</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Graphics Cards">Graphics Cards</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Components">Components</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Webcam">Webcam</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Memory (RAM)">Memory (RAM)</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Motherboards">Motherboards</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Keyboards">Keyboards</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Headphones">Headphones</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="dropdown-banner-holder">
+                                    <a href="#"><img alt="" src="/wp-content/uploads/2019/12/banner-side.png"></a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown menu-item">
+                    <a class="dropdown-toggle submenu-open" data-toggle="dropdown" href="#" target="_self" title="Jewellery">Jewellery</a>
+                    <ul class="dropdown-menu mega-menu" style="display: none;">
+                        <li class="yamm-content">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-3">
+                                    <ul class="links list-unstyled">
+                                        <li>
+                                            <a href="#" target="_self" title="Dresses">Dresses</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Shoes">Shoes</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Jackets">Jackets</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Sunglasses">Sunglasses</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Sport Wear">Sport Wear</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Blazers">Blazers</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Shirts">Shirts</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Shorts">Shorts</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-sm-12 col-md-3">
+                                    <ul class="links list-unstyled">
+                                        <li>
+                                            <a href="#" target="_self" title="Handbags">Handbags</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Jwellery">Jwellery</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Swimwear">Swimwear</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Tops">Tops</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Flats">Flats</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Shoes">Shoes</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Winter Wear">Winter Wear</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Night Suits">Night Suits</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-sm-12 col-md-3">
+                                    <ul class="links list-unstyled">
+                                        <li>
+                                            <a href="#" target="_blank" title="Toys &amp; Games">Toys &amp; Games</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_blank" title="Jeans">Jeans</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_blank" title="Shirts">Shirts</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_blank" title="Shoes">Shoes</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_blank" title="School Bags">School Bags</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_blank" title="Lunch Box">Lunch Box</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_blank" title="Footwear">Footwear</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_blank" title="Wipes">Wipes</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-sm-12 col-md-3">
+                                    <ul class="links list-unstyled">
+                                        <li>
+                                            <a href="#" target="_self" title="Sandals">Sandals</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Shorts">Shorts</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Dresses">Dresses</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Jwellery">Jwellery</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Bags">Bags</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Night Dress">Night Dress</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Swim Wear">Swim Wear</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_self" title="Toys">Toys</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <li class="menu-item">
+                    <a href="#" title="Health and Beauty">Health and Beauty</a>
+                </li>
+                <li class="menu-item">
+                    <a href="#" title="Books">Books</a>
+                </li>
+                <li class="menu-item">
+                    <a href="#" title="Kids and Babies">Kids and Babies</a>
+                </li>
+                <li class="menu-item">
+                    <a href="#" title="Sports">Sports</a>
+                </li>
+                <li class="menu-item">
+                    <a href="#" title="Fruit &amp; Veg">Fruit &amp; Veg</a>
+                </li>
+                <li class="menu-item">
+                    <a href="#" title="Home and Garden">Home and Garden</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+

@@ -60,7 +60,8 @@ body {
 }
 
 .navbar-dark {
-    background: #ee4054 !important;
+    /*    background: #ee4054 !important;*/
+    background: none;
 }
 
 /*.top-bar {
@@ -92,6 +93,10 @@ body {
     margin: 7px 0;
 }*/
 
+.top-bar {
+    background: #f9b900;
+}
+
 .top-bar-right {
     padding: 7px 0;
     text-align: center;
@@ -100,6 +105,22 @@ body {
 .top-bar-right .nav {
     float: right;
     display: block;
+}
+
+.cnt-account ul > li a {
+    color: #000;
+}
+
+.top-bar .cnt-block ul li a .caret {
+    color: #000;
+}
+
+.cnt-block .list-inline > li > a .value {
+    color: #000;
+}
+
+.cnt-account ul > li {
+    border-color: #777777;
 }
 
 @media (min-width: 992px) {
@@ -154,3 +175,73 @@ body {
     font-size: 4px;
     color: #999;
 }
+
+header {
+    /*    background: #ee4054;*/
+    background: #f9b900;
+}
+
+.main-header nav {
+    width: 100%;
+    padding: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    background-color: none;
+}
+
+.main-header .logo-holder {
+    padding-left: 0;
+    padding-right: 0;
+    outline-width: 0px !important;
+}
+
+.main-header .logo {
+    padding-left: 0;
+    width: auto;
+    display: inline-block;
+}
+
+.navbar-toggler, .navbar-toggler.collapsed {
+    padding: 0 15px;
+    outline-width: 0px !important;
+}
+
+#navbarSupportedContent {
+    text-align: right;
+}
+
+#navbarSupportedContent .navbar-nav {
+    display: inline-block;
+    width: auto;
+    padding-right: 0;
+}
+
+.navbar-dark .navbar-toggler {
+    border-color: #fff;
+}
+
+@media(max-width: 767px) {
+    #navbarSupportedContent .navbar-nav li {
+        margin-left: -15px;
+    }
+}
+
+.main-header {
+    background: #396073;
+    background-image: url(../images/bg-blue.png);
+}
+
+.main-header .navbar-default .navbar-collapse .navbar-nav > li > a:hover {
+    color: #f9b900
+}
+
+.main-header .top-search-holder .search-area .search-button {
+    background: #f9b900;
+}
+
+.featured-product .products:hover {
+    background: #f9b900;
+}
+
+
+/* main-headers: #40535c,  #1595a2 */

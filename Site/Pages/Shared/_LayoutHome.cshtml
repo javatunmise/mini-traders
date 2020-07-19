@@ -4,6 +4,7 @@
     var _site = (await _provider.GetSiteInfo()) ?? new site.Data.Site();
     var loggedIn = Context.User.Identity.IsAuthenticated;
     var userName = Context.User.Identity.Name;
+    var siteName = "Shop@Firstchoice";
 }
 
 
@@ -175,18 +176,6 @@
         .top-bar .cnt-block ul li .dropdown-menu li a:focus {
             color: #ee4054;
         }
-
-        .main-header {
-            background: #ee4054;
-        }
-
-            .main-header .navbar-default .navbar-collapse .navbar-nav > li > a:hover {
-                color: #ee4054
-            }
-
-            .main-header .top-search-holder .search-area .search-button {
-                background: #ee4054;
-            }
 
         .navbar-nav .open a {
             color: #ee4054;
@@ -389,14 +378,6 @@
                 border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
             }
 
-        .top-bar {
-            background: #d73a4d;
-        }
-
-        .main-header {
-            background:;
-        }
-
         .top-cart-row .dropdown-cart .lnk-cart {
             border-top: 2px #d8283c solid;
             background: #56cb60;
@@ -432,16 +413,82 @@
         <div class="top-bar animate-dropdown">
             <div class="container">
                 <div class="header-top-inner">
-                    <div class="cnt-account"> <ul id="menu-top-right" class="list-unstyled"><li id="menu-item-8" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-6 current_page_item menu-item-8"><a href="/" aria-current="page">Home</a></li> <li id="menu-item-362" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-362"><a href="/wishlist/">Wishlist</a></li> <li id="menu-item-363" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-363"><a href="/my-account/">My account</a></li> <li id="menu-item-396" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-396"><a href="/contact-us/">Contact</a></li> <li id="menu-item-361" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-361"><a href="/vendor-registration/">Become a Seller</a></li> </ul></div><div class="cnt-block"> <ul id="menu-top-left" class="list-unstyled list-inline"><li class="dropdown dropdown-small menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children"><a class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown" href="#"><span class="value">USD</span><b class="caret"></b></a> <ul class="dropdown-menu"> <li class="dropdown dropdown-small menu-item menu-item-type-custom menu-item-object-custom"><a class="nav-link dropdown-item" href="#"><span class="value">USD</span></a></li> <li class="dropdown dropdown-small menu-item menu-item-type-custom menu-item-object-custom"><a class="nav-link dropdown-item" href="#"><span class="value">INR</span></a></li> <li class="dropdown dropdown-small menu-item menu-item-type-custom menu-item-object-custom"><a class="nav-link dropdown-item" href="#"><span class="value">GBP</span></a></li> </ul> </li> <li class="dropdown dropdown-small menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children"><a class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown" href="#"><span class="value">English</span><b class="caret"></b></a> <ul class="dropdown-menu"> <li class="dropdown dropdown-small menu-item menu-item-type-custom menu-item-object-custom"><a class="nav-link dropdown-item" href="#"><span class="value">English</span></a></li> <li class="dropdown dropdown-small menu-item menu-item-type-custom menu-item-object-custom"><a class="nav-link dropdown-item" href="#"><span class="value">French</span></a></li> <li class="dropdown dropdown-small menu-item menu-item-type-custom menu-item-object-custom"><a class="nav-link dropdown-item" href="#"><span class="value">German</span></a></li> </ul> </li> </ul></div><div class="clearfix"></div>
+                    <div class="cnt-account">
+                        <ul id="menu-top-right" class="list-unstyled">
+                            <li><a href="/" aria-current="page">Home</a></li>
+                            <li><a href="/users/profile">My account</a></li>
+                            <li><a href="/contact-us/">Contact</a></li>
+                            <li><a href="/sellers/registration">Become a Seller</a></li>
+                        </ul>
+                    </div><div class="cnt-block"> <ul id="menu-top-left" class="list-unstyled list-inline"><li class="dropdown dropdown-small menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children"><a class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown" href="#"><span class="value">USD</span><b class="caret"></b></a> <ul class="dropdown-menu"> <li class="dropdown dropdown-small menu-item menu-item-type-custom menu-item-object-custom"><a class="nav-link dropdown-item" href="#"><span class="value">USD</span></a></li> <li class="dropdown dropdown-small menu-item menu-item-type-custom menu-item-object-custom"><a class="nav-link dropdown-item" href="#"><span class="value">INR</span></a></li> <li class="dropdown dropdown-small menu-item menu-item-type-custom menu-item-object-custom"><a class="nav-link dropdown-item" href="#"><span class="value">GBP</span></a></li> </ul> </li> <li class="dropdown dropdown-small menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children"><a class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown" href="#"><span class="value">English</span><b class="caret"></b></a> <ul class="dropdown-menu"> <li class="dropdown dropdown-small menu-item menu-item-type-custom menu-item-object-custom"><a class="nav-link dropdown-item" href="#"><span class="value">English</span></a></li> <li class="dropdown dropdown-small menu-item menu-item-type-custom menu-item-object-custom"><a class="nav-link dropdown-item" href="#"><span class="value">French</span></a></li> <li class="dropdown dropdown-small menu-item menu-item-type-custom menu-item-object-custom"><a class="nav-link dropdown-item" href="#"><span class="value">German</span></a></li> </ul> </li> </ul></div><div class="clearfix"></div>
                 </div>
             </div>
-        </div><div class="main-header">
+        </div>
+
+
+        <div class="container-fluid main-header">
+            <div class="container">
+                <div class="man-header">
+                    <nav class="navbar navbar-default navbar-expand-lg">
+                        <div class="logo-holder col-md-3">
+                            <div class="logo text-sm-center">
+                                <a href="/" title="@siteName - home">
+                                    <img src="~/images/logo.png" style="height: 60px" alt="@siteName Logo" class="img-fluid">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-5 col-md-4 col-sm-5 col-xs-12 top-search-holder">
+                            <div class="search-area">
+                                <form role="search" method="get" id="searchform" action="/">
+                                    <div class="control-group"> <input type="text" class="search-field" value="" name="s" id="s" placeholder="Search"> <button type="submit" class="search-button"> </button> <input type="hidden" name="post_type" value="product"></div>
+                                </form>
+                            </div>
+                        </div>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav mr-auto col-xs-12 text-sm-right text-left">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/contact-us">Contact Us</a>
+                                </li>
+                                @*<li class="nav-item">
+                                <a class="nav-link" href="/pages/faq">FAQ</a>
+                            </li>*@
+
+
+                                @*<li class="nav-item">
+                                <a class="nav-link" href="#">Link</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Dropdown
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="#">Action</a>
+                                    <a class="dropdown-item" href="#">Another action</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">Something else here</a>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                            </li>*@
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-header" style="display:none">
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12 col-lg-2 col-sm-12 col-md-3 logo-holder">
                         <div class="logo">
-                            <a href="/" title="Dealsdot – Multi Vendor Deals Theme">
-                                <img src="~/images/logo.jpg" style="height: 60px" alt="Dealsdot – Multi Vendor Deals Theme" class="img-fluid">
+                            <a href="/" title="@siteName - home">
+                                <img src="~/images/logo.jpg" style="height: 60px" alt="@siteName Logo" class="img-fluid">
                             </a>
                         </div>
                     </div>
@@ -454,19 +501,15 @@
                     </div>
                     <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 navmenu">
                         <div class="yamm navbar navbar-default" role="navigation">
-                            <div class="navbar-header"> <button data-target="#mc-horizontal-menu-collapse" data-toggle="collapse" class="navbar-toggle collapsed" type="button"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button></div><div class="nav-bg-class">
-                                <div class="navbar-collapse collapse" id="mc-horizontal-menu-collapse">
+                            <div class="navbar-header">
+                                <button data-target="#mc-horizontal-menu-collapse" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+                                    <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+                                </button>
+                            </div><div class="nav-bg-class">
+                                <div class="navbar-collapse collapse">
                                     <div class="nav-outer">
-                                        <ul id="menu-menu-1" class="nav navbar-nav">
-                                            <li class="dropdown menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children">
-                                                <a class="dropdown-toggle" href="#">Deals</a>
-                                                <ul class="dropdown-menu pages">
-                                                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a class="nav-link dropdown-item" href="/shop/">Grid View</a></li>
-                                                    <li class="menu-item menu-item-type-post_type menu-item-object-product"><a class="nav-link dropdown-item" href="/product/timberland-mens-thorton-waterproof-boots-2/">Deal Detail</a></li>
-                                                    <li class="menu-item menu-item-type-post_type menu-item-object-product"><a class="nav-link dropdown-item" href="/product/the-crash-bad-instant-folding-long-twin-bed/">Variable Product</a></li>
-                                                    <li class="menu-item menu-item-type-post_type menu-item-object-product"><a class="nav-link dropdown-item" href="/product/buying-a-tv-is-easy-when-you-know-these-terms/">Affiliate Product</a></li>
-                                                </ul>
-                                            </li>
+                                        <ul class="nav navbar-nav">
+                                            <li><a href="/contact-us">Contact</a></li>
                                             @*<li class="dropdown menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children">
                                                 <a class="dropdown-toggle" href="#">Coupons</a>
                                                 <ul class="dropdown-menu pages">
@@ -474,31 +517,7 @@
                                                     <li class="menu-item menu-item-type-post_type menu-item-object-page"><a class="nav-link dropdown-item" href="/coupons-grid-sidebar/">Grid Sidebar</a></li>
                                                 </ul>
                                             </li>
-                                            <li class="dropdown menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children">
-                                                <a class="dropdown-toggle" href="#">Stores</a>
-                                                <ul class="dropdown-menu pages">
-                                                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a class="nav-link dropdown-item" href="/stores-grid/">Stores Grid</a></li>
-                                                    <li class="menu-item menu-item-type-taxonomy menu-item-object-dc_vendor_shop"><a class="nav-link dropdown-item" href="/vendor/amazon/">Store Detail</a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="dropdown menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor current-menu-parent menu-item-has-children">
-                                                <a class="dropdown-toggle" href="#">Pages</a>
-                                                <ul class="dropdown-menu pages">
-                                                    <li class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home"><a class="nav-link dropdown-item" href="/">Home</a></li>
-                                                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a class="nav-link dropdown-item" href="/shop/">Shop</a></li>
-                                                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a class="nav-link dropdown-item" href="/my-account/">My account</a></li>
-                                                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a class="nav-link dropdown-item" href="/cart/">Cart</a></li>
-                                                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a class="nav-link dropdown-item" href="/vendor-registration/">Vendor Registration</a></li>
-                                                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a class="nav-link dropdown-item" href="/checkout/">Checkout</a></li>
-                                                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a class="nav-link dropdown-item" href="/blog/">Blog</a></li>
-                                                    <li class="menu-item menu-item-type-post_type menu-item-object-post"><a class="nav-link dropdown-item" href="/restaurant-employer-read-clients-orders-on-his-ipad/">Blog Detail</a></li>
-                                                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a class="nav-link dropdown-item" href="/contact-us/">Contact Us</a></li>
-                                                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a class="nav-link dropdown-item" href="/wishlist/">Wishlist</a></li>
-                                                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a class="nav-link dropdown-item" href="/terms-and-conditions/">Terms and Conditions</a></li>
-                                                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a class="nav-link dropdown-item" href="/faq/">FAQ</a></li>
-                                                    <li class="menu-item menu-item-type-custom menu-item-object-custom"><a class="nav-link dropdown-item" href="/404">404</a></li>
-                                                </ul>
-                                            </li>*@
+                                            *@
                                         </ul>
                                         <div class="clearfix"></div>
                                     </div>
@@ -506,29 +525,29 @@
                             </div>
                         </div>
                         @*<div class="top-cart-row">
-                                <div class="dropdown dropdown-cart">
-                                    <a href="#" class="dropdown-toggle lnk-cart" data-toggle="dropdown">
-                                        <div class="items-cart-inner">
-                                            <div class="basket"> <i class="glyphicon glyphicon-shopping-cart"></i></div><div class="basket-item-count">
-                                                <span class="count"> 0 </span>
+                            <div class="dropdown dropdown-cart">
+                                <a href="#" class="dropdown-toggle lnk-cart" data-toggle="dropdown">
+                                    <div class="items-cart-inner">
+                                        <div class="basket"> <i class="glyphicon glyphicon-shopping-cart"></i></div><div class="basket-item-count">
+                                            <span class="count"> 0 </span>
 
 
-                                            </div><div class="total-price-basket"> <span class="lbl">My Cart</span></div>
-                                        </div>
-                                    </a>
-                                    <div class="dropdown-menu">
+                                        </div><div class="total-price-basket"> <span class="lbl">My Cart</span></div>
+                                    </div>
+                                </a>
+                                <div class="dropdown-menu">
 
-                                        <div class="fl-mini-cart-content">
-
-
-                                            <p class="woocommerce-mini-cart__empty-message">No products in the cart.</p>
+                                    <div class="fl-mini-cart-content">
 
 
-                                        </div>
+                                        <p class="woocommerce-mini-cart__empty-message">No products in the cart.</p>
+
 
                                     </div>
+
                                 </div>
-                            </div>*@
+                            </div>
+                        </div>*@
                     </div>
                 </div>
             </div>
@@ -567,9 +586,9 @@
                         <ul class="link">
                             <li class="facebook"><a href="@_site.FacebookUrl.DefaultTo("#")" target="_blank"> <i class="fa fa-facebook"></i></a></li>
                             <li class="twitter"><a href="@_site.TwitterUrl.DefaultTo("#")" target="_blank"> <i class="fa fa-twitter"></i></a></li>
-                            <li class="google-plus"><a href="@_site.YoutubeUrl.DefaultTo("#")" target="_blank"> <i class="fa fa-youtube"></i></a></li>
+                            <li class="instagram"><a href="@_site.InstagramUrl.DefaultTo("#")" target="_blank"> <i class="fa fa-instagram"></i></a></li>
                             <li class="linkedin"><a href="@_site.LinkedInUrl.DefaultTo("#")" target="_blank"> <i class="fa fa-linkedin"></i></a></li>
-                            <li class="youtube"><a href="@_site.InstagramUrl.DefaultTo("#")" target="_blank"> <i class="fa fa-youtube"></i></a></li>
+                            <li class="youtube"><a href="@_site.YoutubeUrl.DefaultTo("#")" target="_blank"> <i class="fa fa-youtube"></i></a></li>
                         </ul>
                     </div>
                 </div>
