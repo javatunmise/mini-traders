@@ -55,7 +55,7 @@
                                     <div class="row">
                                         @foreach (var levelOneCateg in category.Children.OrderByDescending(o => o.Children?.Count()))
                                         {
-                                        <div class="col-sm-6 col-md-4 col-xs-6 col-lg-4">
+                                        <div class="col-sm-6 col-md-4 col-xs-12 col-lg-4">
 
                                             <a class="@(levelOneCateg.Children.Any() ? "cat-title" : "cat-title-nochild")" href="/categories/@GetPath(levelOneCateg)" target="_self" title="@levelOneCateg.Name"><b>@levelOneCateg.Name</b></a>
 
