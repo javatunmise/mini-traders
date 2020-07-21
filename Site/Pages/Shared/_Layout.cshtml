@@ -1,652 +1,849 @@
-﻿@inject site.Data.ISiteContentProvider _provider;
+﻿@using site.Helpers;
+@inject site.Data.ISiteContentProvider _provider;
 @{
-    var site = (await _provider.GetSiteInfo()) ?? new site.Data.Site();
+    var _site = (await _provider.GetSiteInfo()) ?? new site.Data.Site();
     var loggedIn = Context.User.Identity.IsAuthenticated;
     var userName = Context.User.Identity.Name;
+    var siteName = "Shop@Firstchoice";
 }
 
-<!doctype html>
-<html class="no-js" lang="zxx">
+
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Shop@Firstchoice - @ViewData["Title"]</title>
-    <meta name="description" content="">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Shop@Firstchoice – Home – Shop comfortably, sell with ease</title>
+    @*<link rel="dns-prefetch" href="//fonts.googleapis.com">*@
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="~/css/site-1.css" media="all">
+    <style id="woocommerce-inline-inline-css">
+        .woocommerce form .form-row .required {
+            visibility: visible;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="~/css/site-2.css" media="all">
+    <style id="font-awesome-inline-css">
+        [data-font="FontAwesome"]:before {
+            font-family: 'FontAwesome' !important;
+            content: attr(data-icon) !important;
+            speak: none !important;
+            font-weight: normal !important;
+            font-variant: normal !important;
+            text-transform: none !important;
+            line-height: 1 !important;
+            font-style: normal !important;
+            -webkit-font-smoothing: antialiased !important;
+            -moz-osx-font-smoothing: grayscale !important;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="~/css/site-3.css" media="all">
+    <link href="~/css/site.css" rel="stylesheet" />
+    <style id="woo-variation-swatches-inline-css">
+        .variable-item:not(.radio-variable-item) {
+            width: 30px;
+            height: 30px;
+        }
 
-    <!-- Favicon -->
-    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+        .wvs-style-squared .button-variable-item {
+            min-width: 30px;
+        }
 
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet">
+        .button-variable-item span {
+            font-size: 16px;
+        }
+    </style>
 
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="~/css/assets/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/woo-variation-swatches.css" />
+    <style>
+        .top-cart-row .dropdown-cart .dropdown-menu .cart-item.product-summary .name a:hover,
+        .top-cart-row .dropdown-cart .dropdown-menu .cart-item.product-summary .name a:focus {
+            color: #ee4054;
+        }
 
-    <!-- Fontawesome Icon -->
-    <link rel="stylesheet" href="~/css/assets/font-awesome.min.css">
+        .top-cart-row .dropdown-cart .dropdown-menu .cart-item.product-summary .action a:hover,
+        .top-cart-row .dropdown-cart .dropdown-menu .cart-item.product-summary .action a:focus {
+            color: #ee4054;
+        }
 
-    <!-- Animate Css -->
-    <link rel="stylesheet" href="~/css/assets/animate.css">
+        .sidebar .side-menu nav .nav > li a:hover,
+        .sidebar .side-menu nav .nav > li a:focus {
+            color: #ee4054;
+        }
 
-    <!-- Owl Slider -->
-    <link rel="stylesheet" href="~/css/assets/owl.carousel.min.css">
+        .scroll-tabs .nav-tab-line li a:hover,
+        .scroll-tabs .nav-tab-line li a:focus {
+            color: #ee4054;
+        }
 
-    <!-- Custom Style -->
-    <link rel="stylesheet" href="~/css/assets/normalize.css">
-    <link rel="stylesheet" href="~/css/style.css">
-    <link rel="stylesheet" href="~/css/site.css">
-    <link rel="stylesheet" href="~/css/assets/responsive.css">
+        .product .product-info .name a:hover,
+        .product .product-info .name a:focus {
+            color: #ee4054;
+        }
 
+        .product .cart .action ul li.add-cart-button .btn-primary.icon:hover,
+        .product .cart .action ul li.add-cart-button .btn-primary.icon:focus {
+            background: #ee4054;
+        }
 
+        .tag.sale {
+            background: #ee4054;
+        }
+
+        .blog-slider-container .blog-slider .blog-post-info .name a:hover,
+        .blog-slider-container .blog-slider .blog-post-info .name a:focus {
+            color: #ee4054;
+        }
+
+        .product-tag .item.active,
+        .product-tag .item:hover,
+        .product-tag .item:focus {
+            background: #ee4054;
+        }
+
+        .custom-carousel .owl-controls .owl-prev:hover,
+        .custom-carousel .owl-controls .owl-next:hover,
+        .custom-carousel .owl-controls .owl-prev:focus,
+        .custom-carousel .owl-controls .owl-next:focus {
+            background: #ee4054;
+        }
+
+        .breadcrumb ul a:hover,
+        .breadcrumb ul a:focus {
+            color: #ee4054;
+        }
+
+        .filters-container .nav-tabs.nav-tab-box li.active a .icon {
+            color: #ee4054;
+        }
+
+        .filters-container .pagination-container ul li.active a {
+            color: #ee4054;
+        }
+
+        .filters-container .pagination-container ul li.prev:hover,
+        .filters-container .pagination-container ul li.next:hover,
+        .filters-container .pagination-container ul li.prev:focus,
+        .filters-container .pagination-container ul li.next:focus {
+            background: #ee4054;
+        }
+
+        .filters-container .pagination-container ul li a:hover,
+        .filters-container .pagination-container ul li a:focus {
+            color: #ee4054;
+        }
+
+        .filters-container .lbl-cnt .dropdown.dropdown-med .dropdown-menu li a:hover,
+        .filters-container .lbl-cnt .dropdown.dropdown-med .dropdown-menu li a:focus {
+            color: #ee4054;
+        }
+
+        .sidebar .sidebar-widget .advertisement .owl-controls .owl-pagination .owl-page.active span {
+            background: #ee4054;
+        }
+
+        .single-product .product-info .price-container .price-box .price {
+            color: #ee4054;
+        }
+
+        #owl-single-product-thumbnails .owl-controls .owl-pagination .owl-page.active span {
+            background: #ee4054 !important;
+        }
+
+        #owl-single-product-thumbnails .owl-controls .owl-pagination .owl-page span:hover,
+        #owl-single-product-thumbnails .owl-controls .owl-pagination .owl-page span:focus {
+            background: #ee4054 !important;
+        }
+
+        .blog-page .blog-post h1 a:hover,
+        .blog-page .blog-post h1 a:focus {
+            color: #ee4054;
+        }
+
+        .checkout-box .checkout-steps .panel .panel-heading .unicase-checkout-title > a:not(.collapsed) span {
+            background-color: #ee4054;
+        }
+
+        .featured-section .item:hover {
+            background: #ee4054
+        }
+
+        .coupons-section .modal-footer button {
+            color: #ee4054;
+        }
+
+        .top-bar .cnt-block ul li .dropdown-menu li a:hover,
+        .top-bar .cnt-block ul li .dropdown-menu li a:focus {
+            color: #ee4054;
+        }
+
+        .navbar-nav .open a {
+            color: #ee4054;
+        }
+
+        .navbar-default .navbar-nav > .open > a {
+            background: #fff;
+            color: #ee4054 !important;
+        }
+
+        .cnt-home .sidebar .side-menu-inner li a span {
+            background: #ee4054;
+        }
+
+        .sidebar .side-menu .nav > li > a:hover,
+        .sidebar .side-menu .nav > li > a:focus {
+            color: #ee4054;
+        }
+
+        .icon-truck, .icon-money, .icon-support, .icon-return {
+            font-family: FontAwesome;
+            display: inline-block !important;
+            font-size: 15px;
+            margin: auto;
+            color: #121212;
+            width: 28px !important;
+            text-align: center;
+        }
+
+            .icon-money:before {
+                color: #ee4054;
+            }
+
+        .scroll-tabs .nav-tab-line li.active a {
+            color: #ee4054;
+        }
+
+        .product .cart .action ul li.add-cart-button .btn.btn-primary.icon {
+            background: #ee4054;
+        }
+
+        .product .cart .action ul li.lnk a {
+            color: #ee4054;
+        }
+
+        .product .cart .action ul li.lnk:hover {
+            background: #ee4054;
+        }
+
+        .product-list.product .cart .action ul li.lnk:hover, .product-list.product .cart .action ul li.lnk.wishlist:hover {
+            background: #ee4054;
+        }
+
+        .single-product .favorite-button .btn-primary {
+            color: #ee4054
+        }
+
+        .single-product .add-btn .btn-primary {
+            background-color: #ee4054;
+        }
+
+        .body-content .x-page .x-text .le-button {
+            background: #ee4054;
+        }
+
+        .timer-grid .box-time-date {
+            background: #ee4054;
+        }
+
+        .product .cart .action ul li.lnk .tinvwl_add_to_wishlist_button {
+            color: #ee4054 !important;
+        }
+
+        .product .cart .added_to_cart {
+            background: #ee4054;
+        }
+
+        .woocommerce-product-gallery .owl-pagination .owl-page.active span {
+            background: #ee4054 !important;
+        }
+
+        .favorite-button .tinvwl_add_to_wishlist_button {
+            color: #ee4054;
+        }
+
+        button.button.tinvwl_button_view.tinvwl-btn-onclick,
+        button.button.tinvwl_button_close {
+            background-color: #ee4054;
+            border-bottom: 2px #d13648 solid;
+        }
+
+        .single-product .favorite-button a.compare.button {
+            color: #ee4054;
+        }
+
+        .woocommerce-pagination ul span.page-numbers.current, .woocommerce-pagination ul li a:hover {
+            color: #ee4054;
+        }
+
+        .woocommerce-pagination a.next.page-numbers:hover,
+        .woocommerce-pagination a.prev.page-numbers:hover {
+            background: #ee4054;
+        }
+
+        ul.page-numbers a.next.page-numbers:hover,
+        ul.page-numbers a.prev.page-numbers:hover {
+            background: #ee4054;
+        }
+
+        ul.page-numbers span.page-numbers.current {
+            color: #ee4054;
+        }
+
+        .vc_tta-panel.vc_active .vc_tta-panel-title i {
+            background-color: #ee4054;
+        }
+
+        .tagcloud a:hover {
+            background: #ee4054;
+            color: #fff;
+        }
+
+        .woocommerce-variation-add-to-cart button.button {
+            background-color: #ee4054;
+            border-bottom: 2px #d13648 solid;
+        }
+
+        .woocommerce-variation-price {
+            color: #ee4054;
+        }
+
+        .blog-post span.sticky {
+            color: #ee4054;
+        }
+
+        .klb-pagination span.post-page-numbers.current {
+            background: #ee4054;
+        }
+
+        #owl-main:hover .owl-prev:hover,
+        #owl-main:hover .owl-next:hover {
+            background: #ee4054;
+        }
+
+        .contact-page .contact-info .contact-i {
+            background-color: #ee4054;
+        }
+
+        .btn-primary {
+            background: #ee4054;
+            border-bottom: 2px #d13648 solid;
+        }
+
+        #owl-main .btn-primary {
+            background: #ee4054;
+            border-bottom: 2px #d13648 solid;
+        }
+
+        .woocommerce-Reviews input[type="submit"] {
+            background: #ee4054;
+            border-bottom: 2px #d13648 solid;
+        }
+
+        .price_slider_amount .button {
+            background: #ee4054;
+            border-bottom: 2px #d13648 solid;
+        }
+
+        button.btn.btn-upper.btn-primary.update_cart[disabled] {
+            background-color: #ee4054;
+            border-color: #ee4054;
+        }
+
+        p.woocommerce-mini-cart__buttons.buttons a {
+            background: #ee4054;
+            border-bottom: 2px #d13648 solid;
+        }
+
+        .return-to-shop a.button.wc-backward {
+            background: #ee4054;
+            border-bottom: 2px #ee4054 solid;
+        }
+
+        .checkout_coupon button.button,
+        .place-order button#place_order,
+        .woocommerce-MyAccount-content button.button,
+        table.tinvwl-table-manage-list button,
+        .wpcf7-form input[type="submit"],
+        .blog-write-comment input[type="submit"],
+        .post-password-form input[type="submit"] {
+            background: #ee4054;
+            border-bottom: 2px #d13648 solid;
+        }
+
+        .single-product .product-tabs .nav.nav-tabs.nav-tab-cell li.active a {
+            background:;
+        }
+
+            .single-product .product-tabs .nav.nav-tabs.nav-tab-cell li.active a:after {
+                border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
+            }
+
+        .top-cart-row .dropdown-cart .lnk-cart {
+            border-top: 2px #d8283c solid;
+            background: #56cb60;
+            color: #fff;
+        }
+    </style>
+    <noscript>
+        <style>
+            .woocommerce-product-gallery {
+                opacity: 1 !important;
+            }
+        </style>
+    </noscript>
+    <meta name="generator" content="Powered by WPBakery Page Builder - drag and drop page builder for WordPress.">
+    <link rel="icon" href="/wp-content/uploads/2019/12/cropped-favicon-32x32.png" sizes="32x32">
+    <link rel="icon" href="/wp-content/uploads/2019/12/cropped-favicon-192x192.png" sizes="192x192">
+    <link rel="apple-touch-icon" href="/wp-content/uploads/2019/12/cropped-favicon-180x180.png">
+    <meta name="msapplication-TileImage" content="/wp-content/uploads/2019/12/cropped-favicon-270x270.png">
+    <style id="kirki-inline-styles"></style>
+
+    <link rel="stylesheet" href="~/css/vc_shortcodes-custom-css.css" />
+    <noscript>
+        <style>
+            .wpb_animate_when_almost_visible {
+                opacity: 1;
+            }
+        </style>
+    </noscript>
+    @*<script data-wpfc-render="false">var Wpfcll = { s: [], osl: 0, scroll: false, i: function () { Wpfcll.ss(); window.addEventListener('load', function () { window.addEventListener("DOMSubtreeModified", function (e) { Wpfcll.osl = Wpfcll.s.length; Wpfcll.ss(); if (Wpfcll.s.length > Wpfcll.osl) { Wpfcll.ls(false); } }, false); Wpfcll.ls(true); }); window.addEventListener('scroll', function () { Wpfcll.scroll = true; Wpfcll.ls(false); }); window.addEventListener('resize', function () { Wpfcll.scroll = true; Wpfcll.ls(false); }); window.addEventListener('click', function () { Wpfcll.scroll = true; Wpfcll.ls(false); }); }, c: function (e, pageload) { var w = document.documentElement.clientHeight || body.clientHeight; var n = 0; if (pageload) { n = 0; } else { n = (w > 800) ? 800 : 200; n = Wpfcll.scroll ? 800 : n; } var er = e.getBoundingClientRect(); var t = 0; var p = e.parentNode; if (typeof p.getBoundingClientRect == "undefined") { var pr = false; } else { var pr = p.getBoundingClientRect(); } if (er.x == 0 && er.y == 0) { for (var i = 0; i < 10; i++) { if (p) { if (pr.x == 0 && pr.y == 0) { p = p.parentNode; if (typeof p.getBoundingClientRect == "undefined") { pr = false; } else { pr = p.getBoundingClientRect(); } } else { t = pr.top; break; } } }; } else { t = er.top; } if (w - t + n > 0) { return true; } return false; }, r: function (e, pageload) { var s = this; var oc, ot; try { oc = e.getAttribute("data-wpfc-original-src"); ot = e.getAttribute("data-wpfc-original-srcset"); if (s.c(e, pageload)) { if (oc || ot) { if (e.tagName == "DIV" || e.tagName == "A") { e.style.backgroundImage = "url(" + oc + ")"; e.removeAttribute("data-wpfc-original-src"); e.removeAttribute("data-wpfc-original-srcset"); e.removeAttribute("onload"); } else { if (oc) { e.setAttribute('src', oc); } if (ot) { e.setAttribute('srcset', ot); } e.removeAttribute("data-wpfc-original-src"); e.removeAttribute("data-wpfc-original-srcset"); e.removeAttribute("onload"); if (e.tagName == "IFRAME") { e.onload = function () { if (typeof window.jQuery != "undefined") { if (jQuery.fn.fitVids) { jQuery(e).parent().fitVids({ customSelector: "iframe[src]" }); } } var s = e.getAttribute("src").match(/templates\/youtube\.html\#(.+)/); var y = "https://www.youtube.com/embed/"; if (s) { try { var i = e.contentDocument || e.contentWindow; if (i.location.href == "about:blank") { e.setAttribute('src', y + s[1]); } } catch (err) { e.setAttribute('src', y + s[1]); } } } } } } else { if (e.tagName == "NOSCRIPT") { if (jQuery(e).attr("data-type") == "wpfc") { e.removeAttribute("data-type"); jQuery(e).after(jQuery(e).text()); } } } } } catch (error) { console.log(error); console.log("==>", e); } }, ss: function () { var i = Array.prototype.slice.call(document.getElementsByTagName("img")); var f = Array.prototype.slice.call(document.getElementsByTagName("iframe")); var d = Array.prototype.slice.call(document.getElementsByTagName("div")); var a = Array.prototype.slice.call(document.getElementsByTagName("a")); var n = Array.prototype.slice.call(document.getElementsByTagName("noscript")); this.s = i.concat(f).concat(d).concat(a).concat(n); }, ls: function (pageload) { var s = this;[].forEach.call(s.s, function (e, index) { s.r(e, pageload); }); } }; document.addEventListener('DOMContentLoaded', function () { wpfci(); }); function wpfci() { Wpfcll.i(); }</script>*@
 </head>
 <body>
+    <header class="header-style-1">
 
-    <!-- Preloader -->
-    <div class="preloader">
-        <div class="load-list">
-            <div class="load"></div>
-            <div class="load load2"></div>
-        </div>
-    </div>
-    <!-- End Preloader -->
-    <!-- Top Bar 2 -->
-    <section class="top-bar">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="top-left d-flex">
-                        @await Component.InvokeAsync("LocationMegaMenu", new { })
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="top-right text-right">
-                        <ul class="list-unstyled list-inline">
-                            @if (loggedIn)
-                            {
-                                <li class="list-inline-item"><a href="~/profile"><b><span>Hi, </span>@Context.User.Identity.Name</b></a></li>
-                            }
-                            <li class="list-inline-item"><a href="~/profile/store"><img src="~/images/cart.png" alt="">Start Selling</a></li>
-                            @if (loggedIn)
-                            {
-                                <li class="list-inline-item"><a href="~/user/profile"><img src="~/images/user.png" alt="">My Account</a></li>
-                                <li class="list-inline-item">
-                                    <form id="logout" action="~/identity/account/logout" method="post">
-                                        <a href="#" onclick="$('#logout').submit()"><img src="~/images/checkout.png" alt="">Logout</a>
-                                    </form>
-                                </li>
-                            }
-                            else
-                            {
-                                <li class="list-inline-item">
-                                    <a href="~/identity/account/login">
-                                        <img src="~/images/login.png" alt="">Login
-                                    </a>
-                                </li>
-                            }
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- End Top Bar 2 -->
-    <!-- Logo Area 2 -->
-    <section class="logo-area2">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="logo">
-                        <a href="~/"><img src="~/images/logo.jpg" alt="" style="height: 85px; margin-top: 0"></a>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-7 padding-fix">
-                    @await Component.InvokeAsync("SearchBox")
-                </div>
-                <div class="col-lg-3 col-md-2">
-                    <div class="carts-area d-flex">
-                        <div class="wsh-box ml-auto">
-                            @*<a href="" data-toggle="tooltip" data-placement="top" title="Wishlist">
-                                    <img src="images/heart.png" alt="favorite">
-                                    <span>0</span>
-                                </a>*@
+        @await Html.PartialAsync("~/Pages/Shared/TempViews/_TopBar.cshtml")
+
+        <div class="container-fluid main-header">
+            <div class="container">
+                <div class="man-header">
+                    <nav class="navbar navbar-default navbar-expand-lg">
+                        <div class="logo-holder col-md-3">
+                            <div class="logo text-sm-center">
+                                <a href="/" title="@siteName - home">
+                                    <img src="~/images/logo.png" style="height: 60px" alt="@siteName Logo" class="img-fluid">
+                                </a>
+                            </div>
                         </div>
-                        <div class="cart-box ml-4">
-                            @*<a href="" data-toggle="tooltip" data-placement="top" title="Shopping Cart" class="cart-btn">
-                                    <img src="images/cart.png" alt="cart">
-                                    <span>2</span>
-                                </a>*@
+                        <div class="col-lg-5 col-md-4 col-sm-5 col-xs-12 top-search-holder">
+                            @await Component.InvokeAsync("SearchBox")
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- End Logo Area 2 -->
-    <!-- Sticky Menu -->
-    <section class="sticky-menu">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-2 col-md-3">
-                    <div class="sticky-logo">
-                        <a href="index.html"><img src="~/images/logo.jpg" alt="" class="img-fluid"></a>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-7">
-                    <div class="main-menu" style="display:none">
-                        <ul class="list-unstyled list-inline">
-                            <li class="list-inline-item">
-                                <a>HOME <i class="fa fa-angle-down"></i></a>
-                                <ul class="dropdown list-unstyled">
-                                    <li><a href="index.html">Home Style 1</a></li>
-                                    <li><a href="02-home-two.html">Home Style 2</a></li>
-                                </ul>
-                            </li>
-                            <li class="list-inline-item mega-menu">
-                                <a>MEGA MENU <i class="fa fa-angle-down"></i></a>
-                                <div class="mega-box">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <div class="clt-area">
-                                                <h6>Clothing</h6>
-                                                <div class="link-box">
-                                                    <a href="">- Western Clothing</a>
-                                                    <a href="">- Traditional Clothing</a>
-                                                    <a href="">- Winter Clothing</a>
-                                                    <a href="">- Summer Clothing</a>
-                                                    <a href="">- Inner Wear</a>
-                                                    <a href="">- Night Wear</a>
-                                                    <a href="">- Mens Clothing</a>
-                                                    <a href="">- Womens Clothing</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="sm-phn">
-                                                <h6>Smartphones</h6>
-                                                <div class="dept-box">
-                                                    <a href="">- Samsung</a>
-                                                    <a href="">- Huawei</a>
-                                                    <a href="">- One Plus</a>
-                                                    <a href="">- Xiaomi</a>
-                                                    <a href="">- Iphone</a>
-                                                    <a href="">- Blackberry</a>
-                                                    <a href="">- Nokia</a>
-                                                    <a href="">- Oppo</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3 col-md-6">
-                                            <div class="lt-news">
-                                                <h6>Latest News</h6>
-                                                <div class="news-box d-flex">
-                                                    <div class="news-img">
-                                                        <img src="images/mega-img-1.jpg" alt="">
-                                                    </div>
-                                                    <div class="news-con">
-                                                        <p>Lorem ipsum dolor sit...</p>
-                                                        <span>Feb 10, 2020</span>
-                                                    </div>
-                                                </div>
-                                                <div class="news-box d-flex">
-                                                    <div class="news-img">
-                                                        <img src="images/mega-img-2.jpg" alt="">
-                                                    </div>
-                                                    <div class="news-con">
-                                                        <p>Lorem ipsum dolor sit...</p>
-                                                        <span>Feb 12, 2020</span>
-                                                    </div>
-                                                </div>
-                                                <div class="news-box d-flex">
-                                                    <div class="news-img">
-                                                        <img src="images/mega-img-3.jpg" alt="">
-                                                    </div>
-                                                    <div class="news-con">
-                                                        <p>Lorem ipsum dolor sit...</p>
-                                                        <span>Feb 21, 2020</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="m-slider owl-carousel">
-                                                <div class="slider-item">
-                                                    <img src="images/mega-1.jpg" alt="" class="img-fluid">
-                                                    <span>-65%</span>
-                                                </div>
-                                                <div class="slider-item">
-                                                    <img src="images/mega-2.jpg" alt="" class="img-fluid">
-                                                    <span>-50%</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="mega-bnr">
-                                                <div class="row">
-                                                    <div class="col-md-3">
-                                                        <a href="#" class="bnr-box text-center">
-                                                            <img src="images/mega-b-1.jpg" alt="">
-                                                            <span>Camera</span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <a href="#" class="bnr-box text-center">
-                                                            <img src="images/mega-b-2.jpg" alt="">
-                                                            <span>Mouse</span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <a href="#" class="bnr-box text-center">
-                                                            <img src="images/mega-b-3.jpg" alt="">
-                                                            <span>Earphone</span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <a href="#" class="bnr-box text-center">
-                                                            <img src="images/mega-b-4.jpg" alt="">
-                                                            <span>Speaker</span>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-inline-item">
-                                <a>PAGES <i class="fa fa-angle-down"></i></a>
-                                <ul class="dropdown list-unstyled">
-                                    <li><a href="03-about-us.html">About Us</a></li>
-                                    <li><a href="04-category.html">Category</a></li>
-                                    <li><a href="05-single-product.html">Single Product</a></li>
-                                    <li><a href="06-shopping-cart.html">Shopping Cart</a></li>
-                                    <li><a href="07-checkout.html">Checkout</a></li>
-                                    <li><a href="08-login.html">Log In</a></li>
-                                    <li><a href="09-register.html">Register</a></li>
-                                    <li><a href="10-wishlist.html">Wishlist</a></li>
-                                    <li><a href="11-compare.html">Compare</a></li>
-                                    <li><a href="15-track-order.html">Track Order</a></li>
-                                    <li><a href="12-terms-condition.html">Terms & Condition</a></li>
-                                    <li><a href="13-faq.html">Faq</a></li>
-                                    <li><a href="14-404.html">404</a></li>
-                                </ul>
-                            </li>
-                            <li class="list-inline-item">
-                                <a>BLOG <i class="fa fa-angle-down"></i></a>
-                                <ul class="dropdown list-unstyled">
-                                    <li><a href="16-blog-one.html">Blog Style 1</a></li>
-                                    <li><a href="17-blog-two.html">Blog Style 2</a></li>
-                                    <li><a href="18-blog-three.html">Blog Style 3</a></li>
-                                    <li><a href="19-blog-details.html">Blog Details</a></li>
-                                </ul>
-                            </li>
-                            <li class="list-inline-item"><a href="20-contact.html">CONTACT</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-2">
-                    <div class="carts-area d-flex">
-                        <div class="src-box">
-                            <form action="#">
-                                <input type="text" name="search" placeholder="Search Here">
-                                <button type="button" name="button"><i class="fa fa-search"></i></button>
-                            </form>
-                        </div>
-                        <div class="wsh-box ml-auto">
-                            @*<a href="" data-toggle="tooltip" data-placement="top" title="Wishlist">
-                                    <img src="images/heart.png" alt="favorite">
-                                    <span>0</span>
-                                </a>*@
-                        </div>
-                        <div class="cart-box ml-4">
-                            @*<a href="" data-toggle="tooltip" data-placement="top" title="Shopping Cart" class="cart-btn">
-                                    <img src="images/cart.png" alt="cart">
-                                    <span>2</span>
-                                </a>*@
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- End Sticky Menu -->
-    <!-- Menu Area 2 -->
-    <section class="menu-area2">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3 col-md-0">
-                    <div class="sidemenu">
-                        @await Component.InvokeAsync("AllCategoriesMenu", new { })
-                    </div>
-                </div>
-                <div class="col-lg-9 col-md-12">
-                    <div class="main-menu" style="display: none">
-                        <ul class="list-unstyled list-inline">
-                            <li class="list-inline-item">
-                                <a>HOME <i class="fa fa-angle-down"></i></a>
-                                <ul class="dropdown list-unstyled">
-                                    <li><a href="index.html">Home Style 1</a></li>
-                                    <li><a href="02-home-two.html">Home Style 2</a></li>
-                                </ul>
-                            </li>
-                            <li class="list-inline-item">
-                                <a>PAGE'S <i class="fa fa-angle-down"></i></a>
-                                <ul class="dropdown list-unstyled">
-                                    <li><a href="03-about-us.html">About Us</a></li>
-                                    <li><a href="04-category.html">Category</a></li>
-                                    <li><a href="05-single-product.html">Single Product</a></li>
-                                    <li><a href="06-shopping-cart.html">Shopping Cart</a></li>
-                                    <li><a href="07-checkout.html">Checkout</a></li>
-                                    <li><a href="08-login.html">Log In</a></li>
-                                    <li><a href="09-register.html">Register</a></li>
-                                    <li><a href="10-wishlist.html">Wishlist</a></li>
-                                    <li><a href="11-compare.html">Compare</a></li>
-                                    <li><a href="15-track-order.html">Track Order</a></li>
-                                    <li><a href="12-terms-condition.html">Terms & Condition</a></li>
-                                    <li><a href="13-faq.html">Faq</a></li>
-                                    <li><a href="14-404.html">404</a></li>
-                                </ul>
-                            </li>
-                            <li class="list-inline-item mega-menu">
-                                <a>MEGA MENU <i class="fa fa-angle-down"></i></a>
-                                <div class="mega-box">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <div class="clt-area">
-                                                <h6>Clothing</h6>
-                                                <div class="link-box">
-                                                    <a href="">- Western Clothing</a>
-                                                    <a href="">- Traditional Clothing</a>
-                                                    <a href="">- Winter Clothing</a>
-                                                    <a href="">- Summer Clothing</a>
-                                                    <a href="">- Inner Wear</a>
-                                                    <a href="">- Night Wear</a>
-                                                    <a href="">- Mens Clothing</a>
-                                                    <a href="">- Womens Clothing</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="sm-phn">
-                                                <h6>Smartphones</h6>
-                                                <div class="dept-box">
-                                                    <a href="">- Samsung</a>
-                                                    <a href="">- Huawei</a>
-                                                    <a href="">- One Plus</a>
-                                                    <a href="">- Xiaomi</a>
-                                                    <a href="">- Iphone</a>
-                                                    <a href="">- Blackberry</a>
-                                                    <a href="">- Nokia</a>
-                                                    <a href="">- Oppo</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3 col-md-6">
-                                            <div class="lt-news">
-                                                <h6>Latest News</h6>
-                                                <div class="news-box d-flex">
-                                                    <div class="news-img">
-                                                        <img src="images/mega-img-1.jpg" alt="">
-                                                    </div>
-                                                    <div class="news-con">
-                                                        <p>Lorem ipsum dolor sit...</p>
-                                                        <span>Feb 10, 2020</span>
-                                                    </div>
-                                                </div>
-                                                <div class="news-box d-flex">
-                                                    <div class="news-img">
-                                                        <img src="images/mega-img-2.jpg" alt="">
-                                                    </div>
-                                                    <div class="news-con">
-                                                        <p>Lorem ipsum dolor sit...</p>
-                                                        <span>Feb 12, 2020</span>
-                                                    </div>
-                                                </div>
-                                                <div class="news-box d-flex">
-                                                    <div class="news-img">
-                                                        <img src="images/mega-img-3.jpg" alt="">
-                                                    </div>
-                                                    <div class="news-con">
-                                                        <p>Lorem ipsum dolor sit...</p>
-                                                        <span>Feb 21, 2020</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="m-slider owl-carousel">
-                                                <div class="slider-item">
-                                                    <img src="images/mega-1.jpg" alt="" class="img-fluid">
-                                                    <span>-65%</span>
-                                                </div>
-                                                <div class="slider-item">
-                                                    <img src="images/mega-2.jpg" alt="" class="img-fluid">
-                                                    <span>-50%</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="mega-bnr">
-                                                <div class="row">
-                                                    <div class="col-md-3">
-                                                        <a href="#" class="bnr-box text-center">
-                                                            <img src="images/mega-b-1.jpg" alt="">
-                                                            <span>Camera</span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <a href="#" class="bnr-box text-center">
-                                                            <img src="images/mega-b-2.jpg" alt="">
-                                                            <span>Mouse</span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <a href="#" class="bnr-box text-center">
-                                                            <img src="images/mega-b-3.jpg" alt="">
-                                                            <span>Earphone</span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <a href="#" class="bnr-box text-center">
-                                                            <img src="images/mega-b-4.jpg" alt="">
-                                                            <span>Speaker</span>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-inline-item">
-                                <a>BLOG <i class="fa fa-angle-down"></i></a>
-                                <ul class="dropdown list-unstyled">
-                                    <li><a href="16-blog-one.html">Blog Style 1</a></li>
-                                    <li><a href="17-blog-two.html">Blog Style 2</a></li>
-                                    <li><a href="18-blog-three.html">Blog Style 3</a></li>
-                                    <li><a href="19-blog-details.html">Blog Details</a></li>
-                                </ul>
-                            </li>
-                            <li class="list-inline-item"><a href="20-contact.html">CONTACT</a></li>
-                            <li class="list-inline-item cup-btn"><a href="">Get Your Coupon</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- End Menu Area 2 -->
-    <!-- Mobile Menu -->
-    <section class="mobile-menu-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="mobile-menu">
-                        <nav id="dropdown">
-                            <a href=""><img src="images/logo.png" alt=""></a>
-                            <a href=""><span>Sign In</span></a>
-                            <ul class="list-unstyled">
-                                <li>
-                                    <a href="">Home</a>
-                                    <ul class="list-unstyled">
-                                        <li><a href="index.html">Home Style 1</a></li>
-                                        <li><a href="02-home-two.html">Home Style 2</a></li>
-                                    </ul>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav mr-auto col-xs-12 text-sm-right text-left">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/pages/contact-us">Contact Us</a>
                                 </li>
-                                <li>
-                                    <a href="">Pages</a>
-                                    <ul class="list-unstyled">
-                                        <li><a href="03-about-us.html">About Us</a></li>
-                                        <li><a href="04-category.html">Category</a></li>
-                                        <li><a href="05-single-product.html">Single Product</a></li>
-                                        <li><a href="06-shopping-cart.html">Shopping Cart</a></li>
-                                        <li><a href="07-checkout.html">Checkout</a></li>
-                                        <li><a href="08-login.html">Log In</a></li>
-                                        <li><a href="09-register.html">Register</a></li>
-                                        <li><a href="10-wishlist.html">Wishlist</a></li>
-                                        <li><a href="11-compare.html">Compare</a></li>
-                                        <li><a href="15-track-order.html">Track Order</a></li>
-                                        <li><a href="12-terms-condition.html">Terms & Condition</a></li>
-                                        <li><a href="13-faq.html">Faq</a></li>
-                                        <li><a href="14-404.html">404</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="">Blog</a>
-                                    <ul class="list-unstyled">
-                                        <li><a href="16-blog-one.html">Blog Style 1</a></li>
-                                        <li><a href="17-blog-two.html">Blog Style 2</a></li>
-                                        <li><a href="18-blog-three.html">Blog Style 3</a></li>
-                                        <li><a href="19-blog-details.html">Blog Details</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="20-contact.html">Contact</a></li>
+                                @*<li class="nav-item">
+                                        <a class="nav-link" href="/pages/faq">FAQ</a>
+                                    </li>*@
+
+
+                                @*<li class="nav-item">
+                                        <a class="nav-link" href="#">Link</a>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Dropdown
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                            <a class="dropdown-item" href="#">Action</a>
+                                            <a class="dropdown-item" href="#">Another action</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">Something else here</a>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                                    </li>*@
                             </ul>
-                        </nav>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-header" style="display:none">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-lg-2 col-sm-12 col-md-3 logo-holder">
+                        <div class="logo">
+                            <a href="/" title="@siteName - home">
+                                <img src="~/images/logo.jpg" style="height: 60px" alt="@siteName Logo" class="img-fluid">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 col-md-4 col-sm-5 col-xs-12 top-search-holder">
+                        <div class="search-area">
+                            @await Component.InvokeAsync("SearchBox")
+                        </div>
+                    </div>
+                    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 navmenu">
+                        <div class="yamm navbar navbar-default" role="navigation">
+                            <div class="navbar-header">
+                                <button data-target="#mc-horizontal-menu-collapse" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+                                    <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+                                </button>
+                            </div><div class="nav-bg-class">
+                                <div class="navbar-collapse collapse">
+                                    <div class="nav-outer">
+                                        <ul class="nav navbar-nav">
+                                            <li><a href="/contact-us">Contact</a></li>
+                                            @*<li class="dropdown menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children">
+                                                    <a class="dropdown-toggle" href="#">Coupons</a>
+                                                    <ul class="dropdown-menu pages">
+                                                        <li class="menu-item menu-item-type-post_type menu-item-object-page"><a class="nav-link dropdown-item" href="/coupons-grid/">Grid View</a></li>
+                                                        <li class="menu-item menu-item-type-post_type menu-item-object-page"><a class="nav-link dropdown-item" href="/coupons-grid-sidebar/">Grid Sidebar</a></li>
+                                                    </ul>
+                                                </li>
+                                            *@
+                                        </ul>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @*<div class="top-cart-row">
+                                <div class="dropdown dropdown-cart">
+                                    <a href="#" class="dropdown-toggle lnk-cart" data-toggle="dropdown">
+                                        <div class="items-cart-inner">
+                                            <div class="basket"> <i class="glyphicon glyphicon-shopping-cart"></i></div><div class="basket-item-count">
+                                                <span class="count"> 0 </span>
+
+
+                                            </div><div class="total-price-basket"> <span class="lbl">My Cart</span></div>
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-menu">
+
+                                        <div class="fl-mini-cart-content">
+
+
+                                            <p class="woocommerce-mini-cart__empty-message">No products in the cart.</p>
+
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>*@
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-    <!-- End Mobile Menu -->
-    <!-- Breadcrumb Area -->
-    <section class="breadcrumb-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="breadcrumb-box text-center">
-                        <ul class="list-unstyled list-inline">
-                            <li class="list-inline-item"><a href="">Home</a></li>
-                            <li class="list-inline-item"><span>||</span> @ViewData["Title"]</li>
+    </header>
+    <div class="body-content">
+
+        <div class="page-info">
+            <div class="container">
+                <nav aria-label="breadcrumb">
+                    @RenderSection("BreadCrumbs", false)
+                </nav>
+            </div>
+        </div>
+
+        <div class="cnt-home">
+            @RenderBody()
+        </div>
+
+        <footer id="footer" class="footer color-bg">
+            <div class="footer-bottom">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                            @await Component.InvokeAsync("FooterColumn", site.ViewComponents.FooterColumn.HELP_AND_SUPPORT)
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                            @await Component.InvokeAsync("FooterColumn", site.ViewComponents.FooterColumn.CUSTOMER_SERVICE)
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                            @await Component.InvokeAsync("FooterColumn", site.ViewComponents.FooterColumn.CORPORATION)
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                            @await Component.InvokeAsync("FooterColumn", site.ViewComponents.FooterColumn.WHY_CHOOSE_US)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright-bar white-bg">
+                <div class="container">
+                    @*<div class="col-sm-6 col-md-6 no-padding text-left">
+                        @_site.AboutUsIntro.DefaultTo("About us")
+                    </div>*@
+                    <div class="col-xs-12 col-sm-12 col-md-12 no-padding social">
+                        <ul class="link">
+                            <li class="facebook"><a href="@_site.FacebookUrl.DefaultTo("#")" target="_blank"> <i class="fa fa-facebook"></i></a></li>
+                            <li class="twitter"><a href="@_site.TwitterUrl.DefaultTo("#")" target="_blank"> <i class="fa fa-twitter"></i></a></li>
+                            <li class="instagram"><a href="@_site.InstagramUrl.DefaultTo("#")" target="_blank"> <i class="fa fa-instagram"></i></a></li>
+                            <li class="linkedin"><a href="@_site.LinkedInUrl.DefaultTo("#")" target="_blank"> <i class="fa fa-linkedin"></i></a></li>
+                            <li class="youtube"><a href="@_site.YoutubeUrl.DefaultTo("#")" target="_blank"> <i class="fa fa-youtube"></i></a></li>
                         </ul>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <!-- End Breadcrumb Area -->
-    <!-- Category Area -->
-    <section class="category">
-        <div class="container">
-            <div class="row">
-                @RenderBody()
-            </div>
-        </div>
-    </section>
-    <!-- End Category Area -->
-    <!-- Brand area 2 -->
-    <section class="brand2">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="tp-bnd owl-carousel">
-                        <div class="bnd-items">
-                            <a href="#"><img src="images/brand-01.png" alt="" class="img-fluid"></a>
-                        </div>
-                        <div class="bnd-items">
-                            <a href="#"><img src="images/brand-02.png" alt="" class="img-fluid"></a>
-                        </div>
-                        <div class="bnd-items">
-                            <a href="#"><img src="images/brand-03.png" alt="" class="img-fluid"></a>
-                        </div>
-                        <div class="bnd-items">
-                            <a href="#"><img src="images/brand-04.png" alt="" class="img-fluid"></a>
-                        </div>
-                        <div class="bnd-items">
-                            <a href="#"><img src="images/brand-05.png" alt="" class="img-fluid"></a>
-                        </div>
-                        <div class="bnd-items">
-                            <a href="#"><img src="images/brand-06.png" alt="" class="img-fluid"></a>
-                        </div>
-                        <div class="bnd-items">
-                            <a href="#"><img src="images/brand-07.png" alt="" class="img-fluid"></a>
-                        </div>
+            <div class="copyright-bar">
+                <div class="container">
+                    <div class="col-xs-12 col-sm-12 no-padding copyright">
+                        Copyright @(DateTime.Now.Year). All rights reserved
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <!-- End Brand area 2 -->
-    <!-- Footer Area -->
-    <section class="footer-top">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    @await Component.InvokeAsync("FooterContactSection")
-                </div>
-                <div class="col-md-4">
-                    @await Component.InvokeAsync("FooterColumn", "Categories")
-                </div>
-                <div class="col-md-4">
-                    @Html.PartialAsync("_FooterSupportSection")
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="footer-btm">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <p>Copyright &copy; 2020 | Designed With <i class="fa fa-heart"></i> by <a href="#" target="_blank">SnazzyTheme</a></p>
-                </div>
-                <div class="col-md-6 text-right">
-                    <img src="images/payment.png" alt="" class="img-fluid">
-                </div>
-            </div>
-        </div>
-        <div class="back-to-top text-center">
-            <img src="images/backtotop.png" alt="" class="img-fluid">
-        </div>
-    </section>
-    <!-- End Footer Area -->
-    <!-- =========================================
-    JavaScript Files
-    ========================================== -->
-    <!-- jQuery JS -->
-    <script src="~/js/assets/vendor/jquery-1.12.4.min.js"></script>
+        </footer>
 
-    <!-- Bootstrap -->
-    <script src="~/js/assets/popper.min.js"></script>
-    <script src="~/js/assets/bootstrap.min.js"></script>
+    </div>
+    <script type="text/html" id="wpb-modifications">
+    </script>
+    <style id='klbmobile-inline-css'>
+        @@media (max-width:768px) and (min-width:320px) {
+            .vc_row .klb_xs_vc_custom_1577174960137 {
+                padding-right: 15px !important;
+            }
+        }
 
-    <!-- Owl Slider -->
-    <script src="~/js/assets/owl.carousel.min.js"></script>
+        @@media (max-width:768px) and (min-width:320px) {
+            .vc_row .klb_xs_vc_custom_1577174972039 {
+                padding-left: 15px !important;
+            }
+        }
 
-    <!-- Wow Animation -->
-    <script src="~/js/assets/wow.min.js"></script>
+        @@media (max-width:768px) and (min-width:320px) {
+            .vc_row .klb_xs_vc_custom_1578035107038 {
+                margin-top: 30px !important;
+            }
+        }
 
-    <!-- Price Filter -->
-    <script src="~/js/assets/price-filter.js"></script>
+        @@media (max-width:768px) and (min-width:320px) {
+            .vc_row .klb_xs_vc_custom_1578035115031 {
+                margin-top: 30px !important;
+            }
+        }
 
-    <!-- Mean Menu -->
-    <script src="~/js/assets/jquery.meanmenu.min.js"></script>
+        @@media (max-width:768px) and (min-width:320px) {
+            .vc_row .klb_xs_vc_custom_1578034996922 {
+                margin-top: 25px !important;
+            }
+        }
 
-    <!-- Custom JS -->
-    <script src="~/js/plugins.js"></script>
-    <script src="~/js/custom.js"></script>
+        @@media (max-width:768px) and (min-width:320px) {
+            .vc_row .klb_xs_vc_custom_1578033829235 {
+                margin-top: 30px !important;
+            }
+        }
+    </style>
+    <noscript id="wpfc-google-fonts">
+        <link rel='stylesheet' id='dealsdot-font-barlow-css' href='//fonts.googleapis.com/css?family=Barlow:200,300,300i,400,400i,500,500i,600,700,800&#038;subset=latin,latin-ext' type='text/css' media='all' />
+        <link rel='stylesheet' id='dealsdot-font-roboto-css' href='//fonts.googleapis.com/css?family=Roboto:300,400,500,700&#038;subset=latin,latin-ext' type='text/css' media='all' />
+        <link rel='stylesheet' id='dealsdot-font-opensans-css' href='//fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,600,600italic,700,700italic,800&#038;subset=latin,latin-ext' type='text/css' media='all' />
+        <link rel='stylesheet' id='dealsdot-font-montserrat-css' href='//fonts.googleapis.com/css?family=Montserrat:400,700&#038;subset=latin,latin-ext' type='text/css' media='all' />
+    </noscript>
+    <script>
+        function dealsdotCopy_0() {
+            var copyText = document.getElementById("x610-17gt-ol570");
+            copyText.select();
+            document.execCommand("copy");
+        }</script>
+    <script>
+        function dealsdotCopy_1() {
+            var copyText = document.getElementById("x270-17gt-ol571");
+            copyText.select();
+            document.execCommand("copy");
+            window.open('https://themeforest.net/user/klbtheme', '_blank');
+        }</script>
+    <script>
+        function dealsdotCopy_2() {
+            var copyText = document.getElementById("X655-17GT-OL572");
+            copyText.select();
+            document.execCommand("copy");
+        }</script>
+    <script>
+        function dealsdotCopy_3() {
+            var copyText = document.getElementById("X137-17GT-OL573");
+            copyText.select();
+            document.execCommand("copy");
+        }</script>
+    <script>
+        function dealsdotCopy_4() {
+            var copyText = document.getElementById("x230-17gt-ol574");
+            copyText.select();
+            document.execCommand("copy");
+        }</script>
+    <script>
+        function dealsdotCopy_5() {
+            var copyText = document.getElementById("X750-17GT-OL575");
+            copyText.select();
+            document.execCommand("copy");
+        }</script>
+    <script>
+        function dealsdotCopy_6() {
+            var copyText = document.getElementById("X410-17GT-OL576");
+            copyText.select();
+            document.execCommand("copy");
+            window.open('https://themeforest.net/user/klbtheme', '_blank');
+        }</script>
+    <script>
+        function dealsdotCopy_7() {
+            var copyText = document.getElementById("x430-17gt-ol577");
+            copyText.select();
+            document.execCommand("copy");
+            window.open('https://themeforest.net/user/klbtheme/portfolio', '_blank');
+        }</script>
+    <script>
+        var c = document.body.className;
+        c = c.replace(/woocommerce-no-js/, 'woocommerce-js');
+        document.body.className = c;</script>
+    <script>var wpcf7 = { "apiSettings": { "root": "https:\/\/klbtheme.com\/dealsdot\/wp-json\/contact-form-7\/v1", "namespace": "contact-form-7\/v1" } };</script>
+    <script>var woocommerce_params = { "ajax_url": "\/dealsdot\/wp-admin\/admin-ajax.php", "wc_ajax_url": "\/dealsdot\/?wc-ajax=%%endpoint%%" };</script>
+    <script>var wc_cart_fragments_params = { "ajax_url": "\/dealsdot\/wp-admin\/admin-ajax.php", "wc_ajax_url": "\/dealsdot\/?wc-ajax=%%endpoint%%", "cart_hash_key": "wc_cart_hash_5a57660ca66fc1ff1a6d76bc676b1bce", "fragment_name": "wc_fragments_5a57660ca66fc1ff1a6d76bc676b1bce", "request_timeout": "5000" };</script>
+    <script>var yith_woocompare = { "ajaxurl": "\/dealsdot\/?wc-ajax=%%endpoint%%", "actionadd": "yith-woocompare-add-product", "actionremove": "yith-woocompare-remove-product", "actionview": "yith-woocompare-view-table", "actionreload": "yith-woocompare-reload-product", "added_label": "Added", "table_title": "Product Comparison", "auto_open": "yes", "loader": "https:\/\/klbtheme.com\/dealsdot\/wp-content\/plugins\/yith-woocommerce-compare\/assets\/images\/loader.gif", "button_text": "Compare", "cookie_name": "yith_woocompare_list", "close_label": "Close" };</script>
+    <script>var tinvwl_add_to_wishlist = { "text_create": "Create New", "text_already_in": "Product already in Wishlist", "simple_flow": "", "i18n_make_a_selection_text": "Please select some product options before adding this product to your wishlist.", "tinvwl_break_submit": "No items or actions are selected.", "tinvwl_clipboard": "Copied!", "allow_parent_variable": "", "hash_key": "ti_hash_5a57660ca66fc1ff1a6d76bc676b1bce", "nonce": "c82392aa60", "rest_root": "https:\/\/klbtheme.com\/dealsdot\/wp-json\/" };</script>
+    <script>var _wpUtilSettings = { "ajax": { "url": "\/dealsdot\/wp-admin\/admin-ajax.php" } };</script>
+    <script>var woo_variation_swatches_options = { "is_product_page": "" };</script>
+    <script>var translate = { "day": "day", "hrs": "hrs", "mins": "mins", "secs": "secs" };</script>
+    <script src='//klbtheme.com/dealsdot/wp-content/cache/wpfc-minified/7xagu4ji/f9ef0.js'></script>
+    <script>
+        (function () {
+            window.mc4wp = window.mc4wp || {
+                listeners: [],
+                forms: {
+                    on: function (evt, cb) {
+                        window.mc4wp.listeners.push({
+                            event: evt,
+                            callback: cb
+                        }
+                        );
+                    }
+                }
+            }
+        })();</script>
+    <script>
+        (function () {
+            window.mc4wp = window.mc4wp || {
+                listeners: [],
+                forms: {
+                    on: function (evt, cb) {
+                        window.mc4wp.listeners.push({
+                            event: evt,
+                            callback: cb
+                        }
+                        );
+                    }
+                }
+            }
+        })();</script>
+    <script>
+        (function () {
+            window.mc4wp = window.mc4wp || {
+                listeners: [],
+                forms: {
+                    on: function (evt, cb) {
+                        window.mc4wp.listeners.push({
+                            event: evt,
+                            callback: cb
+                        }
+                        );
+                    }
+                }
+            }
+        })();</script>
+    <script>
+        (function () {
+            window.mc4wp = window.mc4wp || {
+                listeners: [],
+                forms: {
+                    on: function (evt, cb) {
+                        window.mc4wp.listeners.push({
+                            event: evt,
+                            callback: cb
+                        }
+                        );
+                    }
+                }
+            }
+        })();</script>
+    <script>
+        (function () {
+            window.mc4wp = window.mc4wp || {
+                listeners: [],
+                forms: {
+                    on: function (evt, cb) {
+                        window.mc4wp.listeners.push({
+                            event: evt,
+                            callback: cb
+                        }
+                        );
+                    }
+                }
+            }
+        })();</script>
+    <script>
+        (function () {
+            window.mc4wp = window.mc4wp || {
+                listeners: [],
+                forms: {
+                    on: function (evt, cb) {
+                        window.mc4wp.listeners.push({
+                            event: evt,
+                            callback: cb
+                        }
+                        );
+                    }
+                }
+            }
+        })();</script>
+    <script>
+        (function () {
+            window.mc4wp = window.mc4wp || {
+                listeners: [],
+                forms: {
+                    on: function (evt, cb) {
+                        window.mc4wp.listeners.push({
+                            event: evt,
+                            callback: cb
+                        }
+                        );
+                    }
+                }
+            }
+        })();</script>
+    <script>
+        (function () {
+            window.mc4wp = window.mc4wp || {
+                listeners: [],
+                forms: {
+                    on: function (evt, cb) {
+                        window.mc4wp.listeners.push({
+                            event: evt,
+                            callback: cb
+                        }
+                        );
+                    }
+                }
+            }
+        })();</script>
+    <script>
+        (function () {
+            function maybePrefixUrlField() {
+                if (this.value.trim() !== '' && this.value.indexOf('http') !== 0) {
+                    this.value = "http://" + this.value;
+                }
+            }
+            var urlFields = document.querySelectorAll('.mc4wp-form input[type="url"]');
+            if (urlFields) {
+                for (var j = 0; j < urlFields.length; j++) {
+                    urlFields[j].addEventListener('blur', maybePrefixUrlField);
+                }
+            }
+        })();</script>
+    <script defer src='~/js/k0y3rg1s/f9ef0.js'></script>
+    <script defer src='~/joovenpm/f9ef0.js'></script>
+    @*<script defer src='~/js/lofbev45/f9ef0.js'></script>*@
+    <script>document.addEventListener('DOMContentLoaded', function () { function wpfcgl() { var wgh = document.querySelector('noscript#wpfc-google-fonts').innerText, wgha = wgh.match(/<link[^\>]+>/gi); for (i = 0; i < wgha.length; i++) { var wrpr = document.createElement('div'); wrpr.innerHTML = wgha[i]; document.body.appendChild(wrpr.firstChild); } } wpfcgl(); });</script>
 
-    @RenderSection("Scripts", false)
 
+    <script src="~/lib/bootstrap/dist/js/jquery-3.2.1.slim.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/popper.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
 </body>
 </html>

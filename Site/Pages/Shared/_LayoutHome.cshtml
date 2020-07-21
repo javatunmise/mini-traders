@@ -410,21 +410,8 @@
 </head>
 <body>
     <header class="header-style-1">
-        <div class="top-bar animate-dropdown">
-            <div class="container">
-                <div class="header-top-inner">
-                    <div class="cnt-account">
-                        <ul id="menu-top-right" class="list-unstyled">
-                            <li><a href="/" aria-current="page">Home</a></li>
-                            <li><a href="/users/profile">My account</a></li>
-                            <li><a href="/contact-us/">Contact</a></li>
-                            <li><a href="/sellers/registration">Become a Seller</a></li>
-                        </ul>
-                    </div><div class="cnt-block"> <ul id="menu-top-left" class="list-unstyled list-inline"><li class="dropdown dropdown-small menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children"><a class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown" href="#"><span class="value">USD</span><b class="caret"></b></a> <ul class="dropdown-menu"> <li class="dropdown dropdown-small menu-item menu-item-type-custom menu-item-object-custom"><a class="nav-link dropdown-item" href="#"><span class="value">USD</span></a></li> <li class="dropdown dropdown-small menu-item menu-item-type-custom menu-item-object-custom"><a class="nav-link dropdown-item" href="#"><span class="value">INR</span></a></li> <li class="dropdown dropdown-small menu-item menu-item-type-custom menu-item-object-custom"><a class="nav-link dropdown-item" href="#"><span class="value">GBP</span></a></li> </ul> </li> <li class="dropdown dropdown-small menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children"><a class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown" href="#"><span class="value">English</span><b class="caret"></b></a> <ul class="dropdown-menu"> <li class="dropdown dropdown-small menu-item menu-item-type-custom menu-item-object-custom"><a class="nav-link dropdown-item" href="#"><span class="value">English</span></a></li> <li class="dropdown dropdown-small menu-item menu-item-type-custom menu-item-object-custom"><a class="nav-link dropdown-item" href="#"><span class="value">French</span></a></li> <li class="dropdown dropdown-small menu-item menu-item-type-custom menu-item-object-custom"><a class="nav-link dropdown-item" href="#"><span class="value">German</span></a></li> </ul> </li> </ul></div><div class="clearfix"></div>
-                </div>
-            </div>
-        </div>
 
+        @await Html.PartialAsync("~/Pages/Shared/TempViews/_TopBar.cshtml")
 
         <div class="container-fluid main-header">
             <div class="container">
@@ -438,7 +425,7 @@
                             </div>
                         </div>
                         <div class="col-lg-5 col-md-4 col-sm-5 col-xs-12 top-search-holder">
-                            @await Component.InvokeAsync("SearchBox") 
+                            @await Component.InvokeAsync("SearchBox")
                         </div>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
@@ -447,30 +434,30 @@
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav mr-auto col-xs-12 text-sm-right text-left">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/contact-us">Contact Us</a>
+                                    <a class="nav-link" href="/pages/contact-us">Contact Us</a>
                                 </li>
                                 @*<li class="nav-item">
-                                <a class="nav-link" href="/pages/faq">FAQ</a>
-                            </li>*@
+                                    <a class="nav-link" href="/pages/faq">FAQ</a>
+                                </li>*@
 
 
                                 @*<li class="nav-item">
-                                <a class="nav-link" href="#">Link</a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Dropdown
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="#">Action</a>
-                                    <a class="dropdown-item" href="#">Another action</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">Something else here</a>
-                                </div>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                            </li>*@
+                                    <a class="nav-link" href="#">Link</a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Dropdown
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="#">Action</a>
+                                        <a class="dropdown-item" href="#">Another action</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="#">Something else here</a>
+                                    </div>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                                </li>*@
                             </ul>
                         </div>
                     </nav>

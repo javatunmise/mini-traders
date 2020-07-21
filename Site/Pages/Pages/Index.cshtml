@@ -1,29 +1,37 @@
 ﻿@page "/pages/{id}"
 @model site.Pages.Pages.IndexModel
 @{
-    ViewData["Title"] = "Terms & Condition";
-    Layout = "~/Pages/Shared/_LayoutHome.cshtml";
+    var currPage = Model.CurrentPage;
+    ViewData["Title"] = currPage?.Title;
 }
 
 
 <!-- Breadcrumb Area -->
-<section class="breadcrumb-area">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="breadcrumb-box text-center">
-                    <ul class="list-unstyled list-inline">
-                        <li class="list-inline-item"><a href="">Home</a></li>
-                        <li class="list-inline-item"><span>||</span> Terms & Condition</li>
-                    </ul>
-                </div>
-            </div>
+@section BreadCrumbs {
+        <ol class="breadcrumb">
+            <li class="list-inline-item"><a href="/">Home</a></li>
+            <li class="list-inline-item">@Model.CurrentPage?.Title</li>
+        </ol>
+}
+
+<div class="row custom-margin"></div>
+
+<div class="container">
+
+    <div class="card site-page-content">
+        <div class="card-body">
+
+            <h3 class="title">@currPage.Title</h3>
+
+            @Html.Raw(Model.CurrentPage.SafeHtmlContent)
         </div>
     </div>
-</section>
+
+</div>
+
 <!-- End Breadcrumb Area -->
 <!-- Terms & Condition -->
-<section class="term-condition">
+@*<section class="term-condition">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -52,5 +60,5 @@
             </div>
         </div>
     </div>
-</section>
+</section>*@
 <!-- End Terms & Condition -->

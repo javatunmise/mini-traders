@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Site.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using siteinfo;
 
 namespace Site
 {
@@ -42,6 +43,7 @@ namespace Site
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            services.AddScoped<IPageRepository, PageRepository>();
             services.AddSingleton<site.Data.ISiteContentProvider, site.Data.CacheSiteContentProvider>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
