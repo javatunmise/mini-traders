@@ -3,21 +3,21 @@
 @{ 
     var icons = new string[]
     {
-        "fa fa-life-ring",
-        "fa fa-desktop",
-        "fa fa-diamond",
-        "fa fa-camera",
-        "fa fa-cutlery",
-        "fa fa-balance-scale",
-        "fa fa-female",
-        "fa fa-soccer-ball-o",
-        "fa fa-book",
-        "fa fa-cab",
-        "fa fa-",
-        "fa fa-",
-        "fa fa-",
-        "fa fa-",
-        "fa fa-",
+        "life-ring",
+        "desktop",
+        "diamond",
+        "camera",
+        "cutlery",
+        "balance-scale",
+        "female",
+        "soccer-ball-o",
+        "book",
+        "cab",
+        "",
+        "",
+        "",
+        "",
+        "",
     };
 
     var counter = 0;
@@ -39,14 +39,14 @@
                     <div>
                         <div class="product-image">
                             <div class="image">
-                                <a href="/categories/123-fashion"><i class="@icons[counter]"></i></a>
+                                <a href="/categories/123-fashion"><i class="fa fa-@icons[counter]"></i></a>
                             </div>
                         </div>
                         <div class="product-info">
                             <div class="name">
                                 <a href="/categories/123-fashion">
                                     @category.Name
-                                    @if (category.Name?.Length < 20)
+                                    @if (category.Name?.Length < 16)
                                     {
                                         <br /><span>&nbsp;</span>
                                     }
