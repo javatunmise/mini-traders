@@ -16,6 +16,7 @@
     <title>Shop@Firstchoice – Home – Shop comfortably, sell with ease</title>
     @*<link rel="dns-prefetch" href="//fonts.googleapis.com">*@
     <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/lib/owl-carousel/dist/assets/owl.carousel.min.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="~/css/site-1.css" media="all">
     <style id="woocommerce-inline-inline-css">
         .woocommerce form .form-row .required {
@@ -437,27 +438,27 @@
                                     <a class="nav-link" href="/pages/contact-us">Contact Us</a>
                                 </li>
                                 @*<li class="nav-item">
-                                    <a class="nav-link" href="/pages/faq">FAQ</a>
-                                </li>*@
+                                        <a class="nav-link" href="/pages/faq">FAQ</a>
+                                    </li>*@
 
 
                                 @*<li class="nav-item">
-                                    <a class="nav-link" href="#">Link</a>
-                                </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Dropdown
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="#">Action</a>
-                                        <a class="dropdown-item" href="#">Another action</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#">Something else here</a>
-                                    </div>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                                </li>*@
+                                        <a class="nav-link" href="#">Link</a>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Dropdown
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                            <a class="dropdown-item" href="#">Action</a>
+                                            <a class="dropdown-item" href="#">Another action</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">Something else here</a>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                                    </li>*@
                             </ul>
                         </div>
                     </nav>
@@ -492,12 +493,12 @@
                                         <ul class="nav navbar-nav">
                                             <li><a href="/contact-us">Contact</a></li>
                                             @*<li class="dropdown menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children">
-                                                <a class="dropdown-toggle" href="#">Coupons</a>
-                                                <ul class="dropdown-menu pages">
-                                                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a class="nav-link dropdown-item" href="/coupons-grid/">Grid View</a></li>
-                                                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a class="nav-link dropdown-item" href="/coupons-grid-sidebar/">Grid Sidebar</a></li>
-                                                </ul>
-                                            </li>
+                                                    <a class="dropdown-toggle" href="#">Coupons</a>
+                                                    <ul class="dropdown-menu pages">
+                                                        <li class="menu-item menu-item-type-post_type menu-item-object-page"><a class="nav-link dropdown-item" href="/coupons-grid/">Grid View</a></li>
+                                                        <li class="menu-item menu-item-type-post_type menu-item-object-page"><a class="nav-link dropdown-item" href="/coupons-grid-sidebar/">Grid Sidebar</a></li>
+                                                    </ul>
+                                                </li>
                                             *@
                                         </ul>
                                         <div class="clearfix"></div>
@@ -506,29 +507,29 @@
                             </div>
                         </div>
                         @*<div class="top-cart-row">
-                            <div class="dropdown dropdown-cart">
-                                <a href="#" class="dropdown-toggle lnk-cart" data-toggle="dropdown">
-                                    <div class="items-cart-inner">
-                                        <div class="basket"> <i class="glyphicon glyphicon-shopping-cart"></i></div><div class="basket-item-count">
-                                            <span class="count"> 0 </span>
+                                <div class="dropdown dropdown-cart">
+                                    <a href="#" class="dropdown-toggle lnk-cart" data-toggle="dropdown">
+                                        <div class="items-cart-inner">
+                                            <div class="basket"> <i class="glyphicon glyphicon-shopping-cart"></i></div><div class="basket-item-count">
+                                                <span class="count"> 0 </span>
 
 
-                                        </div><div class="total-price-basket"> <span class="lbl">My Cart</span></div>
+                                            </div><div class="total-price-basket"> <span class="lbl">My Cart</span></div>
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-menu">
+
+                                        <div class="fl-mini-cart-content">
+
+
+                                            <p class="woocommerce-mini-cart__empty-message">No products in the cart.</p>
+
+
+                                        </div>
+
                                     </div>
-                                </a>
-                                <div class="dropdown-menu">
-
-                                    <div class="fl-mini-cart-content">
-
-
-                                        <p class="woocommerce-mini-cart__empty-message">No products in the cart.</p>
-
-
-                                    </div>
-
                                 </div>
-                            </div>
-                        </div>*@
+                            </div>*@
                     </div>
                 </div>
             </div>
@@ -561,8 +562,8 @@
             <div class="copyright-bar white-bg">
                 <div class="container">
                     @*<div class="col-sm-6 col-md-6 no-padding text-left">
-                        @_site.AboutUsIntro.DefaultTo("About us")
-                    </div>*@
+                            @_site.AboutUsIntro.DefaultTo("About us")
+                        </div>*@
                     <div class="col-xs-12 col-sm-12 col-md-12 no-padding social">
                         <ul class="link">
                             <li class="facebook"><a href="@_site.FacebookUrl.DefaultTo("#")" target="_blank"> <i class="fa fa-facebook"></i></a></li>
@@ -827,8 +828,6 @@
                 }
             }
         })();</script>
-    <script defer src='~/js/k0y3rg1s/f9ef0.js'></script>
-    <script defer src='~/joovenpm/f9ef0.js'></script>
     @*<script defer src='~/js/lofbev45/f9ef0.js'></script>*@
     <script>document.addEventListener('DOMContentLoaded', function () { function wpfcgl() { var wgh = document.querySelector('noscript#wpfc-google-fonts').innerText, wgha = wgh.match(/<link[^\>]+>/gi); for (i = 0; i < wgha.length; i++) { var wrpr = document.createElement('div'); wrpr.innerHTML = wgha[i]; document.body.appendChild(wrpr.firstChild); } } wpfcgl(); });</script>
 
@@ -836,5 +835,28 @@
     <script src="~/lib/bootstrap/dist/js/jquery-3.2.1.slim.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/popper.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/lib/owl-carousel/dist/owl.carousel.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var owl = $(".owl-carousel");
+            $(".owl-carousel").owlCarousel({
+                items: 8
+            });
+
+            $('.owl-prev').click(function() {
+                owl.trigger('prev.owl.carousel')
+            });
+
+            $('.owl-next').click(function() {
+                owl.trigger('next.owl.carousel')
+            });
+        });
+    </script>
+
+    <script defer src='~/js/k0y3rg1s/f9ef0.js'></script>
+    <script defer src='~/joovenpm/f9ef0.js'></script>
+
+
 </body>
 </html>

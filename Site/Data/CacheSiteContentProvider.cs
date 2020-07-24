@@ -83,16 +83,7 @@ namespace site.Data
 
         public async Task<IEnumerable<Category>> GetSiteTopCategories()
         {
-            var categories = new List<Category>();
-            categories.Add(new Category { Id = 1, Name = "Men's Wear" });
-            categories.Add(new Category { Id = 2, Name = "Women's Wear" });
-            var electronics = new Category { Id = 3, Name = "Electronics", IconClass = "laptop"  };
-            categories.Add(electronics);
-
-            var tvs = new Category { Id = 17, Parent = electronics, Name = "TVs" };
-            categories.Add(tvs);
-
-            await Task.CompletedTask;
+            var categories = (await GetAllCategories()).Where(c => c.Parent == null);
 
             return categories;
         }
@@ -238,14 +229,13 @@ new Category { Id = 755, Parent = new Category { Id = 75 }, Name = "female pyjam
 new Category { Id = 76, Parent = new Category { Id = 7 }, Name = "Bags" },
 new Category { Id = 77, Parent = new Category { Id = 7 }, Name = "Textiles" },
 new Category { Id = 78, Parent = new Category { Id = 7 }, Name = "Accessories" },
-new Category { Id = 781, Parent = new Category { Id = 78 }, Name = "atches" },
 new Category { Id = 782, Parent = new Category { Id = 78 }, Name = "guys' watches" },
 new Category { Id = 783, Parent = new Category { Id = 78 }, Name = "ladies' watches" },
 new Category { Id = 784, Parent = new Category { Id = 78 }, Name = "unisex watches" },
 new Category { Id = 785, Parent = new Category { Id = 78 }, Name = "Necklaces " },
 new Category { Id = 786, Parent = new Category { Id = 78 }, Name = "Rings" },
 new Category { Id = 787, Parent = new Category { Id = 78 }, Name = "Bracelets" },
-new Category { Id = 788, Parent = new Category { Id = 78 }, Name = "Sunglasses" },
+new Category { Id = 788, Parent = new Category { Id = 78 }, Name = "Beads" },
 new Category { Id = 789, Parent = new Category { Id = 78 }, Name = "Waist & leg chains" },
 new Category { Id = 7890, Parent = new Category { Id = 78 }, Name = "Scarf & caps" },
 new Category { Id = 7891, Parent = new Category { Id = 78 }, Name = "Eyewear & sunglasses" },
@@ -272,7 +262,7 @@ new Category { Id = 95, Parent = new Category { Id = 9 }, Name = "Engineering te
 new Category { Id = 96, Parent = new Category { Id = 9 }, Name = "Social Sciences textbooks" },
 new Category { Id = 97, Parent = new Category { Id = 9 }, Name = "Medical Sciences textbooks" },
 new Category { Id = 98, Parent = new Category { Id = 9 }, Name = "Education textbooks" },
-new Category { Id = 99, Parent = new Category { Id = 9 }, Name = "Inspirationavendors" },
+new Category { Id = 99, Parent = new Category { Id = 9 }, Name = "Inspiration Books" },
 new Category { Id = 990, Parent = new Category { Id = 9 }, Name = "Law books" },
 
             };

@@ -35,6 +35,10 @@
 
   <ItemGroup>
     <None Include="wwwroot\js\site.js" />
+    <None Include="wwwroot\lib\owl-carousel\dist\LICENSE" />
+    <None Include="wwwroot\lib\owl-carousel\dist\owl.carousel.js" />
+    <None Include="wwwroot\lib\owl-carousel\dist\owl.carousel.min.js" />
+    <None Include="wwwroot\lib\owl-carousel\dist\README.md" />
   </ItemGroup>
 
   <ItemGroup>
