@@ -63,6 +63,8 @@ namespace site.Data
         public string InstagramUrl { get; internal set; }
         public string LinkedInUrl { get; internal set; }
         public string TwitterUrl { get; internal set; }
+
+        public bool IsGoogleAnalyticsEnabled { get; set; }
     }
 
     public class Product

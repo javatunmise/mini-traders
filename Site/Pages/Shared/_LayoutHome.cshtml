@@ -839,9 +839,9 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            var owl = $(".owl-carousel");
+            var owl = $(".featured-categories .owl-carousel");
 
-            $(".owl-carousel").owlCarousel({                
+            owl.owlCarousel({
                 responsive: {
                     0: { items: 3 },
                     600: { items: 3 },
@@ -849,19 +849,62 @@
                 }
             });
 
-            $('.owl-prev').click(function() {
+            $('.owl-prev').click(function () {
                 owl.trigger('prev.owl.carousel')
             });
 
-            $('.owl-next').click(function() {
+            $('.owl-next').click(function () {
                 owl.trigger('next.owl.carousel')
             });
         });
+
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var owl = $(".latest-products .owl-carousel.one");
+            var owl2 = $(".latest-products .owl-carousel.two");
+            var owl3 = $(".latest-products .owl-carousel.three");
+
+            owl.owlCarousel({
+                responsive: {
+                    0: { items: 1 },
+                    600: { items: 2 },
+                    1000: { items: 4 },
+                }
+            });
+            owl2.owlCarousel({
+                responsive: {
+                    0: { items: 1 },
+                    600: { items: 2 },
+                    1000: { items: 4 },
+                }
+            });
+            owl3.owlCarousel({
+                responsive: {
+                    0: { items: 1 },
+                    600: { items: 2 },
+                    1000: { items: 4 },
+                }
+            });
+
+            $('.owl-prev').click(function () {
+                owl.trigger('prev.owl.carousel')
+            });
+
+            $('.owl-next').click(function () {
+                owl.trigger('next.owl.carousel')
+            });
+        });
+
     </script>
 
     <script defer src='~/js/k0y3rg1s/f9ef0.js'></script>
     <script defer src='~/joovenpm/f9ef0.js'></script>
 
+    @if (_site.IsGoogleAnalyticsEnabled)
+    {
+        <!-- Google Analytics -->
+    }
 
 </body>
 </html>
