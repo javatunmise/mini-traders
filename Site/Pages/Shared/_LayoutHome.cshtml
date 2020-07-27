@@ -861,31 +861,24 @@
     </script>
     <script type="text/javascript">
         $(document).ready(function () {
-            var owl = $(".latest-products .owl-carousel.one");
+            var owl1 = $(".latest-products .owl-carousel.one");
             var owl2 = $(".latest-products .owl-carousel.two");
             var owl3 = $(".latest-products .owl-carousel.three");
+            var owl4 = $(".home-recommended .owl-carousel");
+            var owl5 = $(".home-flash-deals .owl-carousel");
 
-            owl.owlCarousel({
-                responsive: {
-                    0: { items: 1 },
-                    600: { items: 2 },
-                    1000: { items: 4 },
-                }
-            });
-            owl2.owlCarousel({
-                responsive: {
-                    0: { items: 1 },
-                    600: { items: 2 },
-                    1000: { items: 4 },
-                }
-            });
-            owl3.owlCarousel({
-                responsive: {
-                    0: { items: 1 },
-                    600: { items: 2 },
-                    1000: { items: 4 },
-                }
-            });
+            var owls = [owl1, owl2, owl3, owl4, owl5]
+            var owl = owl1;
+
+            for (var i = 0; i < owls.length; i++) {
+                owls[i].owlCarousel({
+                    responsive: {
+                        0: { items: 1 },
+                        600: { items: 2 },
+                        1000: { items: 4 },
+                    }
+                });
+            }
 
             $('.owl-prev').click(function () {
                 owl.trigger('prev.owl.carousel')

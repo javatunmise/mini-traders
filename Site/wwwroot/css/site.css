@@ -360,6 +360,102 @@ header {
     color: #ffffff;
 }
 
+.price {
+    text-align: left;
+    padding: 5px 0;
+    font-weight: 500;
+}
 
+.price-before { text-decoration: line-through; color: #888888; }
+.price-current { font-size: 18px; font-weight: bold }
+
+.carousel-wrapper {
+    background: #fff;
+    padding: 15px 15px;
+}
+
+.carousel-wrapper .image img {
+    height: 170px;
+}
+
+.carousel-wrapper .item .title {
+    font-size: 16px;
+    font-family: 'Barlow', sans-serif;
+    font-weight: 600;
+    line-height: 1.3em;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+.carousel-wrapper .fa-star {
+    color: #ffd800;
+}
+
+.latest-products-inner {
+    background: #fff;
+    /*padding: 15px;*/
+}
+
+.carousel-wrapper .item {
+    padding-right: 15px;
+}
+
+.latest-products-header .owl-nav,
+.home-recommended-header .owl-nav,
+.home-flash-deals-header .owl-nav {
+    bottom: 5px;
+    position: absolute;
+    right: 15px;
+}
+
+.latest-products-header .tabs {
+    /*position: absolute;*/
+    /* right: 0;
+    bottom: 5px;*/
+    float: right;
+}
+
+.carousel-wrapper .tab-content {
+    box-shadow: none;
+    padding-left: 0;
+}
+
+.latest-products-header .tabs .nav-pills {
+    display: inline;
+}
+
+.latest-products .nav-pills .nav-link.active, .latest-products .nav-pills .show > .nav-link {
+    background: none;
+    color: #dd0000;
+}
+
+.latest-products .nav > li > a {
+    padding-top: 5px;
+    padding-bottom: 15px;
+}
+
+.latest-products-header .title, .home-flash-deals-header .title, .home-recommended-header .title {
+    font-size: 22px;
+}
+
+.home-recommended-header, home-flash-deals-header {
+    margin-bottom: 15px;
+}
+
+.home-flash-deals-header .box-timer {
+    margin: 0 0px;
+    color: #333;
+    border-radius: 10px;
+    width: 390px;
+    margin: auto;
+    left: 0;
+    position: absolute;
+    margin-top: 0;
+    margin-left: -220px;
+}
+
+.home-flash-deals-header .timer-grid .box-time-date {
+    background: #2a2a2a;
+}
 
     /* main-headers: #40535c,  #1595a2 */

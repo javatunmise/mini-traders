@@ -63,14 +63,14 @@
     </div>
 </div>
 
-<p></p>
+<div class="row custom-margin"></div>
 
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            @await Component.InvokeAsync("ProductsGrid") 
+            @await Component.InvokeAsync("ProductsGrid")
         </div>
-    </div>   
+    </div>
 </div>
 
 
@@ -82,155 +82,121 @@
     </div>
 </div>
 
-<p></p>
-<div class="container">
-    <div class="vc_row wpb_row vc_row-fluid">
-        <div class="wpb_column vc_column_container vc_col-sm-12">
-            <div class="vc_column-inner vc_custom_1578033829233 klb_xs_vc_custom_1578033829235">
-                <div class="wpb_wrapper">
-                    <section class="section blog-section">
-                        <h3 class="section-title">Latest form Blog</h3>
-                        <div class="latest-blog">
-                            <div class="blog-slider-container outer-top-xs">
-                                <div class="owl-carousel blog-slider custom-carousel owl-theme" style="opacity: 1; display: block;">
-                                    <div class="owl-wrapper-outer">
-                                        <div class="owl-wrapper" style="width: 3040px; left: 0px; display: block; transition: all 0ms ease 0s; transform: translate3d(0px, 0px, 0px);">
+<div class="row custom-margin"></div>
 
-                                            @for (int i = 0; i < 4; i++)
-                                            {
-                                                <div class="owl-item" style="width: 380px;">
-                                                    <div class="item">
-                                                        <div class="blog-post">
-                                                            <div class="blog-post-image">
-                                                                <div class="image">
-                                                                    <a href="/blogs/1"><img src="~/images/blogs/blog-1.jpg" alt="Powerful and flexible premium Ecommerce themes"></a>
-                                                                </div>
-                                                            </div>
-                                                            <div class="blog-post-info text-left">
-                                                                <h3 class="name">
-                                                                    <a href="/blogs/1">Powerful and flexible premium Ecommerce themes</a>
-                                                                </h3>
-                                                                <span class="info">By Sinan &nbsp;|&nbsp; 19 December 2019 </span>
-                                                                <p class="text">Fusce ac pharetra urna. Duis non lacus sit amet lacus interdum facilisis sed non est.</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            }
-                                        </div>
-                                    </div>
-                                    <div class="owl-controls clickable">
-                                        <div class="owl-buttons">
-                                            <div class="owl-prev"></div>
-                                            <div class="owl-next"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
+<div class="container">
+    <div class="home-recommended">
+        <div class="home-recommended-header row">
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12"><h2 style="color:#333" class="title">Recommended for you</h2></div>
+            <div class="col-lg-7 col-md-6 col-sm-10 col-xs-10" style="padding-top: 15px">
+
+            </div>
+            <div class="col-lg-1 col-md-2 col-sm-2 col-xs-2">
+                <div class="owl-nav">
+                    <button role="presentation" class="owl-prev">&lt;</button>
+                    <button role="presentation" class="owl-next">&gt;</button>
                 </div>
             </div>
+        </div>
+
+        <div class="carousel-wrapper">
+            <div class="owl-carousel two">
+                @{
+                    int counter = 0;
+                }
+
+                @foreach (var product in Enumerable.Range(0, 5).Select(c => new site.Data.Category { }))
+                {
+                    <div class="item item-carousel" style="">
+                        <div class="image">
+                            <a href="/product/the-crash-bad-instant-folding-long-twin-bed-3/"><img src="~/images/products/product-@(counter % 4 + 1).jpg" alt="The Crash Bad Instant Folding long Twin Bed"></a>
+                        </div>
+
+                        <div class="title"><a href="/products/123-same products">The Crash Bad Instant Folding long Twin Bed</a></div>
+                        <div class="rating">
+                            @for (int i = 0; i < 5; i++)
+                            {
+                                <i class="fa fa-star"></i>
+                            }
+                        </div>
+                        <div class="price">
+                            <span class="price-before">N120.00</span>
+                            <span class="price-current">N100.00</span>
+                        </div>
+                    </div>
+
+                    counter++;
+                }
+            </div>
+        </div>
+
         </div>
     </div>
-</div>
+
+
+<div class="row custom-margin"></div>
 
 <div class="container">
-    <div class="vc_row wpb_row vc_row-fluid">
-        <div class="wpb_column vc_column_container vc_col-sm-12">
-            <div class="vc_column-inner">
-                <div class="wpb_wrapper">
-                    <h3 class="section-title">Flash Deals</h3>
-                    <div class="box-timer">
-                        <h5>Ends On:</h5>
-                        <span class="timer-grid" data-countdown="2020/09/24 03:59:00">
-                            <div class="box-time-date">
-                                <span class="time-num time-day">74</span> days
-                            </div>
-                            <div class="box-time-date">
-                                <span class="time-num">20</span> hrs
-                            </div>
-                            <div class="box-time-date">
-                                <span class="time-num">30</span>mins
-                            </div>
-                            <div class="box-time-date">
-                                <span class="time-num">08</span>secs
-                            </div>
-                        </span>
-                    </div>
-                    <div class="new-arriavls">
-                        <div class="owl-carousel home-owl-carousel custom-carousel owl-theme outer-top-xs" style="opacity: 1; display: block;">
-                            <div class="owl-wrapper-outer">
-                                <div class="owl-wrapper" style="width: 3408px; left: 0px; display: block; transition: all 0ms ease 0s; transform: translate3d(0px, 0px, 0px);">
-
-                                    @for (int i = 0; i < 6; i++)
-                                    {
-                                        <div class="owl-item" style="width: 284px;">
-                                            <div class="item item-carousel">
-                                                <div class="products">
-                                                    <div class="product">
-                                                        <div class="product-image">
-                                                            <div class="image">
-                                                                <a href="/product/123-ybiz-item-1"><img src="~/images/products/p2-260x170.jpg" alt="New and Refurbished Lenovo Laptops"></a>
-                                                            </div>
-                                                            <div class="tag new">
-                                                                <span>-38%</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="product-info text-left">
-                                                            <div class="brand">
-                                                                <a href="/vendor/1220-yetunde-biz/">Yetunde-Biz</a>
-                                                            </div>
-                                                            <h3 class="name">
-                                                                <a href="/product/123-ybiz-item-1">New and Refurbished Lenovo Laptops</a>
-                                                            </h3>
-                                                            <div class="star-rating" role="img" aria-label="Rated 4.00 out of 5">
-                                                                <span style="width:80%">Rated <strong class="rating rateit">4.00<button id="rateit-reset-21" data-role="none" class="rateit-reset" aria-label="reset rating" aria-controls="rateit-range-21" style="display: none;"></button><span id="rateit-range-21" class="rateit-range" tabindex="0" role="slider" aria-label="rating" aria-owns="rateit-reset-21" aria-valuemin="0" aria-valuemax="5" aria-valuenow="4" aria-readonly="true" style="width: 70px; height: 30px;"><span class="rateit-selected" style="height: 30px; width: 56px;"></span><span class="rateit-hover" style="height: 30px;"></span></span></strong> out of 5</span>
-                                                            </div>
-                                                            <div class="description"></div>
-                                                            <div class="product-price">
-                                                                <span class="price"> <del><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">N</span>790.00</span></del> <ins><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>490.00</span></ins></span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="cart clearfix animate-effect">
-                                                            <div class="action">
-                                                                <ul class="list-unstyled">
-                                                                    <li class="add-cart-button btn-group">
-                                                                        <a href="?add-to-cart=205" data-quantity="1" class="btn btn-primary icon button product_type_simple add_to_cart_button ajax_add_to_cart" data-product_id="205" data-product_sku="" aria-label="Add “New and Refurbished Lenovo Laptops” to your cart" rel="nofollow"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                                                    </li>
-                                                                    <li class="lnk wishlist">
-                                                                        <div class="tinv-wraper woocommerce tinv-wishlist tinvwl-shortcode-add-to-cart">
-                                                                            <div class="tinv-wishlist-clear"></div>
-                                                                            <a role="button" aria-label="Add to Wishlist" class="tinvwl_add_to_wishlist_button tinvwl-icon-heart tinvwl-position-after" data-tinv-wl-list="[]" data-tinv-wl-product="205" data-tinv-wl-productvariation="0" data-tinv-wl-productvariations="[0]" data-tinv-wl-producttype="simple" data-tinv-wl-action="addto"><span class="tinvwl_add_to_wishlist-text">Add to Wishlist</span></a>
-                                                                            <div class="tinv-wishlist-clear"></div>
-                                                                            <div class="tinvwl-tooltip">Add to Wishlist</div>
-                                                                        </div>
-                                                                    </li>
-                                                                    <li class="lnk compare">
-                                                                        <div class="woocommerce product compare-button">
-                                                                            <a href="https://klbtheme.com/dealsdot?action=yith-woocompare-add-product&amp;id=205" class="compare button" data-product_id="205" rel="nofollow">Compare</a>
-                                                                        </div>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    }
-                                </div>
-                            </div>
-                            <div class="owl-controls clickable">
-                                <div class="owl-buttons">
-                                    <div class="owl-prev"></div>
-                                    <div class="owl-next"></div>
-                                </div>
-                            </div>
+    <div class="home-flash-deals">
+        <div class="home-flash-deals-header row">
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12"><h2 style="color:#333" class="title">Flash Deals</h2></div>
+            <div class="col-lg-7 col-md-6 col-sm-10 col-xs-10" style="padding-top: 15px">
+                <div class="box-timer">
+                    <h5>Ends On:</h5>
+                    <div class="timer-grid" data-countdown="2020/09/24 03:59:00">
+                        <div class="box-time-date">
+                            <span class="time-num time-day">74</span> days
+                        </div>
+                        <div class="box-time-date">
+                            <span class="time-num">20</span> hrs
+                        </div>
+                        <div class="box-time-date">
+                            <span class="time-num">30</span>mins
+                        </div>
+                        <div class="box-time-date">
+                            <span class="time-num">08</span>secs
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="col-lg-1 col-md-2 col-sm-2 col-xs-2">
+                <div class="owl-nav">
+                    <button role="presentation" class="owl-prev">&lt;</button>
+                    <button role="presentation" class="owl-next">&gt;</button>
+                </div>
+            </div>
         </div>
+
+        <div class="carousel-wrapper">
+            <div class="owl-carousel two">
+                @{
+                    counter = 0;
+                }
+
+                @foreach (var product in Enumerable.Range(0, 5).Select(c => new site.Data.Category { }))
+                {
+                    <div class="item item-carousel" style="">
+                        <div class="image">
+                            <a href="/product/the-crash-bad-instant-folding-long-twin-bed-3/"><img src="~/images/products/product-@(counter % 4 + 1).jpg" alt="The Crash Bad Instant Folding long Twin Bed"></a>
+                        </div>
+
+                        <div class="title"><a href="/products/123-same products">The Crash Bad Instant Folding long Twin Bed</a></div>
+                        <div class="rating">
+                            @for (int i = 0; i < 5; i++)
+                            {
+                                <i class="fa fa-star"></i>
+                            }
+                        </div>
+                        <div class="price">
+                            <span class="price-before">N120.00</span>
+                            <span class="price-current">N100.00</span>
+                        </div>
+                    </div>
+
+                    counter++;
+                }
+            </div>
+        </div>
+
     </div>
 </div>
