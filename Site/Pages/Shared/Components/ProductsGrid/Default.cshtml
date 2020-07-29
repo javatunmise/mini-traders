@@ -11,6 +11,15 @@
 
     var counter = 0;
     var numbers = new []{ "one", "two", "three" };
+    var productTitles = new[]
+    {
+        "Chrysolite Designs 27 Polo",
+        "iWay Bluetooth Speaker V4.2",
+        "Tooth Paste Dispenser And Brush Holder",
+        "Traveling Steam Iron",
+        "Paxton Proximity Reader",
+        "Paxton Proximity Reader",
+    };
 }
 
 
@@ -54,7 +63,7 @@
                                 <a href="/product/the-crash-bad-instant-folding-long-twin-bed-3/"><img src="~/images/products/product-@(counter % 3 + 1).jpg" alt="The Crash Bad Instant Folding long Twin Bed"></a>
                             </div>
 
-                            <div class="title"><a href="/products/123-same products">The Crash Bad Instant Folding long Twin Bed</a></div>
+                            <div class="title"><a href="/products/123-same products">@productTitles[counter%5]</a></div>
                             <div class="rating">
                                 @for (int i = 0; i < 5; i++)
                                 {
@@ -82,7 +91,7 @@
                                 <a href="/product/the-crash-bad-instant-folding-long-twin-bed-3/"><img src="~/images/products/product-@(counter % 4 + 1).jpg" alt="The Crash Bad Instant Folding long Twin Bed"></a>
                             </div>
 
-                            <div class="title"><a href="/products/123-same products">The Crash Bad Instant Folding long Twin Bed</a></div>
+                            <div class="title"><a href="/products/123-same products">@productTitles[5 - (counter % 5) ]</a></div>
                             <div class="rating">
                                 @for (int i = 0; i < 5; i++)
                                 {

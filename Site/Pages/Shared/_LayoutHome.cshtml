@@ -880,15 +880,38 @@
                 });
             }
 
-            $('.owl-prev').click(function () {
-                owl.trigger('prev.owl.carousel')
+        @{
+            var carousels = new[] {
+            ".latest-products .owl-carousel.one",
+            ".latest-products .owl-carousel.two",
+            ".latest-products .owl-carousel.three",
+            ".home-recommended .owl-carousel",
+            ".home-flash-deals .owl-carousel"
+            };
+
+            var carousel_sections = new[] {
+            new { section = ".latest-products", carousel = ".owl-carousel.one" },
+            new { section =  ".latest-products", carousel =  ".owl-carousel.two" },
+            new { section =  ".latest-products", carousel =  ".owl-carousel.three" },
+            new { section =  ".home-recommended", carousel =  ".owl-carousel" },
+            new { section =  ".home-flash-deals", carousel =  ".owl-carousel" },
+            };
+
+
+            foreach (var carousel_section in carousel_sections) {
+                <text>
+            $('@carousel_section.section .owl-prev').click(function () {
+                $('@carousel_section.section @carousel_section.carousel').trigger('prev.owl.carousel')
             });
 
-            $('.owl-next').click(function () {
-                owl.trigger('next.owl.carousel')
+            $('@carousel_section.section .owl-next').click(function () {
+                $('@carousel_section.section @carousel_section.carousel').trigger('next.owl.carousel')
             });
+                </text>
+            }
+        }
+
         });
-
     </script>
 
     <script defer src='~/js/k0y3rg1s/f9ef0.js'></script>

@@ -1,0 +1,71 @@
+﻿@*@model site.ViewComponents.ProductsGrid.ProductsGridInfo*@
+
+@{
+    //string title = Model?.Title ?? "Featured Products";
+    var categories = new List<site.Data.Category>
+{
+        new site.Data.Category { Name = "Fashion & Clothing" },
+        new site.Data.Category { Name = "Health & Beauty" },
+        new site.Data.Category { Name = "Grocery & Kitchen Items" },
+    };
+
+    var counter = 0;
+    var numbers = new[] { "one", "two", "three" };
+    var productTitles = new[]
+    {
+        "Chrysolite Designs 27 Polo",
+        "iWay Bluetooth Speaker V4.2",
+        "Tooth Paste Dispenser And Brush Holder",
+        "Traveling Steam Iron",
+        "Paxton Proximity Reader",
+        "Paxton Proximity Reader",
+    };
+}
+
+
+<div class="container">
+    <div class="home-recommended">
+        <div class="home-recommended-header row">
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12"><h2 style="color:#333" class="title">Recommended for you</h2></div>
+            <div class="col-lg-7 col-md-6 col-sm-10 col-xs-10" style="padding-top: 15px">
+
+            </div>
+            <div class="col-lg-1 col-md-2 col-sm-2 col-xs-2">
+                <div class="owl-nav">
+                    <button role="presentation" class="owl-prev">&lt;</button>
+                    <button role="presentation" class="owl-next">&gt;</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="carousel-wrapper">
+            <div class="owl-carousel two">
+
+                @foreach (var product in Enumerable.Range(0, 5).Select(c => new site.Data.Category { }))
+                {
+                    <div class="item item-carousel" style="">
+                        <div class="image">
+                            <a href="/product/the-crash-bad-instant-folding-long-twin-bed-3/"><img src="~/images/products/product-@(counter % 4 + 1).jpg" alt="The Crash Bad Instant Folding long Twin Bed"></a>
+                        </div>
+
+                        <div class="title"><a href="/products/123-same products">The Crash Bad Instant Folding long Twin Bed</a></div>
+                        <div class="rating">
+                            @for (int i = 0; i < 5; i++)
+                            {
+                                <i class="fa fa-star"></i>
+                            }
+                        </div>
+                        <div class="price">
+                            <span class="price-before">N120.00</span>
+                            <span class="price-current">N100.00</span>
+                        </div>
+                    </div>
+
+                    counter++;
+                }
+            </div>
+        </div>
+
+    </div>
+</div>
+

@@ -1,7 +1,5 @@
 ﻿@page
 
-@using site.ViewComponents;
-
 @inject site.Data.ISiteContentProvider  _siteContentProvider;
 
 @model IndexModel
@@ -77,126 +75,19 @@
 <div class="row custom-margin"></div>
 
 <div class="container">
-    <div class="col-md-12 text-center" style="background: #ffffff">
-        <img class="img-responsive" style="max-height:220px; margin: auto" src="~/images/banners/@Model.BannerAfterMiddleFileName" alt="" />
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <div style="background: #ffffff">
+                <img class="img-responsive" style="max-height:220px; margin: auto" src="~/images/banners/@Model.BannerAfterMiddleFileName" alt="" />
+            </div>
+        </div>
     </div>
 </div>
 
 <div class="row custom-margin"></div>
 
-<div class="container">
-    <div class="home-recommended">
-        <div class="home-recommended-header row">
-            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12"><h2 style="color:#333" class="title">Recommended for you</h2></div>
-            <div class="col-lg-7 col-md-6 col-sm-10 col-xs-10" style="padding-top: 15px">
-
-            </div>
-            <div class="col-lg-1 col-md-2 col-sm-2 col-xs-2">
-                <div class="owl-nav">
-                    <button role="presentation" class="owl-prev">&lt;</button>
-                    <button role="presentation" class="owl-next">&gt;</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="carousel-wrapper">
-            <div class="owl-carousel two">
-                @{
-                    int counter = 0;
-                }
-
-                @foreach (var product in Enumerable.Range(0, 5).Select(c => new site.Data.Category { }))
-                {
-                    <div class="item item-carousel" style="">
-                        <div class="image">
-                            <a href="/product/the-crash-bad-instant-folding-long-twin-bed-3/"><img src="~/images/products/product-@(counter % 4 + 1).jpg" alt="The Crash Bad Instant Folding long Twin Bed"></a>
-                        </div>
-
-                        <div class="title"><a href="/products/123-same products">The Crash Bad Instant Folding long Twin Bed</a></div>
-                        <div class="rating">
-                            @for (int i = 0; i < 5; i++)
-                            {
-                                <i class="fa fa-star"></i>
-                            }
-                        </div>
-                        <div class="price">
-                            <span class="price-before">N120.00</span>
-                            <span class="price-current">N100.00</span>
-                        </div>
-                    </div>
-
-                    counter++;
-                }
-            </div>
-        </div>
-
-        </div>
-    </div>
-
+@await Component.InvokeAsync("ProductsGrid_Recommended")
 
 <div class="row custom-margin"></div>
 
-<div class="container">
-    <div class="home-flash-deals">
-        <div class="home-flash-deals-header row">
-            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12"><h2 style="color:#333" class="title">Flash Deals</h2></div>
-            <div class="col-lg-7 col-md-6 col-sm-10 col-xs-10" style="padding-top: 15px">
-                <div class="box-timer">
-                    <h5>Ends On:</h5>
-                    <div class="timer-grid" data-countdown="2020/09/24 03:59:00">
-                        <div class="box-time-date">
-                            <span class="time-num time-day">74</span> days
-                        </div>
-                        <div class="box-time-date">
-                            <span class="time-num">20</span> hrs
-                        </div>
-                        <div class="box-time-date">
-                            <span class="time-num">30</span>mins
-                        </div>
-                        <div class="box-time-date">
-                            <span class="time-num">08</span>secs
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-1 col-md-2 col-sm-2 col-xs-2">
-                <div class="owl-nav">
-                    <button role="presentation" class="owl-prev">&lt;</button>
-                    <button role="presentation" class="owl-next">&gt;</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="carousel-wrapper">
-            <div class="owl-carousel two">
-                @{
-                    counter = 0;
-                }
-
-                @foreach (var product in Enumerable.Range(0, 5).Select(c => new site.Data.Category { }))
-                {
-                    <div class="item item-carousel" style="">
-                        <div class="image">
-                            <a href="/product/the-crash-bad-instant-folding-long-twin-bed-3/"><img src="~/images/products/product-@(counter % 4 + 1).jpg" alt="The Crash Bad Instant Folding long Twin Bed"></a>
-                        </div>
-
-                        <div class="title"><a href="/products/123-same products">The Crash Bad Instant Folding long Twin Bed</a></div>
-                        <div class="rating">
-                            @for (int i = 0; i < 5; i++)
-                            {
-                                <i class="fa fa-star"></i>
-                            }
-                        </div>
-                        <div class="price">
-                            <span class="price-before">N120.00</span>
-                            <span class="price-current">N100.00</span>
-                        </div>
-                    </div>
-
-                    counter++;
-                }
-            </div>
-        </div>
-
-    </div>
-</div>
+@await Component.InvokeAsync("ProductsGrid_FlashDeals") 
