@@ -52,7 +52,7 @@
 
 <div class="container">
     <div class="row custom-margin">
-        <div class="col-md-6">
+        <div class="col-md-6" style="margin-bottom: 15px">
             <img width="565" height="160" src="~/images/banners/@Model.MiddleBanner1FileName" alt="" />
         </div>
         <div class="col-md-6">
@@ -90,4 +90,12 @@
 
 <div class="row custom-margin"></div>
 
-@await Component.InvokeAsync("ProductsGrid_FlashDeals") 
+<div class="home-services-bg-img">
+    <div style="background: #85014de6; padding: 15px 0;">
+        @await Component.InvokeAsync("ProductsGrid_Services")
+    </div>
+</div>
+
+<div class="row custom-margin"></div>
+
+@await Component.InvokeAsync("ProductsGrid_FlashDeals")

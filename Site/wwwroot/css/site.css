@@ -304,6 +304,11 @@ header {
     background: #f9b900;
     margin-bottom: 6px;
     border-radius: 4px;
+    font-weight: bold;
+}
+
+.home-services-header .owl-nav button {
+    color: #85014d;
 }
 
 .owl-nav button:active {
@@ -378,6 +383,12 @@ header {
     height: 170px;
 }
 
+.home-services .carousel-wrapper {
+    background: #85014d45;
+    padding-left: 0;
+    padding-right: 0;
+}
+
 .carousel-wrapper .item .title {
     font-size: 16px;
     font-family: 'Barlow', sans-serif;
@@ -400,8 +411,15 @@ header {
     padding-right: 15px;
 }
 
+.home-services .carousel-wrapper .item {
+    background: #f7f7f7;
+    margin-right: 15px;
+    padding: 15px;
+}
+
 .latest-products-header .owl-nav,
 .home-recommended-header .owl-nav,
+.home-services-header .owl-nav,
 .home-flash-deals-header .owl-nav {
     bottom: 5px;
     position: absolute;
@@ -434,11 +452,15 @@ header {
     padding-bottom: 15px;
 }
 
-.latest-products-header .title, .home-flash-deals-header .title, .home-recommended-header .title {
+.latest-products-header .title, .home-flash-deals-header .title, .home-recommended-header .title, .home-services-header .title {
     font-size: 22px;
 }
 
-.home-recommended-header, home-flash-deals-header {
+.home-services-header .title {
+    color: #f2f2f2;
+}
+
+.home-recommended-header, home-flash-deals-header, .home-services-header {
     margin-bottom: 15px;
 }
 
@@ -455,7 +477,11 @@ header {
 }
 
 .home-flash-deals-header .timer-grid .box-time-date {
-    background: #2a2a2a;
+    background: #85014d;
+}
+
+.home-services-bg-img {
+    background-image: url(/images/tools-services-bg.jpg);
 }
 
     /* main-headers: #40535c,  #1595a2 */

@@ -40,7 +40,7 @@
     </style>
     <link rel="stylesheet" type="text/css" href="~/css/site-3.css" media="all">
     <link href="~/css/site.css" rel="stylesheet" />
-    <style id="woo-variation-swatches-inline-css">
+    @*<style id="woo-variation-swatches-inline-css">
         .variable-item:not(.radio-variable-item) {
             width: 30px;
             height: 30px;
@@ -384,7 +384,7 @@
             background: #56cb60;
             color: #fff;
         }
-    </style>
+    </style>*@
     <noscript>
         <style>
             .woocommerce-product-gallery {
@@ -392,14 +392,14 @@
             }
         </style>
     </noscript>
-    <meta name="generator" content="Powered by WPBakery Page Builder - drag and drop page builder for WordPress.">
+    @*<meta name="generator" content="Powered by WPBakery Page Builder - drag and drop page builder for WordPress.">
     <link rel="icon" href="/wp-content/uploads/2019/12/cropped-favicon-32x32.png" sizes="32x32">
     <link rel="icon" href="/wp-content/uploads/2019/12/cropped-favicon-192x192.png" sizes="192x192">
     <link rel="apple-touch-icon" href="/wp-content/uploads/2019/12/cropped-favicon-180x180.png">
     <meta name="msapplication-TileImage" content="/wp-content/uploads/2019/12/cropped-favicon-270x270.png">
     <style id="kirki-inline-styles"></style>
 
-    <link rel="stylesheet" href="~/css/vc_shortcodes-custom-css.css" />
+    <link rel="stylesheet" href="~/css/vc_shortcodes-custom-css.css" />*@
     <noscript>
         <style>
             .wpb_animate_when_almost_visible {
@@ -866,8 +866,9 @@
             var owl3 = $(".latest-products .owl-carousel.three");
             var owl4 = $(".home-recommended .owl-carousel");
             var owl5 = $(".home-flash-deals .owl-carousel");
+            var owl6 = $(".home-services .owl-carousel");
 
-            var owls = [owl1, owl2, owl3, owl4, owl5]
+            var owls = [owl1, owl2, owl3, owl4, owl5, owl6]
             var owl = owl1;
 
             for (var i = 0; i < owls.length; i++) {
@@ -895,6 +896,7 @@
             new { section =  ".latest-products", carousel =  ".owl-carousel.three" },
             new { section =  ".home-recommended", carousel =  ".owl-carousel" },
             new { section =  ".home-flash-deals", carousel =  ".owl-carousel" },
+            new { section =  ".home-services", carousel =  ".owl-carousel" },
             };
 
 
