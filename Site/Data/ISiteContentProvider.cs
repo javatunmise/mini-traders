@@ -1,4 +1,5 @@
-﻿using System;
+﻿using site.ViewComponents;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -71,6 +72,37 @@ namespace site.Data
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public Vendor Vendor { get; set; }
+        public string BigImageUrl { get; internal set; }
+        public string SmallImageUrl { get; internal set; }
+        public decimal OldPrice { get; internal set; }
+        public decimal Price { get; internal set; }
+        public List<string> ImagesUrls { get; internal set; }
+        public double AverageRating { get; set; }
+        public int ReviewsCount { get; internal set; }
+        public string ProductDetails { get; internal set; }
+        public string OtherFeatures { get; internal set; }
+    }
+
+
+    public class Review
+    {
+        public string ReviewerName { get; set; }
+        public string Title { get; set; }
+        public string Feedback { get; set; }
+    }
+
+    public class Vendor
+    {
+        public string LogoUrl { get; set; }
+        public string Name { get; set; }
+        public VendorContact Contact { get; set; }
+    }
+
+    public class VendorContact
+    {
+        public string PhoneNumber { get; set; }
+        public string EmailAddress { get; set; }
     }
 
     public class CompanyLogo

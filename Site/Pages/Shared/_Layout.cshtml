@@ -16,6 +16,8 @@
     <title>Shop@Firstchoice – Home – Shop comfortably, sell with ease</title>
     @*<link rel="dns-prefetch" href="//fonts.googleapis.com">*@
     <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/lib/owl-carousel/dist/assets/owl.carousel.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="~/css/ion.rangeSlider.min.css" media="all">
     <link rel="stylesheet" type="text/css" href="~/css/site-1.css" media="all">
     <style id="woocommerce-inline-inline-css">
         .woocommerce form .form-row .required {
@@ -570,8 +572,8 @@
             <div class="copyright-bar white-bg">
                 <div class="container">
                     @*<div class="col-sm-6 col-md-6 no-padding text-left">
-                        @_site.AboutUsIntro.DefaultTo("About us")
-                    </div>*@
+                            @_site.AboutUsIntro.DefaultTo("About us")
+                        </div>*@
                     <div class="col-xs-12 col-sm-12 col-md-12 no-padding social">
                         <ul class="link">
                             <li class="facebook"><a href="@_site.FacebookUrl.DefaultTo("#")" target="_blank"> <i class="fa fa-facebook"></i></a></li>
@@ -845,5 +847,46 @@
     <script src="~/lib/bootstrap/dist/js/jquery-3.2.1.slim.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/popper.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/js/ion.rangeSlider.min.js"></script>
+    <script src="~/lib/owl-carousel/dist/owl.carousel.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var owl = $(".owl-carousel");
+
+            owl.owlCarousel({
+                responsive: {
+                    0: { items: 3 },
+                    600: { items: 3 },
+                    1000: { items: 4 },
+                }
+            });
+
+            $('.owl-prev').click(function () {
+                owl.trigger('prev.owl.carousel')
+            });
+
+            $('.owl-next').click(function () {
+                owl.trigger('next.owl.carousel')
+            });
+        });
+
+    </script>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".js-range-slider").ionRangeSlider({
+                type: "double",
+                min: 0,
+                max: 1000,
+                from: 200,
+                to: 500,
+                grid: false,
+                skin: "sharp"
+            });
+        });
+    </script>
+
 </body>
-</html>
+</html >
