@@ -20,36 +20,48 @@
         padding-top: 15px;
     }
 
-        .product-area img {
-            width: 100%;
-        }
+    .product-image {
+        height: 250px;
+    }
 
-        .product-area .product-title {
-            margin-top: 0;
-        }
+    .product-area img {
+        width: 100%;
+    }
+
+    .a-review img {
+        width: 65px;
+    }
+
+    .a-review textarea {
+        width: 100%;
+    }
+
+    .product-area .product-title {
+        margin-top: 0;
+    }
 
     .vendor-area {
         padding: 15px;
     }
 
-        .vendor-area .vert-indent {
-            padding: 15px 0;
-        }
+    .vendor-area .vert-indent {
+        padding: 15px 0;
+    }
 
-        .vendor-area .image {
-            text-align: center;
-            padding: 15px;
-        }
+    .vendor-area .image {
+        text-align: center;
+        padding: 15px;
+    }
 
-        .vendor-area .vendor-name {
-            text-align: center;
-            margin-top: 0;
-        }
+    .vendor-area .vendor-name {
+        text-align: center;
+        margin-top: 0;
+    }
 
-        .vendor-area .image img {
-            width: 60%;
-            border-radius: 50%;
-        }
+    .vendor-area .image img {
+        width: 80px;
+        border-radius: 50%;
+    }
 
     .divider {
         height: 1px;
@@ -57,9 +69,9 @@
         margin: 15px 0;
     }
 
-        .divider.hint {
-            border-bottom: solid 1px #f9b900;
-        }
+    .divider.hint {
+        border-bottom: solid 1px #f9b900;
+    }
 
     .price-before {
         font-size: 18px;
@@ -73,6 +85,9 @@
         width: 100%;
     }
 
+    .chat-box .buttons {
+        margin-top: 15px;
+    }
 
     .social li a:before {
         display: none;
@@ -100,6 +115,10 @@
     .social li.pinterest a {
         background: #cb2027 !important;
     }
+
+    .product-ratings i {
+        color: #cb2027;
+    }
 </style>
 
 <!-- Breadcrumb Area -->
@@ -122,7 +141,7 @@
                 <div class="product-area col-md-9">
                     <div class="col-md-6">
 
-                        <div>
+                        <div class="product-image">
                             <!-- product-image -->
                             <img src="~/@product.SmallImageUrl" />
                         </div>
@@ -131,26 +150,19 @@
                         <div>
                             <!-- slider -->
 
-                            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-                                <div class="carousel-inner h-100">
-                                    @foreach (var banner in Enumerable.Range(0,10).Select((b, index) => new { filename = product.SmallImageUrl, index }))
+                            <div class="carousel-wrapper">
+                                <div class="owl-carousel owl-theme">
+                                    @foreach (var banner in (new []{ "images/products/bed.jpg",
+                                                                     "images/products/product-2.jpg",
+                                                                     "images/products/product-3.jpg"}).Select((b, index) => new { filename = b, index }))
                                     {
-                                        <div class="carousel-item h-100 @(banner.index == 0 ? "active" : "")">
-                                            <a href="#">
-                                                <img class="d-block" src="~/@product.SmallImageUrl" alt="First slide" style="width:100px">
-                                            </a>
-                                        </div>
+                                    <div class="item item-carousel">
+                                        <a href="javascript:replaceImage('../@banner.filename')">
+                                            <img class="d-block" src="~/@banner.filename" alt="First slide" style="width:100px">
+                                        </a>
+                                    </div>
                                     }
                                 </div>
-
-                                <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="sr-only">Previous</span>
-                                </a>
-                                <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="sr-only">Next</span>
-                                </a>
                             </div>
                         </div>
 
@@ -161,7 +173,7 @@
                         <div>
                             @for (int i = 0; i < 5; i++)
                             {
-                                <i class="fa fa-star" style="color: #f9b900; font-size: 16px"></i>
+                            <i class="fa fa-star" style="color: #f9b900; font-size: 16px"></i>
                             }
 
                             &nbsp;
@@ -195,18 +207,18 @@
                         <div class="image">
                             <img src="~/images/vendor-photo.png" alt="Vendor Picture or Logo" />
                         </div>
-                        <h3 class="vendor-name">@vendor.Name</h3>
+                        <h4 class="vendor-name">@vendor.Name</h4>
 
                         <div class="divider"></div>
 
-                        <div><h3>@vendor.Contact?.PhoneNumber</h3></div>
+                        <div><h4>@vendor.Contact?.PhoneNumber</h4></div>
 
                         <div class="divider"></div>
 
                         <div class="chat-box vert-indent">
-                            <textarea rows="4">Send message to seller</textarea>
+                            <textarea class="form-control" rows="4">Send message to seller</textarea>
 
-                            <div id="chat-box-buttons">
+                            <div class="buttons">
                                 <button class="btn btn-primary">Post</button>
                             </div>
                         </div>
@@ -243,7 +255,7 @@
             <ul class="-pvs -mvxs -phm -lsn">
                 @foreach (var spec in lines)
                 {
-                    <li class="-pvxs"><span class="-b">@spec.Key</span>: @spec.Value</li>
+                <li class="-pvxs"><strong>@spec.Key</strong>: @spec.Value</li>
                 }
             </ul>
         </div>
@@ -258,7 +270,46 @@
         <div class="card-body site-page-content">
             <h3 class="title">Reviews</h3>
 
-            <div>No reviews</div>
+            <div class="media a-review">
+                <img class="align-self-start mr-3" src="~/images/vendor-photo.png" alt="Generic placeholder image">
+                <div class="media-body">
+                    <div class="product-ratings">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                    </div>
+
+                    <p> <strong>James Tyson</strong> - @DateTime.Now.ToString("MMMM dd, yyyy")</p>
+                    <p>
+                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                    </p>
+                </div>
+            </div>
+
+
+            <div class="media a-review">
+                <img class="align-self-start mr-3" src="~/images/vendor-photo.png" alt="Generic placeholder image">
+                <div class="media-body">
+                    <div class="product-ratings">
+                        <span>Your rating: </span>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                    </div>
+
+                    <p>How did you feel about this product</p>
+                    <p>
+                       <textarea class="form-control"></textarea>
+                    </p>
+
+                    <button class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
@@ -285,23 +336,23 @@
 
                 @foreach (var _product in Enumerable.Range(0, 5).Select(c => new site.Data.Category { }))
                 {
-                    <div class="item item-carousel" style="">
-                        <div class="image">
-                            <a href="/product/the-crash-bad-instant-folding-long-twin-bed-3/"><img src="~/images/products/product-@(counter % 4 + 1).jpg" alt="The Crash Bad Instant Folding long Twin Bed"></a>
-                        </div>
-
-                        <div class="title"><a href="/products/123-same products">The Crash Bad Instant Folding long Twin Bed</a></div>
-                        <div class="rating">
-                            @for (int i = 0; i < 5; i++)
-                            {
-                                <i class="fa fa-star"></i>
-                            }
-                        </div>
-                        <div class="price">
-                            <span class="price-before">N120.00</span>
-                            <span class="price-current">N100.00</span>
-                        </div>
+                <div class="item item-carousel" style="">
+                    <div class="image">
+                        <a href="/product/the-crash-bad-instant-folding-long-twin-bed-3/"><img src="~/images/products/product-@(counter % 4 + 1).jpg" alt="The Crash Bad Instant Folding long Twin Bed"></a>
                     </div>
+
+                    <div class="title"><a href="/products/123-same products">The Crash Bad Instant Folding long Twin Bed</a></div>
+                    <div class="rating">
+                        @for (int i = 0; i < 5; i++)
+                            {
+                        <i class="fa fa-star"></i>
+                            }
+                    </div>
+                    <div class="price">
+                        <span class="price-before">N120.00</span>
+                        <span class="price-current">N100.00</span>
+                    </div>
+                </div>
 
                     counter++;
                 }
@@ -311,3 +362,9 @@
     </div>
 </div>
 
+
+<script type="text/javascript">
+    function replaceImage(image) {
+        $('.product-image img').attr('src', image);
+    }
+</script>

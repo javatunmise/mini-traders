@@ -17,6 +17,7 @@
     @*<link rel="dns-prefetch" href="//fonts.googleapis.com">*@
     <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/lib/owl-carousel/dist/assets/owl.carousel.min.css" rel="stylesheet" />
+    <link href="~/lib/owl-carousel/dist/assets/owl.theme.default.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="~/css/ion.rangeSlider.min.css" media="all">
     <link rel="stylesheet" type="text/css" href="~/css/site-1.css" media="all">
     <style id="woocommerce-inline-inline-css">
@@ -855,6 +856,8 @@
             var owl = $(".owl-carousel");
 
             owl.owlCarousel({
+                nav: true,
+                loop: true,
                 responsive: {
                     0: { items: 3 },
                     600: { items: 3 },
