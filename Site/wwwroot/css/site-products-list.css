@@ -1,0 +1,63 @@
+﻿.a-product {
+    margin-bottom: 30px;
+}
+
+.a-product .title,
+.a-product .ratings,
+.a-product .price {
+    margin-top: 6px;
+}
+
+.a-product .title {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.a-product .image {
+    height: 170px;
+}
+
+
+
+.a-product .ratings .fa {
+    color: #f9b900;
+}
+
+.vendor-name {
+    background: #f9b900;
+    color: #000000;
+    font-size: 14px;
+    border-radius: 25px;
+    position: absolute;
+    left: 5px;
+    padding: 4px 15px;
+    bottom: 20px;
+}
+
+.overlay {
+    /*background: black;*/
+    /*height: 170px;*/
+    top: 170px;
+    position: absolute;
+    width: 100%;
+}
+
+.irs--sharp .irs-from, .irs--sharp .irs-to, .irs--sharp .irs-single {
+    background-color: #f9b900;
+}
+
+.irs--sharp .irs-from:before, .irs--sharp .irs-to:before, .irs--sharp .irs-single:before{
+    border-top-color: #f9b900;
+}
+
+.irs--sharp .irs-handle, .irs--sharp .irs-bar {
+    background-color: #f9b900;
+}
+
+.irs--sharp .irs-handle>i:first-child  {
+    border-top-color: #f9b900;
+}
+
+.irs--sharp .irs-min, .irs--sharp .irs-max {
+    background-color: #f9b900;
+}

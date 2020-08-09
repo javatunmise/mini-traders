@@ -8,6 +8,8 @@
     ViewData["Title"] = "Index";
 }
 
+    <link href="~/css/site-products-list.css" rel="stylesheet" />
+
     <div class="body-content outer-top-ts">
         <div class="container">
             <div class="row">
@@ -24,31 +26,54 @@
                 
                 <div class="woocommerce-notices-wrapper"></div>
                 <div class="clearfix filters-container m-t-10" style="margin-top: 0">
-                        <div class="row">
-                            <div class="col col-md-12 text-right"> <form class="woocommerce-ordering" method="get"> <select name="orderby" class="orderby" aria-label="Shop order"> <option value="popularity">Sort by popularity</option> <option value="rating">Sort by average rating</option> <option value="date" selected="selected">Sort by latest</option> <option value="price">Sort by price: low to high</option> <option value="price-desc">Sort by price: high to low</option> </select> <input type="hidden" name="paged" value="1"> </form></div>
+                    <div class="row">
+                        <div class="col col-md-12 text-right">
+                            <form class="woocommerce-ordering" method="get">
+                                <select name="orderby" class="orderby" aria-label="Shop order">
+                                    <option value="popularity">Sort by popularity</option>
+                                    <option value="rating">Sort by average rating</option>
+                                    <option value="date" selected="selected">Sort by latest</option>
+                                    <option value="price">Sort by price: low to high</option>
+                                    <option value="price-desc">Sort by price: high to low</option>
+                                </select> <input type="hidden" name="paged" value="1">
+                            </form>
                         </div>
-                    </div><div class="search-result-container">
+                    </div>
+                    </div>
+                    <div class="search-result-container">
                         <div id="myTabContent" class="tab-content category-list">
                             <div class="tab-pane active" id="grid-container">
-                                <div class="category-product">
+                                <div class="grid-product">
                                     <div class="row">
                                         @for(int i = 0; i< 20; i++) 
                                         {
-                                        <div class="col-sm-6 col-md-4 col-lg-4 wow fadeInUp animated" style="visibility: visible;">
-                                            <a href="/products/1-new-and-refurbished-lenovo-laptops-3/" class="woocommerce-LoopProduct-link woocommerce-loop-product__link"></a><div class="item">
-                                                <a href="/products/1-new-and-refurbished-lenovo-laptops-3/" class="woocommerce-LoopProduct-link woocommerce-loop-product__link"></a><div class="products">
-                                                    <a href="/products/1-new-and-refurbished-lenovo-laptops-3/" class="woocommerce-LoopProduct-link woocommerce-loop-product__link"></a><div class="product">
-                                                        <a href="/products/1-new-and-refurbished-lenovo-laptops-3/" class="woocommerce-LoopProduct-link woocommerce-loop-product__link"></a><div class="product-image">
-                                                            <a href="/products/1-new-and-refurbished-lenovo-laptops-3/" class="woocommerce-LoopProduct-link woocommerce-loop-product__link"></a><div class="image">
-                                                                <a href="/products/1-new-and-refurbished-lenovo-laptops-3/" class="woocommerce-LoopProduct-link woocommerce-loop-product__link"> </a><a href="/products/1-new-and-refurbished-lenovo-laptops-3/" title="New and Refurbished Lenovo Laptops">
-                                                                    <img src="~/images/products/p2-260x170.jpg" alt="New and Refurbished Lenovo Laptops">
-                                                                </a>
-                                                            </div><div class="tag new"><span>38%</span></div>
-                                                        </div><div class="product-info text-left"><div class="store"><a href="https://klbtheme.com/dealsdot/vendor/amazon/" title="New and Refurbished Lenovo Laptops">amazon</a></div><h3 class="name"><a href="/products/1-new-and-refurbished-lenovo-laptops-3/" title="New and Refurbished Lenovo Laptops">New and Refurbished Lenovo Laptops</a></h3><div class="star-rating" role="img" aria-label="Rated 4.00 out of 5"><span style="width:80%">Rated <strong class="rating rateit">4.00<button id="rateit-reset-2" data-role="none" class="rateit-reset" aria-label="reset rating" aria-controls="rateit-range-2" style="display: none;"></button><span id="rateit-range-2" class="rateit-range" tabindex="0" role="slider" aria-label="rating" aria-owns="rateit-reset-2" aria-valuemin="0" aria-valuemax="5" aria-valuenow="4" aria-readonly="true" style="width: 70px; height: 30px;"><span class="rateit-selected" style="height: 30px; width: 56px;"></span><span class="rateit-hover" style="height: 30px;"></span></span></strong> out of 5</span></div><div class="description"></div><div class="product-price"> <span class="price"><del><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>790.00</span></del> <ins><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>490.00</span></ins></span></div></div><div class="cart clearfix animate-effect"><div class="action"><ul class="list-unstyled"><li class="add-cart-button btn-group"><a href="?add-to-cart=205" data-quantity="1" class="btn btn-primary icon button product_type_simple add_to_cart_button ajax_add_to_cart" data-product_id="205" data-product_sku="" aria-label="Add “New and Refurbished Lenovo Laptops” to your cart" rel="nofollow"><i class="fa fa-shopping-cart"></i> Add to cart</a></li><li class="lnk wishlist"> <div class="tinv-wraper woocommerce tinv-wishlist tinvwl-shortcode-add-to-cart"> <div class="tinv-wishlist-clear"></div><a role="button" aria-label="Add to Wishlist" class="tinvwl_add_to_wishlist_button tinvwl-icon-heart tinvwl-position-after" data-tinv-wl-list="[]" data-tinv-wl-product="205" data-tinv-wl-productvariation="0" data-tinv-wl-productvariations="[0]" data-tinv-wl-producttype="simple" data-tinv-wl-action="addto"><span class="tinvwl_add_to_wishlist-text">Add to Wishlist</span></a><div class="tinv-wishlist-clear"></div><div class="tinvwl-tooltip">Add to Wishlist</div></div></li><li class="lnk compare"> <div class="woocommerce product compare-button"><a href="https://klbtheme.com/dealsdot?action=yith-woocompare-add-product&amp;id=205" class="compare button" data-product_id="205" rel="nofollow">Compare</a></div></li></ul></div></div>
-                                                    </div>
-                                                </div>
-                                            </div><div class="tinv-wraper woocommerce tinv-wishlist tinvwl-after-add-to-cart tinvwl-loop-button-wrapper">
-                                                <div class="tinv-wishlist-clear"></div><a role="button" aria-label="Add to Wishlist" class="tinvwl_add_to_wishlist_button tinvwl-icon-heart tinvwl-position-after" data-tinv-wl-list="[]" data-tinv-wl-product="205" data-tinv-wl-productvariation="0" data-tinv-wl-productvariations="[0]" data-tinv-wl-producttype="simple" data-tinv-wl-action="addto"><span class="tinvwl_add_to_wishlist-text">Add to Wishlist</span></a><div class="tinv-wishlist-clear"></div><div class="tinvwl-tooltip">Add to Wishlist</div>
+                                        <div class="a-product col-sm-6 col-md-4 col-lg-4">
+                                            <div class="overlay">
+                                                <a class="vendor-name" href="~/vendors/123-bettys-beauty">Betty's Beauty</a>
+                                            </div>
+                                            <div class="image">
+                                                <a href="~/products/123-same%20products">
+                                                    @if (i % 2 == 0)
+                                                    {
+                                                        <img src="~/images/products/bed.jpg" />
+                                                    }
+                                                    else
+                                                    {
+                                                        <img src="~/images/products/product-3.jpg" />
+                                                    }
+                                                </a>
+                                            </div>
+                                            <div class="title"><a href="~/products/123-same%20products">New and Refurbished Lenovo Laptops</a></div>
+                                            <div class="ratings">
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                            </div>
+                                            <div class="price">
+                                                <span class="price-before">N120.00</span>
+                                                <span class="price-current">N100.00</span>
                                             </div>
                                         </div>
                                         }
@@ -56,7 +81,8 @@
                                 </div>
                             </div>
                         </div>
-                    </div><nav class="woocommerce-pagination">
+                    </div>
+                    <nav class="woocommerce-pagination">
                         <ul class="page-numbers">
                             <li><span aria-current="page" class="page-numbers current">1</span></li>
                             <li><a class="page-numbers" href="https://klbtheme.com/dealsdot/shop/page/2/">2</a></li>
@@ -66,7 +92,7 @@
                 </div>
                 <div class="col-sm-3 col-xs-12 col-sm-pull-9 klb-sidebar sidebar">
                     <div class="sidebar-widget woocommerce widget_product_search">
-                        <form role="search" method="get" id="searchform" action="/">
+                        <form role="search" method="get" id="searchform" action="/search">
                             <div class="control-group"> <input type="text" class="search-field" value="" name="s" id="s" placeholder="Search"> <button type="submit" class="search-button"> </button> <input type="hidden" name="post_type" value="product"></div>
                         </form>
                     </div>
@@ -98,27 +124,32 @@
                             <li class="cat-item cat-item-38"><a href="/categories/10-sports/">Sports</a></li>
                             <li class="cat-item cat-item-25"><a href="/categories/11-watches/">Watches</a></li>
                         </ul>
-                    </div><div class="sidebar-widget widget_testimonial_slider">
-                        <div id="advertisement" class="advertisement owl-carousel owl-theme" style="opacity: 1; display: block;">
-                            <div class="owl-wrapper-outer">
-                                <div class="owl-wrapper" style="width: 1062px; left: 0px; display: block; transition: all 0ms ease 0s; transform: translate3d(0px, 0px, 0px);">
-                                    <div class="owl-item" style="width: 177px;">
-                                        <div class="item">
-                                            <div class="avatar"> <img src="/uploads/2019/12/member2.png" alt="Image"></div><div class="testimonials"> <em>"</em> Vtae sodales aliq uam morbi non sem lacus port mollis. Nunc condime tum metus eud molest sed consectetuer.<em>"</em></div><div class="clients_author"> Saraha Smith <span>Datsun &amp; Co</span></div>
-                                        </div>
-                                    </div><div class="owl-item" style="width: 177px;">
-                                        <div class="item">
-                                            <div class="avatar"> <img src="/uploads/2019/12/member1.png" alt="Image"></div><div class="testimonials"> <em>"</em> Vtae sodales aliq uam morbi non sem lacus port mollis. Nunc condime tum metus eud molest sed consectetuer.<em>"</em></div><div class="clients_author"> John Doe <span>KlbTheme</span></div>
-                                        </div>
-                                    </div><div class="owl-item" style="width: 177px;">
-                                        <div class="item">
-                                            <div class="avatar"> <img src="/uploads/2019/12/member3.png" alt="Image"></div><div class="testimonials"> <em>"</em> Vtae sodales aliq uam morbi non sem lacus port mollis. Nunc condime tum metus eud molest sed consectetuer.<em>"</em></div><div class="clients_author"> Stephen Doe <span>Xperia Designs</span></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div><div class="owl-controls clickable"><div class="owl-pagination"><div class="owl-page active"><span class=""></span></div><div class="owl-page"><span class=""></span></div><div class="owl-page"><span class=""></span></div></div><div class="owl-buttons"><div class="owl-prev"></div><div class="owl-next"></div></div></div>
+                    </div>
+                    @*<div class="sidebar-widget widget_testimonial_slider">
+            <div id="advertisement" class="advertisement owl-carousel owl-theme" style="opacity: 1; display: block;">
+                <div class="owl-wrapper-outer">
+                    <div class="owl-wrapper" style="width: 1062px; left: 0px; display: block; transition: all 0ms ease 0s; transform: translate3d(0px, 0px, 0px);">
+                        <div class="owl-item" style="width: 177px;">
+                            <div class="item">
+                                <div class="avatar"> <img src="/uploads/2019/12/member2.png" alt="Image"></div><div class="testimonials"> <em>"</em> Vtae sodales aliq uam morbi non sem lacus port mollis. Nunc condime tum metus eud molest sed consectetuer.<em>"</em></div><div class="clients_author"> Saraha Smith <span>Datsun &amp; Co</span></div>
+                            </div>
+                        </div><div class="owl-item" style="width: 177px;">
+                            <div class="item">
+                                <div class="avatar"> <img src="/uploads/2019/12/member1.png" alt="Image"></div><div class="testimonials"> <em>"</em> Vtae sodales aliq uam morbi non sem lacus port mollis. Nunc condime tum metus eud molest sed consectetuer.<em>"</em></div><div class="clients_author"> John Doe <span>KlbTheme</span></div>
+                            </div>
+                        </div><div class="owl-item" style="width: 177px;">
+                            <div class="item">
+                                <div class="avatar"> <img src="/uploads/2019/12/member3.png" alt="Image"></div><div class="testimonials"> <em>"</em> Vtae sodales aliq uam morbi non sem lacus port mollis. Nunc condime tum metus eud molest sed consectetuer.<em>"</em></div><div class="clients_author"> Stephen Doe <span>Xperia Designs</span></div>
+                            </div>
                         </div>
-                    </div><div class="sidebar-widget widget_text klb-widget-banner">			<div class="textwidget"><p><img src="/uploads/2019/12/LHS-banner.jpg" class="alignnone size-full wp-image-307" alt="" width="262" height="265"></p></div></div>
+                    </div>
+                </div><div class="owl-controls clickable"><div class="owl-pagination"><div class="owl-page active"><span class=""></span></div><div class="owl-page"><span class=""></span></div><div class="owl-page"><span class=""></span></div></div><div class="owl-buttons"><div class="owl-prev"></div><div class="owl-next"></div></div></div>
+            </div>
+        </div>*@
+
+                    <div>
+                        <img src="../images/banners/CONFORT.png" class="alignnone size-full wp-image-307" alt="" width="262" height="265">
+                    </div>
                 </div>
             </div>
         </div>
