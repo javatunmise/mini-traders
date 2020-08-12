@@ -21,16 +21,106 @@
 <div class="body-content outer-top-ts">
     <div class="container">
         <div class="row">
-            <div class="col-sm-9 col-sm-push-3">
-                @*<div id="category" class="category-carousel hidden-xs">
-                        <div class="item">
-                            <div class="image"> <img src="/uploads/2019/12/cat-banner-1.jpg" alt="BIG SALE" class="img-responsive"></div><div class="container-fluid">
-                                <div class="caption vertical-top text-left">
-                                    <div class="big-text"> BIG SALE</div><div class="excerpt hidden-sm hidden-md"> Save up to 49% off</div><div class="excerpt-normal hidden-sm hidden-md"> Lorem ipsum dolor sit amet, consectetur adipiscing elit</div><div class="buy-btn"><a href="#" class="lnk btn btn-primary">Shop Now</a></div>
+            <div class="col-sm-3 col-xs-12 klb-sidebar sidebar">
+                <div class="sidebar-widget woocommerce widget_product_search">
+                    <form role="search" method="get" id="searchform" action="/search">
+                        <div class="control-group">
+                            <input type="text" class="search-field" value="" name="s" id="s" placeholder="Search">
+                            <button type="submit" class="search-button" />
+                            <input type="hidden" id="post_type" value="product">
+                        </div>
+                    </form>
+                </div>
+
+                <div class="sidebar-widget widget_price_filter">
+                    <h3 class="section-title" style="margin-bottom: 0">Filter by location</h3>
+                    <form method="get" action="/search">
+                        <select name="location" class="form-control">
+                            @foreach (var loc in Model.Locations)
+                            {
+                                <option value="@loc.Id">@loc.Name</option>
+                            }
+                        </select>
+
+                        <br />
+                        <div class="price_slider_amount">
+                            <button type="submit" class="button">Filter</button>
+                        </div>
+
+                    </form>
+                </div>
+
+                <div class="sidebar-widget widget_price_filter">
+                    <h3 class="section-title" style="margin-bottom: 0">Filter by price</h3>
+                    <form method="get" action="/search">
+                        <div class="price_slider_wrapper">
+                            <div>
+                                <input type="text" class="js-range-slider" value="@Request.Query["my_range"]" style="visibility: hidden" />
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-5">
+                                    <input class="form-control" name="min_price" id="min_price" type="number" max="1000" value="0" />
+                                </div>
+                                <div class="form-group col-md-1 text-center">
+                                    <span> _ </span>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <input class="form-control" name="max_price" id="max_price" type="number" max="1000" value="1000" />
+                                </div>
+                            </div>
+                            <br />
+                            <div class="price_slider_amount">
+                                <button type="submit" class="button">Filter</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="sidebar-widget woocommerce widget_product_categories">
+                    <h3 class="section-title">Product categories</h3>
+                    <ul class="product-categories">
+                        @foreach (var cat in Model.Categories)
+                        {
+                            <li class="cat-item cat-item-28"><a href="/categories/@cat.Id-@cat.Name">@cat.Name</a></li>
+                        }
+                    </ul>
+                </div>
+                @*<div class="sidebar-widget widget_testimonial_slider">
+                <div id="advertisement" class="advertisement owl-carousel owl-theme" style="opacity: 1; display: block;">
+                    <div class="owl-wrapper-outer">
+                        <div class="owl-wrapper" style="width: 1062px; left: 0px; display: block; transition: all 0ms ease 0s; transform: translate3d(0px, 0px, 0px);">
+                            <div class="owl-item" style="width: 177px;">
+                                <div class="item">
+                                    <div class="avatar"> <img src="/uploads/2019/12/member2.png" alt="Image"></div><div class="testimonials"> <em>"</em> Vtae sodales aliq uam morbi non sem lacus port mollis. Nunc condime tum metus eud molest sed consectetuer.<em>"</em></div><div class="clients_author"> Saraha Smith <span>Datsun &amp; Co</span></div>
+                                </div>
+                            </div><div class="owl-item" style="width: 177px;">
+                                <div class="item">
+                                    <div class="avatar"> <img src="/uploads/2019/12/member1.png" alt="Image"></div><div class="testimonials"> <em>"</em> Vtae sodales aliq uam morbi non sem lacus port mollis. Nunc condime tum metus eud molest sed consectetuer.<em>"</em></div><div class="clients_author"> John Doe <span>KlbTheme</span></div>
+                                </div>
+                            </div><div class="owl-item" style="width: 177px;">
+                                <div class="item">
+                                    <div class="avatar"> <img src="/uploads/2019/12/member3.png" alt="Image"></div><div class="testimonials"> <em>"</em> Vtae sodales aliq uam morbi non sem lacus port mollis. Nunc condime tum metus eud molest sed consectetuer.<em>"</em></div><div class="clients_author"> Stephen Doe <span>Xperia Designs</span></div>
                                 </div>
                             </div>
                         </div>
-                    </div>*@
+                    </div><div class="owl-controls clickable"><div class="owl-pagination"><div class="owl-page active"><span class=""></span></div><div class="owl-page"><span class=""></span></div><div class="owl-page"><span class=""></span></div></div><div class="owl-buttons"><div class="owl-prev"></div><div class="owl-next"></div></div></div>
+                </div>
+            </div>*@
+
+                <div>
+                    <img src="../images/banners/CONFORT.png" class="alignnone size-full wp-image-307" alt="" width="262" height="265">
+                </div>
+            </div>
+            <div class="col-sm-9">
+                @*<div id="category" class="category-carousel hidden-xs">
+                <div class="item">
+                    <div class="image"> <img src="/uploads/2019/12/cat-banner-1.jpg" alt="BIG SALE" class="img-responsive"></div><div class="container-fluid">
+                        <div class="caption vertical-top text-left">
+                            <div class="big-text"> BIG SALE</div><div class="excerpt hidden-sm hidden-md"> Save up to 49% off</div><div class="excerpt-normal hidden-sm hidden-md"> Lorem ipsum dolor sit amet, consectetur adipiscing elit</div><div class="buy-btn"><a href="#" class="lnk btn btn-primary">Shop Now</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>*@
 
                 <div class="woocommerce-notices-wrapper"></div>
                 <div class="clearfix filters-container m-t-10" style="margin-top: 0">
@@ -98,67 +188,31 @@
                     </ul>
                 </nav>
             </div>
-            <div class="col-sm-3 col-xs-12 col-sm-pull-9 klb-sidebar sidebar">
-                <div class="sidebar-widget woocommerce widget_product_search">
-                    <form role="search" method="get" id="searchform" action="/search">
-                        <div class="control-group"> <input type="text" class="search-field" value="" name="s" id="s" placeholder="Search"> <button type="submit" class="search-button"> </button> <input type="hidden" name="post_type" value="product"></div>
-                    </form>
-                </div>
-                <div class="sidebar-widget woocommerce widget_price_filter">
-                    <h3 class="section-title">Filter by price</h3>
-                    <form method="get" action="/">
-                        <div class="price_slider_wrapper">
-                            <div>
-                                <input type="text" class="js-range-slider" name="my_range" value="" />
-                            </div>
-                            <br />
-                            <div class="price_slider_amount">
-                                <button type="submit" class="button">Filter</button>
-                            </div>
-                        </div>
-                    </form>
-                </div><div class="sidebar-widget woocommerce widget_product_categories">
-                    <h3 class="section-title">Product categories</h3>
-                    <ul class="product-categories">
-                        <li class="cat-item cat-item-28"><a href="/categories/1-books">Books</a></li>
-                        <li class="cat-item cat-item-22"><a href="/categories/2-clothing/">Clothing</a></li>
-                        <li class="cat-item cat-item-23"><a href="/categories/3-electronics/">Electronics</a></li>
-                        <li class="cat-item cat-item-39"><a href="/categories/4-fruit-veg/">Fruit &amp; Veg</a></li>
-                        <li class="cat-item cat-item-27"><a href="/categories/5-health-and-beauty/">Health and Beauty</a></li>
-                        <li class="cat-item cat-item-40"><a href="/categories/6-home-and-garden/">Home and Garden</a></li>
-                        <li class="cat-item cat-item-26"><a href="/categories/7-jewellery/">Jewellery</a></li>
-                        <li class="cat-item cat-item-29"><a href="/categories/8-kids-and-babies/">Kids and Babies</a></li>
-                        <li class="cat-item cat-item-24"><a href="/categories/9-shoes/">Shoes</a></li>
-                        <li class="cat-item cat-item-38"><a href="/categories/10-sports/">Sports</a></li>
-                        <li class="cat-item cat-item-25"><a href="/categories/11-watches/">Watches</a></li>
-                    </ul>
-                </div>
-                @*<div class="sidebar-widget widget_testimonial_slider">
-                        <div id="advertisement" class="advertisement owl-carousel owl-theme" style="opacity: 1; display: block;">
-                            <div class="owl-wrapper-outer">
-                                <div class="owl-wrapper" style="width: 1062px; left: 0px; display: block; transition: all 0ms ease 0s; transform: translate3d(0px, 0px, 0px);">
-                                    <div class="owl-item" style="width: 177px;">
-                                        <div class="item">
-                                            <div class="avatar"> <img src="/uploads/2019/12/member2.png" alt="Image"></div><div class="testimonials"> <em>"</em> Vtae sodales aliq uam morbi non sem lacus port mollis. Nunc condime tum metus eud molest sed consectetuer.<em>"</em></div><div class="clients_author"> Saraha Smith <span>Datsun &amp; Co</span></div>
-                                        </div>
-                                    </div><div class="owl-item" style="width: 177px;">
-                                        <div class="item">
-                                            <div class="avatar"> <img src="/uploads/2019/12/member1.png" alt="Image"></div><div class="testimonials"> <em>"</em> Vtae sodales aliq uam morbi non sem lacus port mollis. Nunc condime tum metus eud molest sed consectetuer.<em>"</em></div><div class="clients_author"> John Doe <span>KlbTheme</span></div>
-                                        </div>
-                                    </div><div class="owl-item" style="width: 177px;">
-                                        <div class="item">
-                                            <div class="avatar"> <img src="/uploads/2019/12/member3.png" alt="Image"></div><div class="testimonials"> <em>"</em> Vtae sodales aliq uam morbi non sem lacus port mollis. Nunc condime tum metus eud molest sed consectetuer.<em>"</em></div><div class="clients_author"> Stephen Doe <span>Xperia Designs</span></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div><div class="owl-controls clickable"><div class="owl-pagination"><div class="owl-page active"><span class=""></span></div><div class="owl-page"><span class=""></span></div><div class="owl-page"><span class=""></span></div></div><div class="owl-buttons"><div class="owl-prev"></div><div class="owl-next"></div></div></div>
-                        </div>
-                    </div>*@
-
-                <div>
-                    <img src="../images/banners/CONFORT.png" class="alignnone size-full wp-image-307" alt="" width="262" height="265">
-                </div>
-            </div>
         </div>
     </div>
 </div>
+
+
+@section sliderScript {
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".js-range-slider").ionRangeSlider({
+                type: "double",
+                min: 0,
+                max: 1000,
+                from: 200,
+                to: 500,
+                grid: false,
+                hide_min_max: true,
+                hide_from_to: true,
+                skin: "sharp",
+                onFinish: function(data) {
+                    $('#min_price').val(data.from);
+                    $('#max_price').val(data.to);
+                }
+            });
+
+        });
+    </script>
+}

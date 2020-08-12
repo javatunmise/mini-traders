@@ -4,14 +4,24 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using site.Data;
 
 namespace site.Pages.Categories
 {
     public class IndexModel : PageModel
     {
-        public void OnGet()
-        {
+        private readonly ISiteContentProvider _provider;
 
+        public IEnumerable<MarketLocation> Locations { get; private set; }
+
+        public IndexModel(ISiteContentProvider provider)
+        {
+            _provider = provider;
+        }
+
+        public async Task OnGet()
+        {
+            Locations =  await _provider.GetLocations();
         }
 
         [BindProperty(SupportsGet = true)]

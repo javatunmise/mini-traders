@@ -61,3 +61,7 @@
 .irs--sharp .irs-min, .irs--sharp .irs-max {
     background-color: #f9b900;
 }
+
+.irs--sharp .irs-line {
+    background-color: #b1bec4;
+}
