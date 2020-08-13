@@ -2,40 +2,8 @@
 @{
     var topCategorieis = Model.Where(c => c.Parent == null);
 
-    Func<site.Data.Category, string> GetPath = (category) => $"{category.Id}-{category.Name}";
+    Func<site.Data.Category, string> GetPath = site.Helpers.PathUtil.GetCategoryPath;
 }
-
-@*<p><i class="fa fa-bars"></i>All Categories</p>
-    <ul class="list-unstyled gt-menu all-categories">
-        @foreach (var category in topCategorieis)
-        {
-            <li>
-                <a href="~/categories/@GetPath(category)" )">
-                    <span class="fa fa-@(string.IsNullOrWhiteSpace(category.IconClass) ? "cart-plus" : category.IconClass)"></span>&nbsp;&nbsp;
-                    @category.Name
-                    <i class="fa fa-angle-right @(category.Children.Any() ? "visible" : "invisible")"></i>
-                </a>
-
-                @if (category.Children.Any())
-                {
-                    <div class="mega-menu custom">
-                        <div class="mega-menu-container">
-                            @foreach (var child in category.Children.OrderByDescending(c => c.Children.Count()))
-                            {
-                                <div class="section">
-                                    <div class="title"><a href="~/categories/@GetPath(child)?parent=@($"{category.Id}|{child.Name}")">@child.Name</a></div>
-                                    @foreach (var leafChild in child.Children)
-                                    {
-                                        <a href="~/categories/@GetPath(leafChild)?parent=@($"{child.Id}|{child.Name}")">&minus; @leafChild.Name</a>
-                                    }
-                                </div>
-                            }
-                        </div>
-                    </div>
-                }
-            </li>
-        }
-    </ul>*@
 
 <div class="sidebar">
     <div class="side-menu side-menu-inner animate-dropdown outer-bottom-xs">
@@ -43,13 +11,10 @@
             <ul class="nav">
                 @foreach (var category in topCategorieis)
                 {
-                    @*<li class="menu-item">
-                        <a href="/vendor/amazon/" title="On Sale!">On Salex! <span>7584</span></a>
-                    </li>*@
                     if (category.Children.Any())
                     {
                         <li class="dropdown menu-item">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="/categories/@GetPath(category)" target="_self" title="@category.Name">@category.Name</a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="@GetPath(category)" target="_self" title="@category.Name">@category.Name</a>
                             <ul class="dropdown-menu mega-menu">
                                 <li class="yamm-content cat-sub-menu">
                                     <div class="row">
@@ -57,13 +22,13 @@
                                         {
                                         <div class="col-sm-6 col-md-4 col-xs-12 col-lg-4">
 
-                                            <a class="@(levelOneCateg.Children.Any() ? "cat-title" : "cat-title-nochild")" href="/categories/@GetPath(levelOneCateg)" target="_self" title="@levelOneCateg.Name"><b>@levelOneCateg.Name</b></a>
+                                            <a class="@(levelOneCateg.Children.Any() ? "cat-title" : "cat-title-nochild")" href="@GetPath(levelOneCateg)" target="_self" title="@levelOneCateg.Name"><b>@levelOneCateg.Name</b></a>
 
                                             <ul class="links list-unstyled">
                                                 @foreach (var levelTwoCateg in levelOneCateg.Children)
                                                 {
                                                     <li>
-                                                        &raquo; <a href="/categories/@GetPath(levelTwoCateg)" target="_self" title="@levelTwoCateg.Name">
+                                                        &raquo; <a href="@GetPath(levelTwoCateg)" target="_self" title="@levelTwoCateg.Name">
                                                                 @(levelTwoCateg.Name?.Length < 20 ? levelTwoCateg.Name : $"{levelTwoCateg.Name.Substring(0, 20)}...")
                                                                </a>
                                                     </li>
@@ -71,99 +36,13 @@
                                             </ul>
                                         </div>
                                         }
-                                        @*<div class="col-sm-12 col-md-3">
-            <ul class="links list-unstyled">
-                <li>
-                    <a href="#" target="_self" title="Handbags">Handbags</a>
-                </li>
-                <li>
-                    <a href="#" target="_self" title="Jwellery">Jwellery</a>
-                </li>
-                <li>
-                    <a href="#" target="_self" title="Swimwear">Swimwear</a>
-                </li>
-                <li>
-                    <a href="#" target="_self" title="Tops">Tops</a>
-                </li>
-                <li>
-                    <a href="#" target="_self" title="Flats">Flats</a>
-                </li>
-                <li>
-                    <a href="#" target="_self" title="Shoes">Shoes</a>
-                </li>
-                <li>
-                    <a href="#" target="_self" title="Winter Wear">Winter Wear</a>
-                </li>
-                <li>
-                    <a href="#" target="_self" title="Night Suits">Night Suits</a>
-                </li>
-            </ul>
-        </div>
-        <div class="col-sm-12 col-md-3">
-            <ul class="links list-unstyled">
-                <li>
-                    <a href="#" target="_blank" title="Toys &amp; Games">Toys &amp; Games</a>
-                </li>
-                <li>
-                    <a href="#" target="_blank" title="Jeans">Jeans</a>
-                </li>
-                <li>
-                    <a href="#" target="_blank" title="Shirts">Shirts</a>
-                </li>
-                <li>
-                    <a href="#" target="_blank" title="Shoes">Shoes</a>
-                </li>
-                <li>
-                    <a href="#" target="_blank" title="School Bags">School Bags</a>
-                </li>
-                <li>
-                    <a href="#" target="_blank" title="Lunch Box">Lunch Box</a>
-                </li>
-                <li>
-                    <a href="#" target="_blank" title="Footwear">Footwear</a>
-                </li>
-                <li>
-                    <a href="#" target="_blank" title="Wipes">Wipes</a>
-                </li>
-            </ul>
-        </div>
-        <div class="col-sm-12 col-md-3">
-            <ul class="links list-unstyled">
-                <li>
-                    <a href="#" target="_self" title="Sandals">Sandals</a>
-                </li>
-                <li>
-                    <a href="#" target="_self" title="Shorts">Shorts</a>
-                </li>
-                <li>
-                    <a href="#" target="_self" title="Dresses">Dresses</a>
-                </li>
-                <li>
-                    <a href="#" target="_self" title="Jwellery">Jwellery</a>
-                </li>
-                <li>
-                    <a href="#" target="_self" title="Bags">Bags</a>
-                </li>
-                <li>
-                    <a href="#" target="_self" title="Night Dress">Night Dress</a>
-                </li>
-                <li>
-                    <a href="#" target="_self" title="Swim Wear">Swim Wear</a>
-                </li>
-                <li>
-                    <a href="#" target="_self" title="Toys">Toys</a>
-                </li>
-            </ul>
-        </div>*@
+                                       
                                     </div>
                                 </li>
                             </ul>
                         </li>
                     }
                 }
-                @*<li class="menu-item">
-                    <a href="#" title="Books">Services</a>
-                </li>*@
             </ul>
         </nav>
     </div>

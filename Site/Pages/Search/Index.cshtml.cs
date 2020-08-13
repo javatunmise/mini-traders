@@ -14,6 +14,7 @@ namespace site.Pages.Search
 
         public IEnumerable<Category> Categories { get; private set; }
         public IEnumerable<MarketLocation> Locations { get; private set; }
+        public SearchQuery Query { get; set; }
 
         public IndexModel(ISiteContentProvider provider)
         {
@@ -33,6 +34,7 @@ namespace site.Pages.Search
 
             Categories = (await _provider.GetAllCategories()).Where(c => c.Parent == null);
             Locations = await _provider.GetLocations();
+            Query = query;
         }
     }
 

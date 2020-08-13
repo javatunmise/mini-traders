@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -266,6 +267,12 @@ new Category { Id = 99, Parent = new Category { Id = 9 }, Name = "Inspiration Bo
 new Category { Id = 990, Parent = new Category { Id = 9 }, Name = "Law books" },
 
             };
+
+            foreach(var cat in categories)
+            {
+                if (cat.Parent != null && string.IsNullOrEmpty(cat.Parent.Name))
+                    cat.Parent.Name = categories.SingleOrDefault(c => c.Id == cat.Parent.Id)?.Name;
+            }
 
             await Task.CompletedTask;
 
