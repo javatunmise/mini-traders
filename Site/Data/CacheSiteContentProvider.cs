@@ -26,8 +26,14 @@ namespace site.Data
         public Task<IEnumerable<MarketLocation>> GetLocations()
         {
             string[] items = new[] { "UniversityofLagos", "CovenantUniversity", "UniversityofNigeria", "ObafemiAwolowoUniversity", "UniversityofIlorin", "AhmaduBelloUniversity", "UniversityofAbuja", "FederalUniversityofTechnology,Akure", "UniversityofIbadan", "FederalUniversityofTechnology,Minna", "FederalUniversityofAgriculture,Abeokuta", "AfeBabalolaUniversity", "RiversStateUniversity", "LadokeAkintolaUniversityofTechnology", "BayeroUniversityKano", "UniversityofJos", "LandmarkUniversity", "FUTO", "FederalUniversity,Oye-Ekiti", "AbubakarTafawaBalewaUniversity", "Uni-Uyo", "LASU", "Uni-Ben", "OlabisiOnabanjoUniversity", "NnamdiAzikiweUniversity" };
+            var locations = items.Select((loc, ind) => new MarketLocation { Id = ind + 1, Name = loc }).ToList();
 
-            return Task.FromResult(items.Select((loc, ind) => new MarketLocation { Id = ind + 1, Name = loc }));
+            locations.Add(new MarketLocation { Parent = locations[0], Id = 10000, Name = "King Jaja Hostel" });
+            locations.Add(new MarketLocation { Parent = locations[0], Id = 10001, Name = "Queen Moremi Hall" });
+            locations.Add(new MarketLocation { Parent = locations[0], Id = 10002, Name = "Madam Tinubu Hall" });
+            locations.Add(new MarketLocation { Parent = locations[0], Id = 10003, Name = "Off-Campus" });
+
+            return Task.FromResult(locations.AsEnumerable());
         }
 
         public async Task<IEnumerable<CompanyLogo>> GetSitePartnersLogos()

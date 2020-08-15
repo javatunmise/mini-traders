@@ -492,3 +492,7 @@ header {
 }
 
     /* main-headers: #40535c,  #1595a2 */
+
+.validation-summary-errors {
+    margin-bottom: 15px;
+}

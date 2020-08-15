@@ -124,6 +124,7 @@ namespace site.Data
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public MarketLocation Parent { get; set; }
     }
 
     public class Carousel

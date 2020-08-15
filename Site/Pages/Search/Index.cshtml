@@ -18,7 +18,6 @@
     </ol>
 }
 
-
 <link href="~/css/site-products-list.css" rel="stylesheet" />
 
 <div class="body-content outer-top-ts">
@@ -36,26 +35,41 @@
                     <div class="sidebar-widget widget_price_filter">
                         <h3 class="section-title" style="margin-bottom: 0">Filter by location</h3>
 
-                        <select name="location" class="form-control">
+                        <select name="location" id="location" class="form-control">
                             <option value="0">Any Locations</option>
 
                             @foreach (var loc in Model.Locations)
                             {
+                                if (loc.Id.ToString() == Model.Query.LocationId)
+                                {
+                                <option value="@loc.Id" selected>@loc.Name</option>
+                                }
+                                else
+                                {
                                 <option value="@loc.Id">@loc.Name</option>
+                                }
                             }
                         </select>
-                        <div style="padding-top: 15px;">
-                            <select name="sub_location" class="form-control">
+                        <div style="padding-top: 15px;" id="sub_location_container">
+                            <select name="sub_location" id="sub_location" class="form-control">
                                 <option value="0">Any Locations</option>
-                                @foreach (var loc in Model.Locations.Skip(4).Take(3))
+                                @foreach (var loc in Model.SubLocations)
                                 {
-                                    <option value="@loc.Id">@loc.Name</option>
+                                    if (loc.Id.ToString() == Model.Query.SubLocationId)
+                                    {
+                                        <option value="@loc.Id" selected>@loc.Name</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@loc.Id">@loc.Name</option>
+                                    }
                                 }
                             </select>
                         </div>
 
                         <br />
                         <div class="price_slider_amount">
+                            <img id="spinner" src="~/images/spinner.jpg" style="height:45px; display: none" />
                             <button type="submit" class="button">Filter</button>
                         </div>
 
@@ -120,8 +134,9 @@
                     </div>*@
 
                 <div>
-                    <img src="../images/banners/CONFORT.png" class="alignnone size-full wp-image-307" alt="" width="262" height="265">
+                    <img src="../images/banners/CONFORT.png" alt="" width="262" height="265">
                 </div>
+                <br />
             </div>
             <div class="col-sm-9">
                 @*<div id="category" class="category-carousel hidden-xs">
@@ -195,8 +210,8 @@
                 <nav class="woocommerce-pagination">
                     <ul class="page-numbers">
                         <li><span aria-current="page" class="page-numbers current">1</span></li>
-                        <li><a class="page-numbers" href="https://klbtheme.com/dealsdot/shop/page/2/">2</a></li>
-                        <li><a class="next page-numbers" href="https://klbtheme.com/dealsdot/shop/page/2/"></a></li>
+                        <li><a class="page-numbers" href="./page/2/">2</a></li>
+                        <li><a class="next page-numbers" href="./page/2/"></a></li>
                     </ul>
                 </nav>
             </div>
@@ -226,5 +241,50 @@
             });
 
         });
+    </script>
+
+    <script type="text/javascript">
+        $('#location').change(function () {
+            var locId = $(this).val();
+            if (locId == 0) {
+                hideSubLocations();
+            }
+            else {
+                getSubLocs(locId);
+            }
+        });
+
+        function getSubLocs(id) {
+            showHideSpinner(true);
+            fetch('/api/data/sublocations/' + id)
+                .then(response => response.json())
+                .then(data => loadSelect(data))
+                .catch(function () {
+                    showHideSpinner(false);
+                });
+        }
+
+        function loadSelect(data) {
+            $('#sub_location').empty();
+            $('#sub_location').append($("<option />").val(0).text("Any Location"));
+            $.each(data, function (i, item) {
+                $('#sub_location').append($("<option />").val(item.id).text(item.name));
+            });
+
+            showHideSpinner(false);
+        }
+
+        function showHideSpinner(show) {
+            if (show) {
+                $('#spinner').show();
+            }
+            else {
+                $('#spinner').hide();
+            }
+        }
+
+        function hideSubLocations() {
+            $('#sub_location_container').hide();
+        }
     </script>
 }

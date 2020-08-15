@@ -37,8 +37,8 @@ namespace Site
             });
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlite(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddDefaultIdentity<IdentityUser>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
@@ -46,7 +46,12 @@ namespace Site
             services.AddScoped<IPageRepository, PageRepository>();
             services.AddSingleton<site.Data.ISiteContentProvider, site.Data.CacheSiteContentProvider>();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+                .AddRazorPagesOptions(options =>
+                {
+                    options.Conventions.AuthorizeFolder("/Profile");
+                    options.Conventions.AuthorizePage("/Sellers/Registration");
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
