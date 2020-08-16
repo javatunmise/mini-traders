@@ -26,31 +26,51 @@
                     <div class="col-md-12 col-sm-12 sign-in">
                         <div class="wcmp_regi_main">
                             <form class="register-form outer-top-xs register" role="form" method="post" enctype="multipart/form-data">
-                                <h4>Vendor Registration Form</h4>
+                                <h4>Seller Registration Form</h4>
+
+                                <div asp-validation-summary="All" class="text-danger"></div>
+                                <br />
 
                                 <div class="wcmp_regi_form_box">
 
                                     <div class="wcmp-regi-12">
-                                        <label for="reg_username">Username <span class="required">*</span></label>
+                                        <label for="reg_username">Store Name <span class="required">*</span></label>
                                         <input type="text" class="form-control unicase-form-control " name="username" id="reg_username" value="" required="required">
                                     </div>
+
+                                    <br />
                                     <div class="wcmp-regi-12">
-                                        <label for="reg_email">Email address <span class="required">*</span></label>
-                                        <input type="email" class="form-control unicase-form-control" required="required" name="email" id="reg_email" value="">
+                                        <label for="reg_email">Campus <span class="required">*</span></label>
+                                        <select class="form-control unicase-form-control">
+                                            <option>Unilag</option>
+                                        </select>
                                     </div>
+                                    <br />
                                     <div class="wcmp-regi-12">
-                                        <label for="reg_password">Password <span class="required">*</span></label>
-                                        <input type="password" class="form-control unicase-form-control" required="required" name="password" id="reg_password">
+                                        <label for="reg_email">Hostel <span class="required">*</span></label>
+                                        <select class="form-control unicase-form-control">
+                                            <option>Moremi</option>
+                                        </select>
                                     </div>
-                                    <div style="left: -999em; position: absolute;"><label for="trap">Anti-spam</label><input type="text" name="email_2" id="trap" tabindex="-1"></div>
-                                    <input type="hidden" id="woocommerce-register-nonce" name="woocommerce-register-nonce" value="93195e5463"><input type="hidden" name="_wp_http_referer" value="/dealsdot/vendor-registration/">																														<div class="clearboth"></div>
+
+                                    <br />
+                                    <div class="wcmp-regi-12">
+                                        <label for="reg_username">Referral Code <span class="required">*</span></label>
+                                        <input type="text" class="form-control unicase-form-control " name="username" id="referral_code" value="" placeholder="893SK3JE">
+                                    </div>
+
+
                                 </div>
 
-                                <input type="hidden" value="true" name="pending_vendor">
-                                <div class="woocommerce-privacy-policy-text">
-                                    <p>Your personal data will be used to support your experience throughout this website, to manage access to your account, and for other purposes described in our <a href="https://klbtheme.com/dealsdot/?page_id=3" class="woocommerce-privacy-policy-link" target="_blank">privacy policy</a>.</p>
-                                </div>									<p class="woocomerce-FormRow form-row">
-                                    <button type="submit" class="btn-upper btn btn-primary checkout-page-button" name="register">Register</button>
+                                <br />
+                                <div>
+                                    <input type="checkbox" onchange="chkBoxClicked()" name="t-box" id="t-box">
+                                    <label for="t-box">I have read the <a href="~/pages/terms-and-condition">terms & conditions</a>.</label>
+                                </div>
+                                <br />
+
+                                <p>
+                                    <button type="submit" class="btn-upper btn btn-primary checkout-page-button" name="register" id="register_button">Register</button>
                                 </p>
                             </form>
                         </div>
@@ -62,3 +82,26 @@
     </div>
 
 </div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script type="text/javascript">
+        function chkBoxClicked() {
+            var chkbox = document.getElementById('t-box');
+
+            enableRegisterButton(chkbox.checked);
+        }
+
+        function enableRegisterButton(agreementIsRead) {
+            var submitButton = document.getElementById('register_button');
+            if (agreementIsRead) {
+                submitButton.removeAttribute("disabled");
+                return;
+            }
+
+            submitButton.setAttribute("disabled", "disabled");
+        }
+    </script>
+}
