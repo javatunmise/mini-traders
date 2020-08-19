@@ -12,15 +12,15 @@ namespace Sellers
     {
         void Execute()
         {
-            var account = new Visitor().SignUpAsSeller();
-            var store = CreateStore(account);
+            //var account = new Visitor().SignUpAsSeller();
+            //var store = CreateStore(account);
         }
 
         private Store CreateStore(Account account)
         {
             if(account.IsActive)
             {
-                return new Store();
+                //return new Store();
             }
 
             throw new Exception("Store creation not permitted");
@@ -29,7 +29,7 @@ namespace Sellers
 
     class StoreManager
     {
-        public Store AssignStore(Account account)
+        public Store AssignStore(Shared.Account account)
         {
             var stores = GetExistingStores(account.Id);
             if (stores.Any())
@@ -49,12 +49,6 @@ namespace Sellers
         }
     }
 
-    class StoreOwner
-    {
-        Store Store { get; }
-        Account Account { get; }
-    }
-
     public class Seller
     {
         void createStore() { }
@@ -65,36 +59,9 @@ namespace Sellers
     {
 
     }
-    class Store
-    {
-        public Account Owner { get; internal set; }
-    }
 
     class Authority //Admin, System
     {
 
-    }
-
-    class Visitor
-    {
-        public Account SignUpAsSeller()
-        {
-            //An account is created
-            //A store is given, in a specific location
-
-            //verification of credentials before account is created: valid id
-            return new Account();
-        }
-
-        public Account SignUpAsUser()
-        {
-            return new Account();
-        }
-    }
-
-    class Account
-    {
-        public bool IsActive { get; internal set; }
-        public int Id { get; internal set; }
     }
 }

@@ -29,6 +29,7 @@
     <Folder Include="Data\Repositories\" />
     <Folder Include="wwwroot\assets\images\" />
     <Folder Include="wwwroot\fonts\" />
+    <Folder Include="wwwroot\images\uploads_docs\" />
     <Folder Include="wwwroot\js\assets\" />
     <Folder Include="wwwroot\lib\simple-line-icons\dist\css\" />
   </ItemGroup>
@@ -42,6 +43,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\sellers\sellers.csproj" />
+    <ProjectReference Include="..\shared\Shared.csproj" />
     <ProjectReference Include="..\siteinfo\siteinfo.csproj" />
   </ItemGroup>
 

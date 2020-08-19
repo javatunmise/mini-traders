@@ -14,6 +14,7 @@ using Site.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using siteinfo;
+using site.Repositories;
 
 namespace Site
 {
@@ -45,6 +46,9 @@ namespace Site
 
             services.AddScoped<IPageRepository, PageRepository>();
             services.AddSingleton<site.Data.ISiteContentProvider, site.Data.CacheSiteContentProvider>();
+            services.AddSingleton<ISellerRepository, SellerRepository>();
+            services.AddSingleton<AccountRepository>();
+            services.AddSingleton<StoreRepository>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddRazorPagesOptions(options =>

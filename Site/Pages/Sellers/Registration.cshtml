@@ -34,29 +34,59 @@
                                 <div class="wcmp_regi_form_box">
 
                                     <div class="wcmp-regi-12">
-                                        <label for="reg_username">Store Name <span class="required">*</span></label>
-                                        <input type="text" class="form-control unicase-form-control " name="username" id="reg_username" value="" required="required">
+                                        <label asp-for="Input.StoreName">Business name <span class="required">*</span></label>
+                                        <input class="form-control unicase-form-control " asp-for="Input.StoreName">
                                     </div>
 
                                     <br />
                                     <div class="wcmp-regi-12">
-                                        <label for="reg_email">Campus <span class="required">*</span></label>
-                                        <select class="form-control unicase-form-control">
-                                            <option>Unilag</option>
+                                        <label asp-for="Input.StoreDescription">About your business <span class="required">*</span></label>
+                                        <textarea class="form-control unicase-form-control" asp-for="Input.StoreDescription"></textarea>
+                                    </div>
+
+                                    <br />
+                                    <div class="wcmp-regi-12">
+                                        <label asp-for="Input.CampusId">Campus <span class="required">*</span></label>
+                                        <select class="form-control unicase-form-control" asp-for="Input.CampusId" asp-items="Model.Campuses" onchange="locationChanged()">
+                                            <option value="">-- Select Campus --</option>
                                         </select>
+
+                                        <img src="../images/spinner.jpg" style="height:48px; display: none" id="location-spinner" />
                                     </div>
                                     <br />
                                     <div class="wcmp-regi-12">
-                                        <label for="reg_email">Hostel <span class="required">*</span></label>
-                                        <select class="form-control unicase-form-control">
-                                            <option>Moremi</option>
+                                        <label asp-for="Input.HostelId">Hostel <span class="required">*</span></label>
+                                        <select class="form-control unicase-form-control" asp-for="Input.HostelId">
+                                            <option value="0">Anywhere on campus</option>
                                         </select>
                                     </div>
 
                                     <br />
                                     <div class="wcmp-regi-12">
-                                        <label for="reg_username">Referral Code <span class="required">*</span></label>
-                                        <input type="text" class="form-control unicase-form-control " name="username" id="referral_code" value="" placeholder="893SK3JE">
+                                        <label asp-for="DocUpload">Means of Identification (e.g. ID Card) <span class="required">*</span></label>
+                                        <input class="form-control" asp-for="DocUpload">
+
+                                    </div>
+
+                                    @*<br />*@
+
+                                    @*<div id="bio-data-form" class="hide">
+            <div class="wcmp-regi-12">
+                <label for="reg_username">First Name <span class="required">*</span></label>
+                <input type="text" class="form-control" asp-for="Input.BioData.FirstName" placeholder="0029931">
+            </div>
+            <br />
+            <div class="wcmp-regi-12">
+                <label for="reg_username">Last Name <span class="required">*</span></label>
+                <input type="text" class="form-control" asp-for="Input.BioData.LastName" placeholder="0029931">
+            </div>
+        </div>*@
+
+
+                                    <br />
+                                    <div class="wcmp-regi-12">
+                                        <label asp-for="Input.ReferrerCode">Referral Code <span class="required">*</span></label>
+                                        <input class="form-control" asp-for="Input.ReferrerCode" placeholder="893SK3JE">
                                     </div>
 
 
@@ -70,7 +100,7 @@
                                 <br />
 
                                 <p>
-                                    <button type="submit" class="btn-upper btn btn-primary checkout-page-button" name="register" id="register_button">Register</button>
+                                    <button type="submit" class="btn-upper btn btn-primary checkout-page-button" name="register" id="register_button" disabled>Register</button>
                                 </p>
                             </form>
                         </div>
@@ -81,7 +111,7 @@
 
     </div>
 
-</div>
+</div> 
 
 
 @section Scripts {
@@ -103,5 +133,48 @@
 
             submitButton.setAttribute("disabled", "disabled");
         }
+
+        function showOrHideBioData() {
+            var noStudentId = document.getElementById('chk-biodata').checked;
+            if (noStudentId) {
+                $('#bio-data-form').removeClass('hide');
+            }
+            else {
+                $('#bio-data-form').addClass('hide');
+            }
+        }
+
+        function locationChanged() {
+            showHideSpinner(true);
+            var id = document.getElementById('Input_CampusId').value;
+
+            fetch('/api/data/sublocations/' + id)
+                .then(response => response.json())
+                .then(data => loadSelect(data))
+                .catch(function () {
+                    showHideSpinner(false);
+                });
+        }
+
+        function loadSelect(data) {
+            var elem = $('#Input_HostelId');
+            elem.empty();
+            elem.append($("<option />").val('0').text('Anywhere on campus'));
+            $.each(data, function (i, item) {
+                elem.append($("<option />").val(item.id).text(item.name));
+            });
+
+            showHideSpinner(false);
+        }
+
+        function showHideSpinner(show) {
+            if (show) {
+                $('#location-spinner').show();
+            }
+            else {
+                $('#location-spinner').hide();
+            }
+        }
+
     </script>
 }
