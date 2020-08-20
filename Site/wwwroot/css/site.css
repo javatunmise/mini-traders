@@ -504,3 +504,16 @@ header {
 .form-control:focus {
     border-color: #b3d1ec !important;
 }
+
+.store-items .media img {
+    width: 80px; height: 80px;
+}
+
+.store-items .listing {
+    margin-bottom: 15px;
+}
+
+.store-items .action-buttons {
+    margin-top: 10px;
+    text-align: right;
+}

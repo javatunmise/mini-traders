@@ -35,9 +35,15 @@ namespace site.Pages.Sellers
             _storeRepository = storeRepository;
         }
 
-        public async Task OnGet()
+        public async Task<IActionResult> OnGet()
         {
+            var currentUser = await _accountRepository.FindByUsername(User.Identity.Name);
+
+            if (currentUser.HasStore)
+                return RedirectToPage("/Profile/Store");
+
             await InitFormData();
+            return Page();
         }
 
         private async Task InitFormData()
