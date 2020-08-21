@@ -1,0 +1,73 @@
+﻿@page
+@model site.Pages.Profile.IndexModel
+@{
+    ViewData["Title"] = "MY STORE";
+
+    Layout = "~/Pages/Shared/_LayoutProfile.cshtml";
+}
+
+
+@section BreadCrumbs {
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page"><a href="/Profile">Profile</a></li>
+        <li class="breadcrumb-item active" aria-current="page">My Store</li>
+    </ol>
+}
+
+<div class="store-items">
+
+        <div class="store-manage-links">
+            <a href="/Profile/Store/Settings">Settings</a>
+        </div>
+
+        <hr />
+
+        <div class="store-filter">
+
+            <form class="form-inline">
+                <label class="sr-only" for="inlineFormInputName2">Merchandize</label>
+                <select class="form-control mb-2 mr-sm-2">
+                    <option value="0">Products</option>
+                    <option value="1">Services</option>
+                </select>
+
+                <button type="submit" class="btn btn-primary mb-2">Search</button>
+            </form>
+        </div>
+
+        <hr />
+
+        <ul class="list-unstyled">
+            @for (int i = 1; i <= 3; i++)
+            {
+                <li class="media listing">
+                    <img src="../images/products/product-@(i).jpg" class="mr-3" alt="...">
+                    <div class="media-body">
+                        <h4 class="mt-0 mb-1">Adult Tooth Brush - Imported</h4>
+                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+
+                        <div class="action-buttons">
+                            <button type="button" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i> Edit</button>
+                        </div>
+                    </div>
+                </li>
+            }
+        </ul>
+
+        <hr />
+
+        <nav aria-label="Page navigation example" style="float: right;">
+            <ul class="pagination justify-content-end">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#">Next</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
