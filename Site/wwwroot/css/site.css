@@ -517,3 +517,7 @@ header {
     margin-top: 10px;
     text-align: right;
 }
+
+label {
+    font-weight: 400;
+}

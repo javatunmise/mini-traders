@@ -1,11 +1,27 @@
-﻿<div class="top-bar animate-dropdown">
+﻿@inject site.Repositories.AccountRepository _accountRep
+
+@{ 
+    bool? hasStore = false;
+    if (User.Identity.IsAuthenticated) 
+    {
+        var currentUser = await _accountRep.FindByUsername(User.Identity.Name);
+        hasStore = currentUser?.HasStore;
+    }
+}
+
+
+<div class="top-bar animate-dropdown">
     <div class="container">
         <div class="header-top-inner">
             <div class="cnt-account">
                 <ul id="menu-top-right" class="list-unstyled">
                     <li><a href="/" aria-current="page">Home</a></li>
                     <li><a href="/pages/contact-us/">Contact</a></li>
-                    <li><a href="/sellers/registration">Become a Seller</a></li>
+                    @if (!hasStore.Value)
+                    {
+                        <li><a href="/sellers/registration">Become a Seller</a></li>
+                    }
+
                     @if (User.Identity.IsAuthenticated)
                     {
                         <li><a href="/profile">My account</a></li>

@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Extensions.Hosting;
 using Shared;
 using site.Data;
 using site.Repositories;
@@ -21,13 +22,13 @@ namespace site.Pages.Sellers
     {
         private readonly ISiteContentProvider _provider;
         private readonly AccountRepository _accountRepository;
-        private readonly IHostingEnvironment _environment;
+        private readonly IHostEnvironment _environment;
         private readonly StoreRepository _storeRepository;
 
         public RegistrationModel(ISiteContentProvider provider, 
                                  AccountRepository accountRepository,
                                  StoreRepository storeRepository,
-                                 IHostingEnvironment env)
+                                 IHostEnvironment env)
         {
             _provider = provider;
             _accountRepository = accountRepository;
@@ -72,9 +73,12 @@ namespace site.Pages.Sellers
                 Input.DocumentLocation = filePath;
 
                 var currentUser = await _accountRepository.FindByUsername(User.Identity.Name);
+                if (currentUser == null)
+                    return RedirectToPage("/Profile/AccountNotFound");
+
                 var storeKeeper = new StoreKeeper();
                 var store = storeKeeper.AssignStore(currentUser, Input.CreateRegistrationForm());
-                await _storeRepository.Save(store);
+                await _storeRepository.Create(store);
 
                 return RedirectToPage("/Profile/Store");
             }

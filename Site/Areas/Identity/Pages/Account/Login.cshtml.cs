@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using site.Repositories;
 
 namespace site.Areas.Identity.Pages.Account
 {
@@ -17,11 +18,13 @@ namespace site.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly AccountRepository _accountRepository;
 
-        public LoginModel(SignInManager<IdentityUser> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<IdentityUser> signInManager, ILogger<LoginModel> logger, AccountRepository accountRepository)
         {
             _signInManager = signInManager;
             _logger = logger;
+            _accountRepository = accountRepository;
         }
 
         [BindProperty]
@@ -77,6 +80,11 @@ namespace site.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
+
+                    var currentUser = _accountRepository.FindByUsername(Input.Email);
+                    if (currentUser == null)
+                        return RedirectToPage("/Profile/AccountNotFound");
+
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)

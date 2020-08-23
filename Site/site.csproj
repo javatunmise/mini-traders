@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <UserSecretsId>aspnet-Site-DC9AFDF5-34D2-4810-A8EA-C2AF875AFF67</UserSecretsId>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
   </PropertyGroup>
@@ -13,6 +13,21 @@
     <None Remove="wwwroot\js\assets\vendor\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="Data\Migrations\20200822121151_Site_InitialCreate.cs" />
+    <Compile Remove="Data\Migrations\20200822121151_Site_InitialCreate.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200822181538_Site_InitialCreate.cs" />
+    <Compile Remove="Data\Migrations\20200822181538_Site_InitialCreate.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200822181939_Temp.cs" />
+    <Compile Remove="Data\Migrations\20200822181939_Temp.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200822232858_Site_StorePhoneNumber.cs" />
+    <Compile Remove="Data\Migrations\20200822232858_Site_StorePhoneNumber.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200822233148_Site_StorePhoneNumber.cs" />
+    <Compile Remove="Data\Migrations\20200822233148_Site_StorePhoneNumber.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200822233649_Site_StorePhoneNumber.cs" />
+    <Compile Remove="Data\Migrations\20200822233649_Site_StorePhoneNumber.Designer.cs" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <None Update="app.db" CopyToOutputDirectory="PreserveNewest" />
@@ -20,13 +35,18 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.2.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.7" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
+
+    <!--<PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.4" />-->
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\Repositories\" />
     <Folder Include="wwwroot\assets\images\" />
     <Folder Include="wwwroot\fonts\" />
     <Folder Include="wwwroot\images\uploads_docs\" />

@@ -1,10 +1,21 @@
 ﻿@using site.Helpers;
 @inject site.Data.ISiteContentProvider _provider;
+@inject site.Repositories.AccountRepository _accountRepo;
 @{
     var _site = (await _provider.GetSiteInfo()) ?? new site.Data.Site();
     var loggedIn = Context.User.Identity.IsAuthenticated;
     var userName = Context.User.Identity.Name;
     var siteName = "Shop@Firstchoice";
+
+    var currentUser = await _accountRepo.FindSiteUser(User.Identity.Name);
+    var name = User.Identity.Name;
+    if(currentUser != null)
+    {
+        if(!string.IsNullOrEmpty(currentUser.FirstName))
+        {
+            name = $"{currentUser.FirstName} {currentUser.LastName ?? ""}";
+        }
+    }
 }
 
 
@@ -209,7 +220,8 @@
                                 <div class="profile-image text-center">
                                     <img src="~/images/vendor-photo.png" alt="my photo" style="height:80px" />
 
-                                    <div>Jon Smith</div>
+                                    <br />
+                                    <div>@name</div>
                                 </div>
                                 <br />
 
