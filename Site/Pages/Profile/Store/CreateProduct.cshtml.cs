@@ -8,11 +8,11 @@ using site.Repositories;
 
 namespace site.Pages.Profile.Store
 {
-    public class IndexModel : PageModel
+    public class CreateProductModel : PageModel
     {
         private readonly AccountRepository _accountRepo;
 
-        public IndexModel(AccountRepository accountRepository)
+        public CreateProductModel(AccountRepository accountRepository)
         {
             _accountRepo = accountRepository;
         }
@@ -22,8 +22,6 @@ namespace site.Pages.Profile.Store
             var currentUser = await _accountRepo.FindByUsername(User.Identity.Name);
             if (!currentUser.HasStore)
                 return RedirectToPage("/Profile/Index");
-
-            var store = currentUser.Store;
 
             return Page();
         }

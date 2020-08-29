@@ -18,6 +18,8 @@ namespace Site.Data
         public DbSet<Campus> Campuses { get; set; }
         public DbSet<Hostel> Hostels { get; set; }
 
+        public DbSet<Referral> Referrals { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             var schemaConfigs = new dynamic []

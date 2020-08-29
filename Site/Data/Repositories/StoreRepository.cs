@@ -55,6 +55,8 @@ namespace site.Repositories
             _store.StoreName = updatedStore.Name;
             _store.StoreDescription = updatedStore.StoreDescription;
             _store.PhoneNumber = updatedStore.PhoneNumber;
+            if (!string.IsNullOrEmpty(updatedStore.LogoPath))
+                _store.LogoPath = updatedStore.LogoPath;
 
             return _context.SaveChangesAsync();
         }

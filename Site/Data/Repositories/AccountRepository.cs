@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Shared;
 using Shared.Entities;
+using site.Helpers;
 using Site.Data;
 using SQLitePCL;
 using System;
@@ -56,6 +57,20 @@ namespace site.Repositories
             }
 
             return null;
+        }
+
+        internal async Task UpdateSiteUser(SiteUser updated)
+        {
+            var _siteUser = await _context.SiteUsers.FirstOrDefaultAsync(e => e.Id == updated.Id);
+            if(_siteUser != null)
+            {
+                _siteUser.FirstName = updated.FirstName;
+                _siteUser.LastName = updated.LastName;
+                if (!updated.ProfilePicturePath.IsEmpty())
+                    _siteUser.ProfilePicturePath = updated.ProfilePicturePath;
+
+                await _context.SaveChangesAsync();
+            }
         }
 
         public Task<SiteUser> FindSiteUser(string username)

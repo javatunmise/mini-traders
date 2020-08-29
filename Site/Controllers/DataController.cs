@@ -22,8 +22,7 @@ namespace site.Controllers
         [HttpGet("sublocations/{id}")]
         public async Task<IActionResult> GetSubLocations(int id)
         {
-            var locations = await _provider.GetLocations();
-            var subLocations = locations.Where(x => x.Parent?.Id > 0 && x.Parent?.Id == id);
+            var subLocations = await _provider.GetSubLocations(id);
 
             return Ok(subLocations);
         }

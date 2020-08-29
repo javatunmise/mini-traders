@@ -1,0 +1,37 @@
+﻿@page
+@model site.Pages.Profile.BalancesModel
+@{
+    ViewData["Title"] = "Balances";
+    Layout = "~/Pages/Shared/_LayoutProfile.cshtml";
+}
+
+@section BreadCrumbs {
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a href="/Profile">Profile</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Balances</li>
+    </ol>
+}
+
+<h3 class="page-title-notpadded">Balances</h3>
+
+
+<div class="card bg-light ">
+    <div class="card-body">
+        <h4 class="page-title-notpadded">My Wallet</h4>
+        <h3 class="card-title page-title-notpadded">N80,000</h3>
+        @*<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>*@
+        <a href="#" class="btn btn-sm btn-danger">Withdraw</a>
+        <a href="#" class="btn btn-sm btn-info">Transaction history</a>
+    </div>
+</div>
+
+<br />
+<div class="card bg-light ">
+    <div class="card-body">
+        <h4 class="page-title-notpadded">My Token</h4>
+        <h3 class="card-title page-title-notpadded">N3,000</h3>
+        <p class="card-text">You can use your token to buy items on this site</p>
+        <a href="#" class="btn btn-sm btn-danger">Transaction history</a>
+    </div>
+</div>

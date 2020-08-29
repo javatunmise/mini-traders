@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using site.Data.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,13 @@ namespace site.Data
 {
     public class CacheSiteContentProvider : ISiteContentProvider
     {
+        private readonly LocationRepository _locationRepo;
+
+        public CacheSiteContentProvider(LocationRepository locationRepository)
+        {
+            _locationRepo = locationRepository;
+        }
+
         public async Task<IEnumerable<Carousel>> GetCarousel()
         {
             var data = new List<Carousel>
@@ -23,17 +31,22 @@ namespace site.Data
             return data;
         }
 
-        public Task<IEnumerable<MarketLocation>> GetLocations()
+        public async Task<IEnumerable<MarketLocation>> GetLocations()
         {
-            string[] items = new[] { "UniversityofLagos", "CovenantUniversity", "UniversityofNigeria", "ObafemiAwolowoUniversity", "UniversityofIlorin", "AhmaduBelloUniversity", "UniversityofAbuja", "FederalUniversityofTechnology,Akure", "UniversityofIbadan", "FederalUniversityofTechnology,Minna", "FederalUniversityofAgriculture,Abeokuta", "AfeBabalolaUniversity", "RiversStateUniversity", "LadokeAkintolaUniversityofTechnology", "BayeroUniversityKano", "UniversityofJos", "LandmarkUniversity", "FUTO", "FederalUniversity,Oye-Ekiti", "AbubakarTafawaBalewaUniversity", "Uni-Uyo", "LASU", "Uni-Ben", "OlabisiOnabanjoUniversity", "NnamdiAzikiweUniversity" };
-            var locations = items.Select((loc, ind) => new MarketLocation { Id = ind + 1, Name = loc }).ToList();
+            var campuses = (await _locationRepo.GetCampuses())
+                            .Select((loc, ind) => new MarketLocation { Id = loc.Id, Name = loc.Name })
+                            .ToList();
 
-            locations.Add(new MarketLocation { Parent = locations[0], Id = 10000, Name = "King Jaja Hostel" });
-            locations.Add(new MarketLocation { Parent = locations[0], Id = 10001, Name = "Queen Moremi Hall" });
-            locations.Add(new MarketLocation { Parent = locations[0], Id = 10002, Name = "Madam Tinubu Hall" });
-            locations.Add(new MarketLocation { Parent = locations[0], Id = 10003, Name = "Off-Campus" });
+            return campuses;
+        }
 
-            return Task.FromResult(locations.AsEnumerable());
+        public async Task<IEnumerable<MarketLocation>> GetSubLocations(int campusId)
+        {
+            var hostels = (await _locationRepo.GetHostels(campusId))
+                            .Select((loc, ind) => new MarketLocation { Id = loc.Id, Name = loc.Name })
+                            .ToList();
+
+            return hostels;
         }
 
         public async Task<IEnumerable<CompanyLogo>> GetSitePartnersLogos()

@@ -12,18 +12,19 @@ namespace site.Pages.Categories
     {
         private readonly ISiteContentProvider _provider;
 
-        public IEnumerable<MarketLocation> Locations { get; private set; }
         public IEnumerable<Category> Categories { get; private set; }
         public Category Category { get; set; }
+        public IEnumerable<MarketLocation> Locations { get; private set; }
+        public IEnumerable<MarketLocation> SubLocations { get; private set; }
+        public SearchQuery Query { get; set; }
 
         public IndexModel(ISiteContentProvider provider)
         {
             _provider = provider;
         }
 
-        public async Task OnGet()
+        public async Task OnGet([FromQuery] SearchQuery query)
         {
-            Locations =  await _provider.GetLocations();
             Categories = new List<Category>();
             if (Id > 0)
             {
@@ -33,6 +34,11 @@ namespace site.Pages.Categories
                 Category = _category ?? new Category();
                 Categories = _categories.Where(c => c.Parent?.Id == Id);
             }
+
+            int.TryParse(query.LocationId, out int locationId);
+            Locations = await _provider.GetLocations();
+            SubLocations = await _provider.GetSubLocations(locationId);
+            Query = query;
         }
 
         [BindProperty(SupportsGet = true)]
@@ -40,5 +46,23 @@ namespace site.Pages.Categories
 
         [BindProperty(SupportsGet = true)]
         public string Name { get; set; }
+    }
+
+    public class SearchQuery
+    {
+        [FromQuery(Name = "location")]
+        public string LocationId { get; set; }
+
+        [FromQuery(Name = "sub_location")]
+        public string SubLocationId { get; set; }
+
+        [FromQuery(Name = "min_price")]
+        public string MinPrice { get; set; }
+
+        [FromQuery(Name = "max_price")]
+        public string MaxPrice { get; set; }
+
+        [FromQuery(Name = "q")]
+        public string SearchText { get; set; }
     }
 }

@@ -38,8 +38,9 @@ namespace site.Pages.Search
             var pageSize = 25;
 
             Categories = (await _provider.GetAllCategories()).Where(c => c.Parent == null);
+            int.TryParse(query.LocationId, out int locationId);
             Locations = await _provider.GetLocations();
-            SubLocations = Locations.Where(x => x.Parent?.Id > 0 && x.Parent?.Id.ToString() == query.LocationId);
+            SubLocations = await _provider.GetSubLocations(locationId);
             Query = query;
         }
 

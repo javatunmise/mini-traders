@@ -7,15 +7,15 @@
     var userName = Context.User.Identity.Name;
     var siteName = "Shop@Firstchoice";
 
-    var currentUser = await _accountRepo.FindSiteUser(User.Identity.Name);
-    var name = User.Identity.Name;
-    var photoUrl = "images/vendor-photo.png";
-    if (currentUser != null)
+    var currentUser = await _accountRepo.FindByUsername(User.Identity.Name);
+    var name = "<No Store Name>";
+    var store = new global::Shared.Store(null);
+    if (currentUser != null && currentUser.Store != null)
     {
-        photoUrl = currentUser.ProfilePicturePath.IsEmpty() ? photoUrl : currentUser.ProfilePicturePath;
-        if(!string.IsNullOrEmpty(currentUser.FirstName))
+        store = currentUser.Store;
+        if (!string.IsNullOrEmpty(currentUser.Store.Name))
         {
-            name = $"{currentUser.FirstName} {currentUser.LastName ?? ""}";
+            name = $"{currentUser.Store.Name}";
         }
     }
 }
@@ -220,7 +220,7 @@
                             <div class="card-body">
 
                                 <div class="profile-image text-center">
-                                    <img src="@photoUrl" alt="my photo" style="height:80px" />
+                                    <img src="/@store.LogoPath" alt="my photo" style="height:80px" />
 
                                     <br /><br />
                                     <p>@name</p>
@@ -228,11 +228,8 @@
                                 <br />
 
                                 <ul class="list-group list-group-flush">
-                                    <li class="list-group-item"><a href="/Profile/Store">My Store</a></li>
-                                    <li class="list-group-item"><a href="/Profile">Edit Profile</a></li>
-                                    <li class="list-group-item"><a href="/Profile/Referrals">Referrals</a></li>
-                                    <li class="list-group-item"><a href="/Profile/Balances">My Balances</a></li>
-                                    @*<li class="list-group-item">Settings</li>*@
+                                    <li class="list-group-item"><a href="/Profile/Store/CreateProduct">Create Product/Service</a></li>
+                                    <li class="list-group-item"><a href="/Profile/Store/Settings">Settings</a></li>
                                 </ul>
                             </div>
                         </div>

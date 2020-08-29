@@ -9,11 +9,19 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using siteinfo;
 using site.Repositories;
+using Microsoft.CodeAnalysis;
+using site.Data.Repositories;
+using System.Threading.Tasks;
+using System;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Rewrite;
 
 namespace Site
 {
     public class Startup
     {
+        private ApplicationDbContext var_context;
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -24,6 +32,7 @@ namespace Site
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -39,11 +48,12 @@ namespace Site
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddScoped<IPageRepository, PageRepository>();
-            services.AddSingleton<site.Data.ISiteContentProvider, site.Data.CacheSiteContentProvider>();
-            services.AddSingleton<ISellerRepository, SellerRepository>();
+            services.AddScoped<site.Data.ISiteContentProvider, site.Data.CacheSiteContentProvider>();
+            services.AddScoped<ISellerRepository, SellerRepository>();
             services.AddScoped<AccountRepository>();
             services.AddScoped<StoreRepository>();
-
+            services.AddScoped<LocationRepository>();
+            
             services.AddMvc()
                 //.SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddRazorPagesOptions(options =>
@@ -79,10 +89,25 @@ namespace Site
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.Use(async (context, next) => {
+                if (IsLogOutUrl(context))
+                {
+                    context.Response.Redirect("/");
+                }
+
+                await next();
+            });
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
+                endpoints.MapControllers();
             });
+        }
+
+        private bool IsLogOutUrl(HttpContext context)
+        {
+            return context.Request.Method == "GET" && context.Request.Path.Value.EndsWith("/Identity/Account/Logout");
         }
     }
 }

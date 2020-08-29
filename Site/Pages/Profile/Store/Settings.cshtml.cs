@@ -1,30 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Hosting;
+using site.Data;
+using site.Helpers;
 using site.Repositories;
 
 namespace site.Pages.Profile.Store
 {
     public class SettingsModel : PageModel
     {
+        private const string UPLOAD_NOT_SUPPORTED = "NOT_SUPPORTED";
         private readonly AccountRepository _accountRepo;
         private readonly StoreRepository _storeRepo;
+        private readonly IHostEnvironment _environment;
 
-        public SettingsModel(AccountRepository accountRepository, StoreRepository storeRepository)
+        public SettingsModel(AccountRepository accountRepository, StoreRepository storeRepository,
+                                 IHostEnvironment env)
         {
             _accountRepo = accountRepository;
             _storeRepo = storeRepository;
+            _environment = env;
         }
 
         public async Task<IActionResult> OnGet()
         {
             var currentUser = await _accountRepo.FindByUsername(User.Identity.Name);
             if (!currentUser.HasStore)
-                return RedirectToPage("/Profile");
+                return RedirectToPage("/Profile/Index");
 
             var store = currentUser.Store;
 
@@ -47,13 +56,40 @@ namespace site.Pages.Profile.Store
             store.Name = Input.StoreName;
             store.PhoneNumber = Input.ContactPhone;
 
+            if (VendorImageUpload != null)
+            {
+                store.LogoPath = await CreateFile();
+                if(store.LogoPath == UPLOAD_NOT_SUPPORTED)
+                {
+                    ModelState.AddModelError(nameof(VendorImageUpload), "Uploaded file format not supported");
+                    return Page();
+                }
+            }
+
             await _storeRepo.Update(store);
 
             return Page();
         }
 
+        private async Task<string> CreateFile()
+        {
+            if (!StringUtil.TryGetSafeImageExtension(VendorImageUpload.FileName, out string extension))
+                return UPLOAD_NOT_SUPPORTED;
+
+            var fileName = $"logo_{StringUtil.SafeGuid()}.{extension}";
+            var relativePath = "images/uploads_docs/";
+            var path = Path.Combine("wwwroot/" + relativePath, fileName);
+            var file = Path.Combine(_environment.ContentRootPath, path);
+            using var fileStream = new FileStream(file, FileMode.Create);
+            await VendorImageUpload.CopyToAsync(fileStream);
+            return relativePath + fileName;
+        }
+
         [BindProperty]
         public StoreEdit Input { get; set; }
+
+        [BindProperty]
+        public IFormFile VendorImageUpload { get; set; }
     }
 
     public class StoreEdit

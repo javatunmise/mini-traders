@@ -16170,7 +16170,7 @@ header {
         text-decoration: line-through;
         padding-left: 10px;
     }
-
+/*
 .body-content .my-wishlist-page .my-wishlist table > thead > tr > th,
 .table > tbody > tr > th,
 .table > tfoot > tr > th,
@@ -16180,7 +16180,7 @@ header {
     vertical-align: middle;
     border: none;
     padding: 30px;
-}
+}*/
 
 .body-content .my-wishlist-page .my-wishlist table tbody .close-btn a,
 .body-content .my-wishlist-page .my-wishlist table tbody .close-btn a:hover {

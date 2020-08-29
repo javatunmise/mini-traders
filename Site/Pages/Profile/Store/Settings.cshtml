@@ -2,25 +2,52 @@
 @model site.Pages.Profile.Store.SettingsModel
 @{
     ViewData["Title"] = "Settings";
-    Layout = "~/Pages/Shared/_LayoutProfile.cshtml";
+    Layout = "~/Pages/Shared/_LayoutStore.cshtml";
 }
 
-    <form method="post">
-        <div class="">
-            <label asp-for="Input.StoreName">Business name <span class="required">*</span></label>
-            <input class="form-control unicase-form-control " asp-for="Input.StoreName">
-        </div>
+@section BreadCrumbs {
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page"><a href="/Profile">Profile</a></li>
+        <li class="breadcrumb-item active" aria-current="page"><a href="/Profile/Store">My Store</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Settings</li>
+    </ol>
+}
 
-        <br />
-        <div class="">
-            <label asp-for="Input.StoreDescription">About your business</label>
-            <textarea class="form-control unicase-form-control" asp-for="Input.StoreDescription"></textarea>
-        </div>
-        <div class="form-group">
-            <label asp-for="Input.ContactPhone">Phone number <span class="required">*</span></label>
-            <input asp-for="Input.ContactPhone" class="form-control">
-        </div>
+<h3 class="page-title-notpadded">Store Settings</h3>
 
-        <button type="submit" class="btn btn-primary">Save</button>
+<form method="post" enctype="multipart/form-data">
+    <div class="">
+        <label asp-for="Input.StoreName">Business name <span class="required">*</span></label>
+        <input class="form-control unicase-form-control " asp-for="Input.StoreName">
+    </div>
 
-    </form>
+    <br />
+    <div class="">
+        <label asp-for="Input.StoreDescription">About your business</label>
+        <textarea class="form-control unicase-form-control" asp-for="Input.StoreDescription"></textarea>
+    </div>
+
+    <br />
+    <div class="form-group">
+        <label asp-for="Input.ContactPhone">Phone number <span class="required">*</span></label>
+        <input asp-for="Input.ContactPhone" class="form-control">
+    </div>
+
+
+    <div class="form-group">
+        <label asp-for="VendorImageUpload">Change your store logo <span class="required">*</span></label>
+        <input class="form-control" asp-for="VendorImageUpload">
+
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+
+</form>
+
+<br />
+
+@*<form method="post" asp-page-handler="OnPostVendorLogoAsync">
+    <button type="submit" class="btn btn-primary">Save</button>
+
+</form>*@

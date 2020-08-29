@@ -11,6 +11,8 @@ namespace site.Data
         Task<IEnumerable<Category>> GetSiteTopCategories();
         Task<IEnumerable<Category>> GetAllCategories();
         Task<IEnumerable<MarketLocation>> GetLocations();
+        Task<IEnumerable<MarketLocation>> GetSubLocations(int locationId);
+
         Task<IEnumerable<Carousel>> GetCarousel();
         Task<Site> GetSiteInfo();
         //Task<IEnumerable<Product>> GetFeaturedProducts();

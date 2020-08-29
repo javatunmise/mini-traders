@@ -521,3 +521,7 @@ header {
 label {
     font-weight: 400;
 }
+
+.page-title-notpadded {
+    margin-top: 0;
+}

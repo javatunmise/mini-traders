@@ -8,5 +8,6 @@
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public Store Store { get; set; }
+        public string ProfilePicturePath { get; set; }
     }
 }

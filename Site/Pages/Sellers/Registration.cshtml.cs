@@ -36,12 +36,14 @@ namespace site.Pages.Sellers
             _storeRepository = storeRepository;
         }
 
-        public async Task<IActionResult> OnGet()
+        public async Task<IActionResult> OnGet(string ref_id = "")
         {
             var currentUser = await _accountRepository.FindByUsername(User.Identity.Name);
 
             if (currentUser.HasStore)
-                return RedirectToPage("/Profile/Store");
+                return RedirectToPage("/Profile/Store/Index");
+
+            Input = new InputModel { ReferrerCode = ref_id };
 
             await InitFormData();
             return Page();

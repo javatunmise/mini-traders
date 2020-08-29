@@ -26,6 +26,8 @@
     <Compile Remove="Data\Migrations\20200822233148_Site_StorePhoneNumber.Designer.cs" />
     <Compile Remove="Data\Migrations\20200822233649_Site_StorePhoneNumber.cs" />
     <Compile Remove="Data\Migrations\20200822233649_Site_StorePhoneNumber.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200829042554_Site_Referrals_UserPics.cs" />
+    <Compile Remove="Data\Migrations\20200829042554_Site_Referrals_UserPics.Designer.cs" />
   </ItemGroup>
 
 
@@ -34,10 +36,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.6" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.6" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.7" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />

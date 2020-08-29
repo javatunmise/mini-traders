@@ -48,26 +48,41 @@
                     <div class="sidebar-widget widget_price_filter">
                         <h3 class="section-title" style="margin-bottom: 0">Filter by location</h3>
 
-                        <select name="location" class="form-control">
+                        <select name="location" id="location" class="form-control">
                             <option value="0">Any Locations</option>
 
                             @foreach (var loc in Model.Locations)
                             {
-                                <option value="@loc.Id">@loc.Name</option>
-                            }
-                        </select>
-                        <div style="padding-top: 15px;">
-                            <select name="sub_location" class="form-control">
-                                <option value="0">Any Locations</option>
-                                @foreach (var loc in Model.Locations.Skip(4).Take(3))
+                                if (loc.Id.ToString() == Model.Query.LocationId)
+                                {
+                                    <option value="@loc.Id" selected>@loc.Name</option>
+                                }
+                                else
                                 {
                                     <option value="@loc.Id">@loc.Name</option>
+                                }
+                            }
+                        </select>
+                        <div style="padding-top: 15px;" id="sub_location_container">
+                            <select name="sub_location" id="sub_location" class="form-control">
+                                <option value="0">Any Locations</option>
+                                @foreach (var loc in Model.SubLocations)
+                                {
+                                    if (loc.Id.ToString() == Model.Query.SubLocationId)
+                                    {
+                                        <option value="@loc.Id" selected>@loc.Name</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@loc.Id">@loc.Name</option>
+                                    }
                                 }
                             </select>
                         </div>
 
                         <br />
                         <div class="price_slider_amount">
+                            <img id="spinner" src="~/images/spinner.jpg" style="height:45px; display: none" />
                             <button type="submit" class="button">Filter</button>
                         </div>
 
@@ -113,26 +128,26 @@
                     </div>
                 }
                 @*<div class="sidebar-widget widget_testimonial_slider">
-            <div id="advertisement" class="advertisement owl-carousel owl-theme" style="opacity: 1; display: block;">
-                <div class="owl-wrapper-outer">
-                    <div class="owl-wrapper" style="width: 1062px; left: 0px; display: block; transition: all 0ms ease 0s; transform: translate3d(0px, 0px, 0px);">
-                        <div class="owl-item" style="width: 177px;">
-                            <div class="item">
-                                <div class="avatar"> <img src="/uploads/2019/12/member2.png" alt="Image"></div><div class="testimonials"> <em>"</em> Vtae sodales aliq uam morbi non sem lacus port mollis. Nunc condime tum metus eud molest sed consectetuer.<em>"</em></div><div class="clients_author"> Saraha Smith <span>Datsun &amp; Co</span></div>
-                            </div>
-                        </div><div class="owl-item" style="width: 177px;">
-                            <div class="item">
-                                <div class="avatar"> <img src="/uploads/2019/12/member1.png" alt="Image"></div><div class="testimonials"> <em>"</em> Vtae sodales aliq uam morbi non sem lacus port mollis. Nunc condime tum metus eud molest sed consectetuer.<em>"</em></div><div class="clients_author"> John Doe <span>KlbTheme</span></div>
-                            </div>
-                        </div><div class="owl-item" style="width: 177px;">
-                            <div class="item">
-                                <div class="avatar"> <img src="/uploads/2019/12/member3.png" alt="Image"></div><div class="testimonials"> <em>"</em> Vtae sodales aliq uam morbi non sem lacus port mollis. Nunc condime tum metus eud molest sed consectetuer.<em>"</em></div><div class="clients_author"> Stephen Doe <span>Xperia Designs</span></div>
-                            </div>
+                        <div id="advertisement" class="advertisement owl-carousel owl-theme" style="opacity: 1; display: block;">
+                            <div class="owl-wrapper-outer">
+                                <div class="owl-wrapper" style="width: 1062px; left: 0px; display: block; transition: all 0ms ease 0s; transform: translate3d(0px, 0px, 0px);">
+                                    <div class="owl-item" style="width: 177px;">
+                                        <div class="item">
+                                            <div class="avatar"> <img src="/uploads/2019/12/member2.png" alt="Image"></div><div class="testimonials"> <em>"</em> Vtae sodales aliq uam morbi non sem lacus port mollis. Nunc condime tum metus eud molest sed consectetuer.<em>"</em></div><div class="clients_author"> Saraha Smith <span>Datsun &amp; Co</span></div>
+                                        </div>
+                                    </div><div class="owl-item" style="width: 177px;">
+                                        <div class="item">
+                                            <div class="avatar"> <img src="/uploads/2019/12/member1.png" alt="Image"></div><div class="testimonials"> <em>"</em> Vtae sodales aliq uam morbi non sem lacus port mollis. Nunc condime tum metus eud molest sed consectetuer.<em>"</em></div><div class="clients_author"> John Doe <span>KlbTheme</span></div>
+                                        </div>
+                                    </div><div class="owl-item" style="width: 177px;">
+                                        <div class="item">
+                                            <div class="avatar"> <img src="/uploads/2019/12/member3.png" alt="Image"></div><div class="testimonials"> <em>"</em> Vtae sodales aliq uam morbi non sem lacus port mollis. Nunc condime tum metus eud molest sed consectetuer.<em>"</em></div><div class="clients_author"> Stephen Doe <span>Xperia Designs</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><div class="owl-controls clickable"><div class="owl-pagination"><div class="owl-page active"><span class=""></span></div><div class="owl-page"><span class=""></span></div><div class="owl-page"><span class=""></span></div></div><div class="owl-buttons"><div class="owl-prev"></div><div class="owl-next"></div></div></div>
                         </div>
-                    </div>
-                </div><div class="owl-controls clickable"><div class="owl-pagination"><div class="owl-page active"><span class=""></span></div><div class="owl-page"><span class=""></span></div><div class="owl-page"><span class=""></span></div></div><div class="owl-buttons"><div class="owl-prev"></div><div class="owl-next"></div></div></div>
-            </div>
-        </div>*@
+                    </div>*@
 
                 <div>
                     <img src="../images/banners/CONFORT.png" class="alignnone size-full wp-image-307" alt="" width="262" height="265">
@@ -140,14 +155,14 @@
             </div>
             <div class="col-sm-9">
                 @*<div id="category" class="category-carousel hidden-xs">
-                <div class="item">
-                    <div class="image"> <img src="/uploads/2019/12/cat-banner-1.jpg" alt="BIG SALE" class="img-responsive"></div><div class="container-fluid">
-                        <div class="caption vertical-top text-left">
-                            <div class="big-text"> BIG SALE</div><div class="excerpt hidden-sm hidden-md"> Save up to 49% off</div><div class="excerpt-normal hidden-sm hidden-md"> Lorem ipsum dolor sit amet, consectetur adipiscing elit</div><div class="buy-btn"><a href="#" class="lnk btn btn-primary">Shop Now</a></div>
+                        <div class="item">
+                            <div class="image"> <img src="/uploads/2019/12/cat-banner-1.jpg" alt="BIG SALE" class="img-responsive"></div><div class="container-fluid">
+                                <div class="caption vertical-top text-left">
+                                    <div class="big-text"> BIG SALE</div><div class="excerpt hidden-sm hidden-md"> Save up to 49% off</div><div class="excerpt-normal hidden-sm hidden-md"> Lorem ipsum dolor sit amet, consectetur adipiscing elit</div><div class="buy-btn"><a href="#" class="lnk btn btn-primary">Shop Now</a></div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>*@
+                    </div>*@
 
                 <div class="woocommerce-notices-wrapper"></div>
                 <div class="clearfix filters-container m-t-10" style="margin-top: 0">
@@ -219,7 +234,6 @@
     </div>
 </div>
 
-
 @section sliderScript {
 
     <script type="text/javascript">
@@ -242,4 +256,50 @@
 
         });
     </script>
+
+    <script type="text/javascript">
+        $('#location').change(function () {
+            var locId = $(this).val();
+            if (locId == 0) {
+                hideSubLocations();
+            }
+            else {
+                getSubLocs(locId);
+            }
+        });
+
+        function getSubLocs(id) {
+            showHideSpinner(true);
+            fetch('/api/data/sublocations/' + id)
+                .then(response => response.json())
+                .then(data => loadSelect(data))
+                .catch(function () {
+                    showHideSpinner(false);
+                });
+        }
+
+        function loadSelect(data) {
+            $('#sub_location').empty();
+            $('#sub_location').append($("<option />").val(0).text("Any Location"));
+            $.each(data, function (i, item) {
+                $('#sub_location').append($("<option />").val(item.id).text(item.name));
+            });
+
+            showHideSpinner(false);
+        }
+
+        function showHideSpinner(show) {
+            if (show) {
+                $('#spinner').show();
+            }
+            else {
+                $('#spinner').hide();
+            }
+        }
+
+        function hideSubLocations() {
+            $('#sub_location_container').hide();
+        }
+    </script>
+
 }

@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "MY STORE";
 
-    Layout = "~/Pages/Shared/_LayoutProfile.cshtml";
+    Layout = "~/Pages/Shared/_LayoutStore.cshtml";
 }
 
 
@@ -17,17 +17,11 @@
 
 <div class="store-items">
 
-        <div class="store-manage-links">
-            <a href="/Profile/Store/Settings">Settings</a>
-        </div>
-
-        <hr />
-
         <div class="store-filter">
 
             <form class="form-inline">
                 <label class="sr-only" for="inlineFormInputName2">Merchandize</label>
-                <select class="form-control mb-2 mr-sm-2">
+                <select name="filter" class="form-control mb-2 mr-sm-2">
                     <option value="0">Products</option>
                     <option value="1">Services</option>
                 </select>
