@@ -18,7 +18,6 @@ namespace site.ViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            await Task.CompletedTask;
             var categories = await provider.GetSiteTopCategories();
             return View(categories);
         }

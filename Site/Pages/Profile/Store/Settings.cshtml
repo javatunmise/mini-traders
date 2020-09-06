@@ -36,6 +36,23 @@
 
 
     <div class="form-group">
+        <label asp-for="Input.CampusId">Campus <span class="required">*</span></label>
+        <select class="form-control unicase-form-control" asp-for="Input.CampusId" asp-items="Model.Campuses" onchange="locationChanged()">
+            <option value="">-- Select Campus --</option>
+        </select>
+
+        <img src="~/images/spinner.jpg" style="height:48px; display: none" id="location-spinner" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Input.HostelId">Hostel <span class="required">*</span></label>
+        <select class="form-control unicase-form-control" asp-for="Input.HostelId" asp-items="Model.Hostels">
+            <option value="0">Anywhere on campus</option>
+        </select>
+    </div>
+
+
+    <div class="form-group">
         <label asp-for="VendorImageUpload">Change your store logo <span class="required">*</span></label>
         <input class="form-control" asp-for="VendorImageUpload">
 
@@ -48,6 +65,46 @@
 <br />
 
 @*<form method="post" asp-page-handler="OnPostVendorLogoAsync">
-    <button type="submit" class="btn btn-primary">Save</button>
+        <button type="submit" class="btn btn-primary">Save</button>
 
-</form>*@
+    </form>*@
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+    <script type="text/javascript">
+
+        function locationChanged() {
+            showHideSpinner(true);
+            var id = document.getElementById('Input_CampusId').value;
+
+            fetch('/api/data/sublocations/' + id)
+                .then(response => response.json())
+                .then(data => loadSelect(data))
+                .catch(function () {
+                    showHideSpinner(false);
+                });
+        }
+
+        function loadSelect(data) {
+            var elem = $('#Input_HostelId');
+            elem.empty();
+            elem.append($("<option />").val('0').text('Anywhere on campus'));
+            $.each(data, function (i, item) {
+                elem.append($("<option />").val(item.id).text(item.name));
+            });
+
+            showHideSpinner(false);
+        }
+
+        function showHideSpinner(show) {
+            if (show) {
+                $('#location-spinner').show();
+            }
+            else {
+                $('#location-spinner').hide();
+            }
+        }
+
+    </script>

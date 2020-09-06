@@ -14,6 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Data\Migrations\00000000000000_CreateIdentitySchema.cs" />
+    <Compile Remove="Data\Migrations\00000000000000_CreateIdentitySchema.Designer.cs" />
     <Compile Remove="Data\Migrations\20200822121151_Site_InitialCreate.cs" />
     <Compile Remove="Data\Migrations\20200822121151_Site_InitialCreate.Designer.cs" />
     <Compile Remove="Data\Migrations\20200822181538_Site_InitialCreate.cs" />
@@ -28,6 +30,16 @@
     <Compile Remove="Data\Migrations\20200822233649_Site_StorePhoneNumber.Designer.cs" />
     <Compile Remove="Data\Migrations\20200829042554_Site_Referrals_UserPics.cs" />
     <Compile Remove="Data\Migrations\20200829042554_Site_Referrals_UserPics.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200901022135_Products_Schema.cs" />
+    <Compile Remove="Data\Migrations\20200901022135_Products_Schema.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200905033443_Schema_InitialCreate.cs" />
+    <Compile Remove="Data\Migrations\20200905033443_Schema_InitialCreate.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200905045525_Schema_InitialCreate.cs" />
+    <Compile Remove="Data\Migrations\20200905045525_Schema_InitialCreate.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200905140358_Schema_InitialCreate.cs" />
+    <Compile Remove="Data\Migrations\20200905140358_Schema_InitialCreate.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200905144432_Schema_InitialCreate.cs" />
+    <Compile Remove="Data\Migrations\20200905144432_Schema_InitialCreate.Designer.cs" />
   </ItemGroup>
 
 
@@ -36,6 +48,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.0.35" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.6" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.6" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.6" />
@@ -50,6 +63,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Data\Migrations\" />
     <Folder Include="wwwroot\assets\images\" />
     <Folder Include="wwwroot\fonts\" />
     <Folder Include="wwwroot\images\uploads_docs\" />

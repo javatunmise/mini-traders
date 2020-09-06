@@ -7,6 +7,7 @@
             Owner = account;
         }
 
+        public int Id { get; set; }
         public Account Owner { get; private set; }
         public string Name { get; set; }
         public string StoreDescription { get; set; }

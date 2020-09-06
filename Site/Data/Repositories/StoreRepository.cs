@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Shared;
 using Shared.Entities;
+using site.Data;
+using site.Helpers;
 using Site.Data;
 using SQLitePCL;
 using System;
@@ -18,7 +20,7 @@ namespace site.Repositories
             _context = context;
         }
 
-        public Task Create(Shared.Store store)
+        public async Task Create(Shared.Store store)
         {
             var campus = _context.Campuses.Find(store.CampusId);
 
@@ -43,9 +45,23 @@ namespace site.Repositories
                 SiteUserId = store.Owner.Id
             };
 
+            if (!string.IsNullOrWhiteSpace(store.ReferrerCode))
+            {
+                var referrerUser = await _context.SiteUsers.FirstOrDefaultAsync(e => e.ReferralCode == store.ReferrerCode);
+                if (referrerUser != null)
+                {
+                    _context.Referrals.Add(new Referral
+                    {
+                        ReferrerUserId = referrerUser.Id,
+                        Store = _store,
+                        ReferralCode = referrerUser.ReferralCode,
+                    });
+                }
+            }
+
             _context.Stores.Add(_store);
 
-            return _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
 
         public Task Update(Shared.Store updatedStore)
@@ -55,6 +71,9 @@ namespace site.Repositories
             _store.StoreName = updatedStore.Name;
             _store.StoreDescription = updatedStore.StoreDescription;
             _store.PhoneNumber = updatedStore.PhoneNumber;
+            _store.HostelId = updatedStore.HostelId ?? 0;
+            _store.CampusId = updatedStore.CampusId;
+
             if (!string.IsNullOrEmpty(updatedStore.LogoPath))
                 _store.LogoPath = updatedStore.LogoPath;
 

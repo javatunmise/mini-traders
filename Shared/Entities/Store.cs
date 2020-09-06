@@ -1,4 +1,6 @@
-﻿namespace Shared.Entities
+﻿using System;
+
+namespace Shared.Entities
 {
     public class Store
     {
@@ -13,7 +15,7 @@
         public int CampusId { get; set; }
         public Campus Campus { get; set; }
 
-        public int HostelId { get; set; }
+        public int? HostelId { get; set; }
         public Hostel Hostel { get; set; }
 
         public int SiteUserId { get; set; }

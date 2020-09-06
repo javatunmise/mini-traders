@@ -1,5 +1,5 @@
 ﻿@page
-@model site.Pages.Profile.IndexModel
+@model site.Pages.Profile.Store.IndexModel
 @{
     ViewData["Title"] = "MY STORE";
 
@@ -17,37 +17,76 @@
 
 <div class="store-items">
 
-        <div class="store-filter">
+    <div class="store-filter">
 
-            <form class="form-inline">
-                <label class="sr-only" for="inlineFormInputName2">Merchandize</label>
-                <select name="filter" class="form-control mb-2 mr-sm-2">
-                    <option value="0">Products</option>
-                    <option value="1">Services</option>
-                </select>
+        <form class="form-inline">
+            <label class="sr-only" for="inlineFormInputName2">Merchandize</label>
+            <select name="FilterByServices" class="form-control mb-2 mr-sm-2">
+                <option value="0">Products</option>
+                <option value="1">Services</option>
+            </select>
 
-                <button type="submit" class="btn btn-primary mb-2">Search</button>
-            </form>
-        </div>
+            <button type="submit" class="btn btn-primary mb-2">Search</button>
+        </form>
+    </div>
+    <br />
 
-        <hr />
-
-        <ul class="list-unstyled">
-            @for (int i = 1; i <= 3; i++)
+    @if (Model.Products.Any())
+    {
+        <ul class="list-unstyled product-mob-view">
+            @foreach (var product in Model.Products)
             {
                 <li class="media listing">
-                    <img src="../images/products/product-@(i).jpg" class="mr-3" alt="...">
+                    <img src="@Url.Content("~/" + product.ImageUrl)" class="mr-3" alt="...">
                     <div class="media-body">
-                        <h4 class="mt-0 mb-1">Adult Tooth Brush - Imported</h4>
-                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                        <h4 class="mt-0 mb-1">@product.Name</h4>
+                        @product.ProductDetails
+                        <div>Price: @product.Price.ToString("N2")</div>
+                        <div>Status: @product.Status</div>
 
                         <div class="action-buttons">
-                            <button type="button" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i> Edit</button>
+                            <a href="/EditProduct/@product.Id" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i> Edit</a>
                         </div>
                     </div>
                 </li>
             }
         </ul>
+
+        <table class="table table-striped product-desktop-view">
+            <thead>
+                <tr>
+                    <th style="width:120px"></th>
+                    <th>Details</th>
+                    <th>Price</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var product in Model.Products)
+                {
+                    <tr>
+                        <td>
+                            <img src="@Url.Content("~/" + product.ImageUrl)" style="height:100px; width:100px" class="img-fluid" alt="...">
+                        </td>
+                        <td>
+                            <h4 class="mt-0 mb-1">@product.Name</h4>
+                            @product.ProductDetails
+                        </td>
+                        <td>
+                            Price: @product.Price.ToString("N2")
+                            <br />
+                            Old Price: @product.OldPrice.ToString("N2")
+                        </td>
+                        <td>@product.Status</td>
+                        <td>
+                            <a href="./Store/EditProduct/@product.Id" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i> Edit</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
 
         <hr />
 
@@ -64,4 +103,11 @@
                 </li>
             </ul>
         </nav>
-    </div>
+    }
+
+
+    <h4 class="text-center @(Model.Products.Any() ? "hide": "visible")">
+        You do not have any items uploaded in this category. <a href="/Profile/Store/CreateProduct">Start creating items here</a>
+    </h4>
+</div>
+

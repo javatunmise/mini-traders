@@ -1,0 +1,78 @@
+﻿@page "{id}"
+@model site.Pages.Profile.Store.EditProductModel
+@{
+    ViewData["Title"] = "CreateProduct";
+    Layout = "~/Pages/Shared/_LayoutStore.cshtml";
+    var CategoriesListItems = new SelectList(Model.TopCategories, "Id", "Name", Model.FormInput.CategoryId);
+}
+
+@section BreadCrumbs {
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page"><a href="/Profile">Profile</a></li>
+        <li class="breadcrumb-item active" aria-current="page"><a href="/Profile/Store">Store</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Edit - @Model.FormInput.Name</li>
+    </ol>
+}
+
+<h3 class="page-title-notpadded">@Model.FormInput.Name</h3>
+
+<form method="post" enctype="multipart/form-data">
+
+    <div class="text-danger" asp-validation-summary="All"></div>
+
+    <div class="">
+        <label>Category <span class="required">*</span></label>
+        <select asp-for="FormInput.CategoryId" class="form-control" asp-items="CategoriesListItems">
+        </select>
+    </div>
+
+    <br />
+    <div class="">
+        <label>Name <span class="required">*</span></label>
+        <input asp-for="FormInput.Name" class="form-control">
+    </div>
+
+    <br />
+    <div class="">
+        <label>Description & Specifications</label>
+        <textarea asp-for="FormInput.Description" class="form-control"></textarea>
+    </div>
+
+    <br />
+    <div class="form-row">
+        <div class="form-group col-md-3">
+            <label>
+                Specifications e.g. <br />
+                Weight: 200kg<br />
+                Color: Red<br />
+                Size: Medium<br />
+            </label>
+        </div>
+        <div class="form-group col-md-9">
+            <textarea rows="3" asp-for="FormInput.Specifications" class="form-control"></textarea>
+        </div>
+    </div>
+
+    <br />
+    <div class="form-group">
+        <label>Price <span class="required">*</span></label>
+        <input asp-for="FormInput.Price" class="form-control">
+    </div>
+
+    <div class="form-group">
+        <label>Image <span class="required">*</span></label>
+        <input asp-for="FormInput.ImageUpload" class="form-control">
+
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+
+</form>
+
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+}

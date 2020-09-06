@@ -79,10 +79,10 @@ namespace site.Pages.Sellers
                     return RedirectToPage("/Profile/AccountNotFound");
 
                 var storeKeeper = new StoreKeeper();
-                var store = storeKeeper.AssignStore(currentUser, Input.CreateRegistrationForm());
+                var store = storeKeeper.AssignStore(currentUser, Input.CreateRegistrationForm());                
                 await _storeRepository.Create(store);
 
-                return RedirectToPage("/Profile/Store");
+                return RedirectToPage("/Profile/Store/Index");
             }
             else
             {

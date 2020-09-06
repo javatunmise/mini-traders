@@ -41,7 +41,7 @@ namespace Site
             });
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDefaultIdentity<IdentityUser>()
                 //.AddDefaultUI(UIFramework.Bootstrap4)
@@ -53,7 +53,9 @@ namespace Site
             services.AddScoped<AccountRepository>();
             services.AddScoped<StoreRepository>();
             services.AddScoped<LocationRepository>();
-            
+            services.AddScoped<ProductsRepository>();
+            services.AddScoped<CategoriesRepository>();
+
             services.AddMvc()
                 //.SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddRazorPagesOptions(options =>

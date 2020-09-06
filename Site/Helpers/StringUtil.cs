@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Internal;
+using Shared;
+using Shared.Entities;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -31,12 +33,19 @@ namespace site.Helpers
             if (split.Length != 2) return false;
 
             extension = split[1];
-            if (new[] { "jpg", "gif", "png" }.Contains(extension)) { 
+            if (new[] { "jpg", "gif", "png", "jpeg" }.Contains(extension)) { 
                 return true;
             }
 
             extension = "";
             return false;
+        }
+
+        public static string GenerateReferralCode(string username)
+        {
+            var _username = username.Split('@')[0];
+            var code = _username.Substring(0, Math.Min(_username.Length, 5));
+            return $"{code}{Guid.NewGuid()}".Substring(0,10).ToUpper();
         }
     }
 }

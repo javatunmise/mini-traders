@@ -9,7 +9,7 @@
 
     var currentUser = await _accountRepo.FindSiteUser(User.Identity.Name);
     var name = User.Identity.Name;
-    var photoUrl = "images/vendor-photo.png";
+    var photoUrl = Url.Content("~/images/vendor-photo.png");
     if (currentUser != null)
     {
         photoUrl = currentUser.ProfilePicturePath.IsEmpty() ? photoUrl : currentUser.ProfilePicturePath;
@@ -215,15 +215,17 @@
 
                 <div class="row">
 
-                    <div class="col-md-3">
+                    <div class="col-md-3 mb-3">
                         <div class="card">
                             <div class="card-body">
 
                                 <div class="profile-image text-center">
-                                    <img src="@photoUrl" alt="my photo" style="height:80px" />
+                                    <a href="~/Profile">
+                                        <img src="@Url.Content("~/" + photoUrl)" alt="my photo" style="height:80px" />
+                                    </a>
 
                                     <br /><br />
-                                    <p>@name</p>
+                                    <p><a href="~/Profile">@name</a></p>
                                 </div>
                                 <br />
 

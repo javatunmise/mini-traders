@@ -5,14 +5,8 @@
     ViewData["Title"] = "Index";
     int counter = 0;
 
-    var product = Model.Product ?? new site.Data.Product();
-    var vendor = Model.Vendor ?? new site.Data.Vendor();
-
-    var lines = from line in product.OtherFeatures.Split('\n')
-                let pair = line.Split(':')
-                where pair.Length == 2
-                select new KeyValuePair<string, string>(pair[0], pair[1]);
-
+    var product = Model.Product ?? new global::Shared.ViewModels.ProductView();
+    var vendor = Model.Vendor ?? new site.Data.Vendor { Contact = new site.Data.VendorContact() };
 }
 
 <style type="text/css">
@@ -26,6 +20,7 @@
 
     .product-area img {
         width: 100%;
+        max-height: 250px;
     }
 
     .a-review img {
@@ -189,6 +184,10 @@
 
                         <div class="divider"></div>
 
+                        @product.ProductDetails
+
+                        <div class="divider"></div>
+
                         <div class="social-icons">
                             <div class="col-xs-12 col-sm-12 col-md-12 no-padding social" style="padding:0">
                                 <ul class="link">
@@ -203,11 +202,13 @@
                 </div>
 
                 <div class="col-md-3">
-                    <div class="vendor-area" style="background: #f3f3f3">
+                    <div class="vendor-area" style="background: #f3f3f3; text-align: center">
                         <div class="image">
-                            <img src="~/images/vendor-photo.png" alt="Vendor Picture or Logo" />
+                            <a href="/Sellers/@vendor.VendorId">
+                                <img src="@Url.Content("~/" + vendor.LogoUrl)" alt="Vendor Picture or Logo" />
+                            </a>
                         </div>
-                        <h4 class="vendor-name">@vendor.Name</h4>
+                        <a href="/Sellers/@vendor.VendorId"><h4 class="vendor-name">@vendor.Name</h4></a>
 
                         <div class="divider"></div>
 
@@ -233,7 +234,7 @@
 
 <div class="row custom-margin"></div>
 
-<div class="container">
+@*<div class="container">
     <div class="card">
         <div class="card-body site-page-content">
             <h3 class="title">Product Details</h3>
@@ -241,9 +242,9 @@
             @product.ProductDetails
         </div>
     </div>
-</div>
+</div>*@
 
-<div class="row custom-margin"></div>
+@*<div class="row custom-margin"></div>*@
 
 <div class="container">
     <div class="card">
@@ -252,12 +253,15 @@
 
 
 
-            <ul class="-pvs -mvxs -phm -lsn">
-                @foreach (var spec in lines)
+            <table cellpadding="5">
+                @foreach (var spec in Model.Product.ProductSpecList)
                 {
-                    <li class="-pvxs"><strong>@spec.Key</strong>: @spec.Value</li>
+                <tr>
+                    <td width="100px" class="text-right">@spec.Key:</td>
+                    <td>@spec.Value</td>
+                </tr>
                 }
-            </ul>
+            </table>
         </div>
     </div>
 </div>

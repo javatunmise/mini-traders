@@ -17,6 +17,7 @@ namespace site.Data.Configurations
             builder.Property(p => p.PhoneNumber).HasMaxLength(20);
             builder.Property(p => p.Email).HasMaxLength(255);
             builder.Property(p => p.ProfilePicturePath).HasMaxLength(255);
+            builder.Property(p => p.ReferralCode).HasMaxLength(20);
 
             builder.HasOne(user => user.Store)
                    .WithOne(store => store.User)

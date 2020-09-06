@@ -18,16 +18,21 @@ namespace Site.Data
         public DbSet<Campus> Campuses { get; set; }
         public DbSet<Hostel> Hostels { get; set; }
 
+        public DbSet<Product> Products { get; set; }
         public DbSet<Referral> Referrals { get; set; }
+        public DbSet<Category> Categories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             var schemaConfigs = new dynamic []
             {
+                new CampusSchemaConfiguration(),
+                new HostelSchemaConfiguration(),
                 new SiteUserSchemaConfiguration(),
                 new StoreSchemaConfiguration(),
-                new CampusSchemaConfiguration(),
-                new HostelSchemaConfiguration()
+                new ReferralSchemaConfiguration(),
+                new CategorySchemaConfiguration(),
+                new ProductSchemaConfiguration()
             };
 
             foreach (var schema in schemaConfigs)

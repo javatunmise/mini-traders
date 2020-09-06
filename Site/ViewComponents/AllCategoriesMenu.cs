@@ -18,7 +18,7 @@ namespace site.ViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var categories = await _siteContentProvider.GetAllCategories();
+            var categories = (await _siteContentProvider.GetAllCategories());
 
             foreach(var c in categories)
             {

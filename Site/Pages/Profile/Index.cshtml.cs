@@ -16,10 +16,10 @@ namespace site.Pages.Profile
     public class IndexModel : PageModel
     {
         private readonly AccountRepository _accountRepository;
-        private readonly IHostingEnvironment _environment;
+        private readonly IWebHostEnvironment _environment;
         private const string UPLOAD_NOT_SUPPORTED = "NOT_SUPPORTED";
 
-        public IndexModel(AccountRepository accountRepository, IHostingEnvironment env)
+        public IndexModel(AccountRepository accountRepository, IWebHostEnvironment env)
         {
             _accountRepository = accountRepository;
             _environment = env;
@@ -34,7 +34,8 @@ namespace site.Pages.Profile
             ProfileEdit = new Input
             {
                 FirstName = currentUser.FirstName,
-                LastName = currentUser.LastName
+                LastName = currentUser.LastName,
+                Email = currentUser.Email
             };
 
             return Page();
@@ -90,5 +91,6 @@ namespace site.Pages.Profile
         [Required]
         [Display(Name = "Last name")]
         public string LastName { get; set; }
+        public string Email { get; internal set; }
     }
 }

@@ -9,5 +9,6 @@
         public string PhoneNumber { get; set; }
         public Store Store { get; set; }
         public string ProfilePicturePath { get; set; }
+        public string ReferralCode { get; set; }
     }
 }

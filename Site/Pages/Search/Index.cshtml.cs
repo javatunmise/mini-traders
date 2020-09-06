@@ -7,41 +7,63 @@ using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.CodeAnalysis;
 using Newtonsoft.Json;
+using Shared.ViewModels;
 using site.Data;
+using site.Repositories;
 
 namespace site.Pages.Search
 {
     public class IndexModel : PageModel
     {
         private readonly ISiteContentProvider _provider;
+        private readonly ProductsRepository _productsRepo;
 
         public IEnumerable<Category> Categories { get; private set; }
         public IEnumerable<MarketLocation> Locations { get; private set; }
         public IEnumerable<MarketLocation> SubLocations { get; private set; }
         public SearchQuery Query { get; set; }
+        public (decimal Min, decimal Max) PriceRange { get; set; } = (0, 100000);
+        public (int PageIndex, int TotalRecords) PagingInfo = (1, 20);
+        public List<ProductSearchView.Data> Products { get; set; } = new List<ProductSearchView.Data>();
 
-        public IndexModel(ISiteContentProvider provider)
+        public IndexModel(ISiteContentProvider provider, ProductsRepository productsRepository)
         {
             _provider = provider;
+            _productsRepo = productsRepository;
         }
 
 
-        public async Task OnGet([FromQuery] SearchQuery query)
+        public async Task<IActionResult> OnGet([FromQuery] SearchQuery query)
         {
-            //var location = 0;
-            //var subLocation = 0;
-            //var minPrice = 0M;
-            //var maxPrice = 0M;
-            //var categoryId = 0;
-            var searchText = "";
-            var pageIndex = 1;
-            var pageSize = 25;
-
-            Categories = (await _provider.GetAllCategories()).Where(c => c.Parent == null);
             int.TryParse(query.LocationId, out int locationId);
+            int.TryParse(query.SubLocationId, out int subLocationId);
+
+            Categories = await _provider.GetSiteTopCategories();
+
+            query.PageIndex = Math.Max(1, query.PageIndex);
+
+            var searchResult = await _productsRepo.SearchProduct(new ProductSearchFilter
+            {
+                CategoryId = null,
+                LocationId = locationId > 0 ? locationId : (int?)null,
+                PriceMax = query.MaxPrice > 0 ? (int)Math.Ceiling(query.MaxPrice) : (int?)null,
+                PriceMin = (int)query.MinPrice,
+                SearchText = string.IsNullOrWhiteSpace(query.SearchText) ? null : query.SearchText,
+                SubLocationId = subLocationId > 0 ? subLocationId : (int?)null,
+                PageIndex = query.PageIndex,
+                PageSize = 20,
+                Sort = GetValidSort(query.OrderBy)
+            });
+
             Locations = await _provider.GetLocations();
             SubLocations = await _provider.GetSubLocations(locationId);
+            PriceRange = (searchResult.MinPrice, searchResult.MaxPrice);
+            PagingInfo = (query.PageIndex, searchResult.RecordCount);
+            Products = searchResult.Records;
+
             Query = query;
+
+            return Page();
         }
 
         public async Task<JsonResult> OnGetSubLocations(int curLocation)
@@ -51,6 +73,13 @@ namespace site.Pages.Search
 
             var json = JsonConvert.SerializeObject(subLocations);
             return new JsonResult(json);
+        }
+
+        private string GetValidSort(string orderBy)
+        {
+            var valid = new[] { "date", "price", "price-desc" };
+
+            return valid.Contains(orderBy) ? orderBy : "date";
         }
     }
 
@@ -63,12 +92,15 @@ namespace site.Pages.Search
         public string SubLocationId { get; set; }
 
         [FromQuery(Name = "min_price")]
-        public string MinPrice { get; set; }
+        public decimal MinPrice { get; set; }
 
         [FromQuery(Name = "max_price")]
-        public string MaxPrice { get; set; }
+        public decimal MaxPrice { get; set; }
 
         [FromQuery(Name = "q")]
         public string SearchText { get; set; }
+
+        public int PageIndex { get; set; }
+        public string OrderBy { get; set; }
     }
 }

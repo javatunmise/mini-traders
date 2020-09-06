@@ -10,8 +10,11 @@
     var currentUser = await _accountRepo.FindByUsername(User.Identity.Name);
     var name = "<No Store Name>";
     var store = new global::Shared.Store(null);
+    var photoUrl = Url.Content("~/images/vendor-photo.png");
     if (currentUser != null && currentUser.Store != null)
     {
+        photoUrl = currentUser.Store.LogoPath.IsEmpty() ? photoUrl : currentUser.Store.LogoPath;
+
         store = currentUser.Store;
         if (!string.IsNullOrEmpty(currentUser.Store.Name))
         {
@@ -84,6 +87,34 @@
     <meta name="msapplication-TileImage" content="/wp-content/uploads/2019/12/cropped-favicon-270x270.png">
     <style id="kirki-inline-styles"></style>
 
+    <style type="text/css">
+        @@media (max-width:567px) {
+            .product-desktop-view {
+                display: none;
+            }
+
+            .product-mob-view {
+                display: block;
+            }
+        }
+
+        @@media (min-width:568px) {
+            .product-desktop-view {
+                display: table;
+            }
+
+            .product-mob-view {
+                display: none;
+            }
+        }
+
+        .table td, .table th {
+            padding: .75rem;
+            /*vertical-align: top;*/
+            border-top: 1px solid #dee2e6;
+        }
+    </style>
+
     <noscript>
         <style>
             .wpb_animate_when_almost_visible {
@@ -121,28 +152,6 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="/pages/contact-us">Contact Us</a>
                                 </li>
-                                @*<li class="nav-item">
-                                        <a class="nav-link" href="/pages/faq">FAQ</a>
-                                    </li>*@
-
-
-                                @*<li class="nav-item">
-                                        <a class="nav-link" href="#">Link</a>
-                                    </li>
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Dropdown
-                                        </a>
-                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                        </div>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                                    </li>*@
                             </ul>
                         </div>
                     </nav>
@@ -215,19 +224,22 @@
 
                 <div class="row">
 
-                    <div class="col-md-3">
+                    <div class="col-md-3 mb-3">
                         <div class="card">
                             <div class="card-body">
 
                                 <div class="profile-image text-center">
-                                    <img src="/@store.LogoPath" alt="my photo" style="height:80px" />
+                                    <a href="~/Profile/Store/Settings">
+                                        <img src="@Url.Content("~/" + photoUrl)" alt="my photo" style="height:80px" />
+                                    </a>
 
                                     <br /><br />
-                                    <p>@name</p>
+                                    <p><a href="~/Profile/Store/Settings">@name</a></p>
                                 </div>
                                 <br />
 
                                 <ul class="list-group list-group-flush">
+                                    <li class="list-group-item"><a href="/Profile/Store">My Store</a></li>
                                     <li class="list-group-item"><a href="/Profile/Store/CreateProduct">Create Product/Service</a></li>
                                     <li class="list-group-item"><a href="/Profile/Store/Settings">Settings</a></li>
                                 </ul>

@@ -27,7 +27,13 @@ namespace site.Repositories
             var user = await _context.SiteUsers.FirstOrDefaultAsync(f => f.Email == username);
             if (user == null)
             {
-                _context.SiteUsers.Add(new SiteUser { Email = username });
+                user = new SiteUser
+                {
+                    Email = username,
+                    ReferralCode = StringUtil.GenerateReferralCode(username)
+                };
+
+                _context.SiteUsers.Add(user);
                 await _context.SaveChangesAsync();
             }
 
@@ -45,6 +51,7 @@ namespace site.Repositories
             {
                 return new Shared.Store(account)
                 {
+                    Id = store.Id,
                     Name = store.StoreName,
                     StoreDescription = store.StoreDescription,
                     CampusId = store.CampusId,
@@ -75,7 +82,7 @@ namespace site.Repositories
 
         public Task<SiteUser> FindSiteUser(string username)
         {
-           return _context.SiteUsers.FirstAsync(f => f.Email == username);
+           return _context.SiteUsers.AsNoTracking().FirstAsync(f => f.Email == username);
         }
     }
 }

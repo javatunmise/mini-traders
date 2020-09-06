@@ -8,9 +8,16 @@
 @model site.Pages.Categories.IndexModel
 
 @{
-    ViewData["Title"] = $"Categories - {Model.Category.Name}";
-}
+    var options = new SelectList(new[] {
+        new KeyValuePair<string, string>("date", "Sort by latest"),
+        new KeyValuePair<string, string>("price", "Sort by price: low to high"),
+        new KeyValuePair<string, string>("price-desc", "Sort by price: high to low"),
+    }, "Key", "Value", Model.Query.OrderBy);
 
+    ViewData["Title"] = $"Categories - {Model.Category.Name}";
+    var selectedMaxPrice = Model.Query.MaxPrice > 0 ? Math.Min(Model.Query.MaxPrice, Model.PriceRange.Max) : Model.PriceRange.Max;
+    var selectedMinPrice = Model.Query.MinPrice >= Model.PriceRange.Min ? Math.Min(Model.Query.MinPrice, Model.PriceRange.Max) : Model.PriceRange.Min;
+}
 
 <!-- Breadcrumb Area -->
 @section BreadCrumbs {
@@ -37,7 +44,9 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-3 col-xs-12 klb-sidebar">
-                <form role="search" method="get" id="searchform" action="/categories/@Model.Id/@Model.Category?.Name">
+                <form role="search" method="get" id="category-searchform" action="/categories/@Model.Id/@Model.Category?.Name">
+                    <input type="hidden" name="orderby" id="hd_order_by" value="date" />
+
                     <div class="sidebar-widget woocommerce widget_product_search">
                         <div class="control-group">
                             <input type="text" class="search-field" value="" name="q" id="q" placeholder="Search">
@@ -97,13 +106,13 @@
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-5">
-                                    <input class="form-control" name="min_price" id="min_price" type="number" max="1000" value="0" />
+                                    <input class="form-control" name="min_price" id="min_price" type="number" max="@Model.PriceRange.Max" value="@selectedMinPrice" />
                                 </div>
                                 <div class="form-group col-md-1 text-center">
                                     <span> _ </span>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <input class="form-control" name="max_price" id="max_price" type="number" max="1000" value="1000" />
+                                    <input class="form-control" name="max_price" id="max_price" type="number" max="@Model.PriceRange.Max" value="@selectedMaxPrice" />
                                 </div>
                             </div>
                             <br />
@@ -115,12 +124,12 @@
 
                 </form>
 
-                @if (Model.Categories.Any())
+                @if (Model.SubCategories.Any())
                 {
                     <div class="sidebar-widget woocommerce widget_product_categories">
                         <h3 class="section-title">@Model.Category?.Name</h3>
                         <ul class="product-categories">
-                            @foreach (var cat in Model.Categories)
+                            @foreach (var cat in Model.SubCategories)
                             {
                                 <li class="cat-item cat-item-28"><a href="@PathUtil.GetCategoryPath(cat)">@cat.Name</a></li>
                             }
@@ -168,15 +177,8 @@
                 <div class="clearfix filters-container m-t-10" style="margin-top: 0">
                     <div class="row">
                         <div class="col col-md-12 text-right">
-                            <form class="woocommerce-ordering" method="get">
-                                <select name="orderby" class="orderby" aria-label="Shop order">
-                                    <option value="popularity">Sort by popularity</option>
-                                    <option value="rating">Sort by average rating</option>
-                                    <option value="date" selected="selected">Sort by latest</option>
-                                    <option value="price">Sort by price: low to high</option>
-                                    <option value="price-desc">Sort by price: high to low</option>
-                                </select> <input type="hidden" name="paged" value="1">
-                            </form>
+                                <select name="orderby" style="width:auto" class="orderby" aria-label="Shop order" asp-items="options" onchange="submitPriceFilter(this.value)">
+                                </select>
                         </div>
                     </div>
                 </div>
@@ -185,25 +187,18 @@
                         <div class="tab-pane active" id="grid-container">
                             <div class="grid-product">
                                 <div class="row">
-                                    @for (int i = 0; i < 20; i++)
+                                    @foreach (var p in Model.Products)
                                     {
                                         <div class="a-product col-sm-6 col-md-4 col-lg-4">
                                             <div class="overlay">
-                                                <a class="vendor-name" href="~/vendors/123-bettys-beauty">Betty's Beauty</a>
+                                                <a class="vendor-name" href="~/sellers/@p.StoreId-@p.StoreName">@p.StoreName</a>
                                             </div>
                                             <div class="image">
-                                                <a href="~/products/123-same%20products">
-                                                    @if (i % 2 == 0)
-                                                    {
-                                                        <img src="~/images/products/bed.jpg" />
-                                                    }
-                                                    else
-                                                    {
-                                                        <img src="~/images/products/product-3.jpg" />
-                                                    }
+                                                <a href="~/products/@($"{p.Id}-{p.Name}")">
+                                                    <img src="@Url.Content("~/" + p.SmallImageUrl)" />
                                                 </a>
                                             </div>
-                                            <div class="title"><a href="~/products/123-same%20products">New and Refurbished Lenovo Laptops</a></div>
+                                            <div class="title"><a href="~/products/@($"{p.Id}-{p.Name}")">@p.Name</a></div>
                                             <div class="ratings">
                                                 <i class="fa fa-star"></i>
                                                 <i class="fa fa-star"></i>
@@ -212,8 +207,8 @@
                                                 <i class="fa fa-star"></i>
                                             </div>
                                             <div class="price">
-                                                <span class="price-before">N120.00</span>
-                                                <span class="price-current">N100.00</span>
+                                                <span class="price-before">N@(p.OldPrice)</span>
+                                                <span class="price-current">N@(p.Price)</span>
                                             </div>
                                         </div>
                                     }
@@ -240,10 +235,10 @@
         $(document).ready(function () {
             $(".js-range-slider").ionRangeSlider({
                 type: "double",
-                min: 0,
-                max: 1000,
-                from: 200,
-                to: 500,
+                min: @Model.PriceRange.Min,
+                max: @Model.PriceRange.Max,
+                from: @selectedMinPrice,
+                to: @selectedMaxPrice,
                 grid: false,
                 hide_min_max: true,
                 hide_from_to: true,
@@ -299,6 +294,11 @@
 
         function hideSubLocations() {
             $('#sub_location_container').hide();
+        }
+
+        function submitPriceFilter(value) {
+            $('#hd_order_by').val(value); 
+            $('#category-searchform').submit();
         }
     </script>
 

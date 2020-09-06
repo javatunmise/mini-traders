@@ -13,8 +13,8 @@ namespace Shared.Entities
         }
 
         public int Id { get; set; }
-        public int VistorStoreId { get; set; }
-        public Store VisitorStore { get; set; }
+        public int StoreId { get; set; }
+        public Store Store { get; set; }
         public int ReferrerUserId { get; set; }
         public string ReferralCode { get; set; }
         public DateTime CreatedOn { get; set; }

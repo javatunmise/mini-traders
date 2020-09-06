@@ -9,7 +9,7 @@ namespace site.Data
     {
         Task<IEnumerable<CompanyLogo>> GetSitePartnersLogos();
         Task<IEnumerable<Category>> GetSiteTopCategories();
-        Task<IEnumerable<Category>> GetAllCategories();
+        Task<IList<Category>> GetAllCategories();
         Task<IEnumerable<MarketLocation>> GetLocations();
         Task<IEnumerable<MarketLocation>> GetSubLocations(int locationId);
 
@@ -70,21 +70,21 @@ namespace site.Data
         public bool IsGoogleAnalyticsEnabled { get; set; }
     }
 
-    public class Product
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public Vendor Vendor { get; set; }
-        public string BigImageUrl { get; internal set; }
-        public string SmallImageUrl { get; internal set; }
-        public decimal OldPrice { get; internal set; }
-        public decimal Price { get; internal set; }
-        public List<string> ImagesUrls { get; internal set; }
-        public double AverageRating { get; set; }
-        public int ReviewsCount { get; internal set; }
-        public string ProductDetails { get; internal set; }
-        public string OtherFeatures { get; internal set; }
-    }
+    //public class Product
+    //{
+    //    public int Id { get; set; }
+    //    public string Name { get; set; }
+    //    public Vendor Vendor { get; set; }
+    //    public string BigImageUrl { get; internal set; }
+    //    public string SmallImageUrl { get; internal set; }
+    //    public decimal OldPrice { get; internal set; }
+    //    public decimal Price { get; internal set; }
+    //    public List<string> ImagesUrls { get; internal set; }
+    //    public double AverageRating { get; set; }
+    //    public int ReviewsCount { get; internal set; }
+    //    public string ProductDetails { get; internal set; }
+    //    public string OtherFeatures { get; internal set; }
+    //}
 
 
     public class Review
@@ -96,6 +96,7 @@ namespace site.Data
 
     public class Vendor
     {
+        public int VendorId { get; set; }
         public string LogoUrl { get; set; }
         public string Name { get; set; }
         public VendorContact Contact { get; set; }
@@ -115,6 +116,11 @@ namespace site.Data
 
     public class Category
     {
+        public Category()
+        {
+            Children = new List<Category>();
+        }
+
         public Category Parent { get; set; }
         public int Id { get; set; }
         public string Name { get; set; }

@@ -4,7 +4,7 @@
     ViewData["Title"] = "Referrals";
     Layout = "~/Pages/Shared/_LayoutProfile.cshtml";
 
-    var referralCode = "K93400100";
+    var referralCode = Model.ReferralCode;
     var referralLink = Url.Page("/sellers/registration", null, new { ref_id = referralCode }, protocol: Request.Scheme);
 }
 
@@ -28,24 +28,24 @@
     <a href="/pages/referral-details" class="btn btn-sm btn-info">Learn more</a>
 </div>
 
-<table class="table table-striped table-bordered">
+<table class="table table-striped table-bordered @(Model.Referrals.Any() ? "visible": "hide")">
     <thead>
         <tr>
-            <th>Name</th>
             <th>Store</th>
             <th>Date Joined</th>
         </tr>
     </thead>
     <tbody>
-        @for(int i=0; i< 3; i++)
+        @foreach(var referral in Model.Referrals)
         {
-            var names = new[] { "Segun", "Shola", "Margaret" };
-            var storeName = "Wisdom Facials";
         <tr>
-            <td>@names[i]</td>
-            <td>@storeName</td>
-            <td>@DateTime.Now</td>
+            <td><a href="/sellers/@referral.Store?.Id">@referral.Store?.StoreName</a></td>
+            <td>@referral.CreatedOn.ToString("dd-MMM-yyyy")</td>
         </tr>
         }
     </tbody>
 </table>
+
+<div class="alert alert-secondary @(Model.Referrals.Any() ? "hide": "visible")">
+    You have not referred anyone to this site
+</div>
