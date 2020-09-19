@@ -28,11 +28,11 @@ namespace site.Helpers
 
         internal static bool TryGetSafeImageExtension(string fileName, out string extension)
         {
-            extension = "";
-            var split = fileName.ToLower().Split('.');
-            if (split.Length != 2) return false;
+            var lastDot = fileName.LastIndexOf('.');
+            extension = lastDot > 0 ? fileName.Substring(lastDot + 1).ToLower() : "";
 
-            extension = split[1];
+            if(extension == "") return false;
+
             if (new[] { "jpg", "gif", "png", "jpeg" }.Contains(extension)) { 
                 return true;
             }

@@ -27,9 +27,14 @@ namespace site.Pages.Products
             _productRepository = productsRepository;
         }
 
-        public async Task OnGet([FromRoute] int id)
+        public async Task<IActionResult> OnGet([FromRoute] int id)
         {
             Product = await _productRepository.GetProductView(id);
+            if (Product == null)
+            {
+                return RedirectToPage("/Error404");
+            }
+
             OtherImageUrls = JsonConvert.DeserializeObject<List<string>>(Product.OtherImageUrlsJson ?? "[]");
 
             Vendor = new Vendor
@@ -37,14 +42,23 @@ namespace site.Pages.Products
                 VendorId = Product.StoreId,
                 Name = Product.VendorName,
                 LogoUrl = Product.VendorLogoPath,
-                Contact = new site.Data.VendorContact { PhoneNumber = Product.VendorPhoneNumber }
+                Contact = new VendorContact { PhoneNumber = Product.VendorPhoneNumber }
             };
 
-            ProductReviews = new List<Review>()
-            {
-                new Review { Title = "Cool", Feedback = "Nothing to say", ReviewerName = "Shade"},
-                new Review { Title = "Not happy", Feedback = "Not good quality", ReviewerName = "Alex James"},
-            };
+            ProductReviews = (await _productRepository.GetProductReviews(id))
+                             .Take(5)
+                             .Select(e => new Review
+                             {
+                                 Feedback = e.Message,
+                                 ProfilePicturePath = e.ReviewerProfileImage,
+                                 Rating = (int)Math.Round(e.Rating),
+                                 ReviewerName = e.ReviewerName,
+                                 Date = e.CreatedOn
+                             }).ToList();
+
+            RelatedProducts = (await _productRepository.GetRelatedProducts(Product.Name, Product.ProductDetails)).ToList();
+
+            return Page();
         }
 
     }

@@ -16,11 +16,14 @@
 
     .product-image {
         height: 250px;
+        line-height: 250px;
+        text-align: center;
     }
 
     .product-area img {
-        width: 100%;
+        /*width: 100%;*/
         max-height: 250px;
+        vertical-align: middle;
     }
 
     .a-review img {
@@ -120,6 +123,7 @@
 @section BreadCrumbs {
     <ol class="breadcrumb">
         <li class="list-inline-item"><a href="/">Home</a></li>
+        <li class="list-inline-item"><a href="/categories/@product.CategoryId/@product.CategoryName">@product.CategoryName</a></li>
         <li class="list-inline-item">@product.Name</li>
     </ol>
 }
@@ -147,13 +151,11 @@
 
                             <div class="carousel-wrapper">
                                 <div class="owl-carousel owl-theme">
-                                    @foreach (var banner in (new[]{ "images/products/bed.jpg",
-                                                                     "images/products/product-2.jpg",
-                                                                     "images/products/product-3.jpg"}).Select((b, index) => new { filename = b, index }))
+                                    @foreach (var path in Model.OtherImageUrls)
                                     {
                                         <div class="item item-carousel">
-                                            <a href="javascript:replaceImage('../@banner.filename')">
-                                                <img class="d-block" src="~/@banner.filename" alt="First slide" style="width:100px">
+                                            <a href="javascript:replaceImage('../@path')">
+                                                <img class="d-block" src="~/@path" alt="First slide" style="width:100px">
                                             </a>
                                         </div>
                                     }
@@ -166,19 +168,19 @@
                     <div class="col-md-6">
                         <h2 class="product-title">@product.Name</h2>
                         <div>
-                            @for (int i = 0; i < 5; i++)
+                            @for (int i = 0; i < product.AverageRating; i++)
                             {
                                 <i class="fa fa-star" style="color: #f9b900; font-size: 16px"></i>
                             }
 
                             &nbsp;
-                            <span>(0 customer review)</span>
+                            <span>(@product.ReviewsCount customer review)</span>
                         </div>
 
                         <div class="divider"></div>
 
                         <div class="price">
-                            <span class="price-before">N@(product.OldPrice.ToString("N2"))</span>
+                            <span class="price-before @(product.Price == product.OldPrice ? "hide" : "")">N@(product.OldPrice.ToString("N2"))</span>
                             <span class="price-current">N@(product.Price.ToString("N2"))</span>
                         </div>
 
@@ -217,10 +219,14 @@
                         <div class="divider"></div>
 
                         <div class="chat-box vert-indent">
-                            <textarea class="form-control" rows="4">Send message to seller</textarea>
+                            <div class="text-danger mb-2" style="display: none" id="post-msg-error">Unable to send message. Please try again later.</div>
+                            <div class="text-success mb-2" style="display: none" id="post-msg-success">Message sent!</div>
+                            <div class="text-danger mb-2" style="display: none" id="post-msg-length-error">Message must be at least 20 characters</div>
+                            <textarea id="seller-msg" class="form-control" rows="4" placeholder="Send message to seller"></textarea>
 
                             <div class="buttons">
-                                <button class="btn btn-primary">Post</button>
+                                <button onclick="postMessage()" class="btn btn-primary">Post</button>
+                                <img id="post-msg-spinner" src="~/images/spinner.jpg" style="height:40px; display: none" />
                             </div>
                         </div>
                         <div>Safety Tips</div>
@@ -274,43 +280,60 @@
         <div class="card-body site-page-content">
             <h3 class="title">Reviews</h3>
 
-            <div class="media a-review">
-                <img class="align-self-start mr-3" src="~/images/vendor-photo.png" alt="Generic placeholder image">
-                <div class="media-body">
-                    <div class="product-ratings">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
+            @foreach (var review in Model.ProductReviews)
+            {
+                <div class="media a-review">
+                    <img class="align-self-start mr-3 img-circle" style="width: 40px; height: 40px" src="@Url.Content("~/" + review.ProfilePicturePath)" alt="Generic placeholder image">
+                    <div class="media-body">
+                        <div class="product-ratings">
+                            @for (int i = 0; i < review.Rating; i++)
+                            {
+                                <i class="fa fa-star"></i>
+                            }
+                            @for (int i = 0; i < 5 - review.Rating; i++)
+                            {
+                                <i class="fa fa-star-o"></i>
+                            }
+                        </div>
+
+                        <p> <strong>@review.ReviewerName</strong> - @review.Date.ToString("MMMM dd, yyyy")</p>
+                        <p>
+                            @review.Feedback
+                        </p>
                     </div>
-
-                    <p> <strong>James Tyson</strong> - @DateTime.Now.ToString("MMMM dd, yyyy")</p>
-                    <p>
-                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                    </p>
                 </div>
-            </div>
+            }
 
+            @if(Model.ProductReviews.Count >= 5)
+            {
+                <div><a href="./@product.Id/allreviews">See all reviews</a></div>
+            }
 
-            <div class="media a-review">
+            <div class="media a-review" id="review-box">
                 <img class="align-self-start mr-3" src="~/images/vendor-photo.png" alt="Generic placeholder image">
                 <div class="media-body">
                     <div class="product-ratings">
                         <span>Your rating: </span>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
+                        @for (int i = 1; i <= 5; i++)
+                        {
+                            <input type="radio" name="rating" id="rating_@i" onclick="document.getElementById('rating_value').value = @i" /> <span>@i</span>
+                        }
+                        <input type="hidden" id="rating_value" />
                     </div>
+                    <div class="text-danger" style="display:none" id="review-rating-error">Please select a rating</div>
 
-                    <p>How did you feel about this product</p>
+                    <p>How did you feel about this product or the vendor</p>
                     <p>
-                        <textarea class="form-control"></textarea>
+                        <div class="text-danger" style="display:none" id="review-comment-error">Comment must be at least 10 characters</div>
+                        <div class="text-danger" style="display:none" id="post-review-error">Unable to submit your review. Please try again later</div>
+                        <textarea id="review-msg" class="form-control"></textarea>
                     </p>
 
-                    <button class="btn btn-primary">Submit</button>
+                    <input type="hidden" name="product_id" id="product_id" value="@product.Id" />
+                    <input type="hidden" name="store_id" id="store_id" value="@product.Id" />
+
+                    <button onclick="postReview()" class="btn btn-primary">Submit</button>
+                    <img id="post-review-spinner" src="~/images/spinner.jpg" style="height:40px; display: none" />
                 </div>
             </div>
 
@@ -320,7 +343,7 @@
 
 <div class="row custom-margin"></div>
 
-<div class="container">
+<div class="container @(Model.RelatedProducts.Any() ? "" : "hide")">
     <div class="home-recommended">
         <div class="home-recommended-header row">
             <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12"><h2 style="color:#333" class="title">Related Products</h2></div>
@@ -338,23 +361,23 @@
         <div class="carousel-wrapper">
             <div class="owl-carousel two">
 
-                @foreach (var _product in Enumerable.Range(0, 5).Select(c => new site.Data.Category { }))
+                @foreach (var _product in Model.RelatedProducts)
                 {
                     <div class="item item-carousel" style="">
                         <div class="image">
-                            <a href="/product/the-crash-bad-instant-folding-long-twin-bed-3/"><img src="~/images/products/product-@(counter % 4 + 1).jpg" alt="The Crash Bad Instant Folding long Twin Bed"></a>
+                            <a href="/products/@($"{_product.Id}-{_product.Name}")"><img src="@Url.Content("~/"+_product.SmallImageUrl)" alt="@_product.Name"></a>
                         </div>
 
-                        <div class="title"><a href="/products/123-same products">The Crash Bad Instant Folding long Twin Bed</a></div>
+                        <div class="title"><a href="/products/@($"{_product.Id}-{_product.Name}")">@_product.Name</a></div>
                         <div class="rating">
-                            @for (int i = 0; i < 5; i++)
+                            @for (int i = 0; i < _product.AverageRating; i++)
                             {
                                 <i class="fa fa-star"></i>
                             }
                         </div>
                         <div class="price">
-                            <span class="price-before">N120.00</span>
-                            <span class="price-current">N100.00</span>
+                            <span class="price-before @(_product.Price == _product.OldPrice ? "hide" : "")">N@_product.OldPrice.ToString("N2")</span>
+                            <span class="price-current">N@_product.Price.ToString("N2")</span>
                         </div>
                     </div>
 
@@ -367,8 +390,117 @@
 </div>
 
 
-<script type="text/javascript">
-    function replaceImage(image) {
-        $('.product-image img').attr('src', image);
+@section Scripts {
+
+    <script type="text/javascript">
+
+        function postReview() {
+            showHideElements(false, ['#review-comment-error', '#review-rating-error', '#post-review-error'])
+
+            var msg = document.getElementById('review-msg').value;
+            var rating = document.getElementById('rating_value').value;
+
+            if (msg.length < 10) {
+                showHideElement(true, '#review-comment-error');
+                return;
+            }
+            if (rating == '') {
+                showHideElement(true, '#review-rating-error');
+                return;
+            }
+
+            var data = {
+                "message": msg,
+                "rating": parseFloat(rating),
+                "productId": @product.Id,
+                "storeId": @product.StoreId
+            };
+
+            showHideElement(true, '#post-review-spinner');
+            fetch('/api/operations/productreviews', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+            .then(data => {
+                showHideElement(false, '#post-review-spinner');
+                showSuccessMessage("#post-review");
+                $('#review-box').html('<div class="alert alert-success">Thanks! Your review has been taken.</div>');
+            })
+            .catch(function (e) {
+                showHideElement(false, '#post-review-spinner');
+                showErrorMessage("#post-review");
+            });
     }
-</script>
+        function postMessage() {
+            showHideElements(false, ['#post-msg-error', '#post-msg-success', '#post-msg-length-error'])
+
+            var msg = document.getElementById('seller-msg').value;
+
+            if (msg.length < 20) {
+                showHideElement(true, '#post-msg-length-error');
+                return;
+            }
+
+            var data = {
+                "message": msg,
+                "productId": @product.Id,
+                "storeId": @product.StoreId
+            }
+
+            showHideElement(true, '#post-msg-spinner');
+            fetch('/api/operations/vendormessage', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+                })
+                .then(response => {
+                    if (response.ok) return response;
+
+                    throw new Error("error");
+                })
+                .then(data => {
+                    showSuccessMessage("#post-msg");
+                    document.getElementById('seller-msg').value = '';
+                    showHideElement(false, '#post-msg-spinner');
+                })
+                .catch(function (e) {
+                    showHideElement(false, '#post-msg-spinner');
+                    console.log("exception thrown" + e)
+                    showErrorMessage("#post-msg");
+                });
+        }
+
+        function showHideElement(show, elem_id) {
+            if (show) {
+                $('' + elem_id).show();
+            }
+            else {
+                $('' + elem_id).hide();
+            }
+        }
+
+        function showSuccessMessage(elem_id){
+            $(elem_id+'-error').hide();
+            $(elem_id+'-success').show();
+        }
+
+        function showErrorMessage(elem_id){
+            $(elem_id+'-success').hide();
+            $(elem_id+'-error').show();
+        }
+
+        function showHideElements(show, elems) {
+            if (!elems || elems.length == 0) return;
+            for (i = 0; i < elems.length; i++)
+                showHideElement(show, elems[i]);
+        }
+
+    </script>
+        
+    <script type="text/javascript">
+        function replaceImage(image) {
+            $('.product-image img').attr('src', image);
+        }
+    </script>
+}

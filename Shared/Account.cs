@@ -15,6 +15,7 @@ namespace Shared
             Id = _user.Id;
         }
 
+        public bool IsAdmin { get; set; }
         public bool IsActive { get; internal set; }
         public int Id { get; }
         public bool HasStore

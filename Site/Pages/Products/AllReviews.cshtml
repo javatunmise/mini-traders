@@ -1,0 +1,320 @@
+﻿@page "/products/{id}/allreviews"
+
+@model site.Pages.Products.AllReviews
+@{
+    ViewData["Title"] = "Index";
+
+    var product = Model.Product ?? new global::Shared.ViewModels.ProductView();
+    var vendor = Model.Vendor ?? new site.Data.Vendor { Contact = new site.Data.VendorContact() };
+}
+
+<style type="text/css">
+    .product-area {
+        padding-top: 15px;
+    }
+
+    .product-image {
+        height: 250px;
+    }
+
+    .product-area img {
+        width: 100%;
+        max-height: 250px;
+    }
+
+    .a-review img {
+        width: 65px;
+    }
+
+    .a-review textarea {
+        width: 100%;
+    }
+
+    .product-area .product-title {
+        margin-top: 0;
+    }
+
+    .vendor-area {
+        padding: 15px;
+    }
+
+        .vendor-area .vert-indent {
+            padding: 15px 0;
+        }
+
+        .vendor-area .image {
+            text-align: center;
+            padding: 15px;
+        }
+
+        .vendor-area .vendor-name {
+            text-align: center;
+            margin-top: 0;
+        }
+
+        .vendor-area .image img {
+            width: 80px;
+            border-radius: 50%;
+        }
+
+    .divider {
+        height: 1px;
+        border-bottom: solid 1px #eeeeee;
+        margin: 15px 0;
+    }
+
+        .divider.hint {
+            border-bottom: solid 1px #f9b900;
+        }
+
+    .price-before {
+        font-size: 18px;
+    }
+
+    .price-current {
+        font-size: 25px;
+    }
+
+    .chat-box textarea {
+        width: 100%;
+    }
+
+    .chat-box .buttons {
+        margin-top: 15px;
+    }
+
+    .social li a:before {
+        display: none;
+    }
+
+    .social li a {
+        font-size: 16px;
+        display: inline-block !important;
+        text-align: center;
+        padding: 0;
+    }
+
+    .social li.facebook a {
+        background: #3C5B9B !important;
+    }
+
+    .social li.twitter a {
+        background: #359BED !important;
+    }
+
+    .social li.google-plus a {
+        background: #E33729 !important;
+    }
+
+    .social li.pinterest a {
+        background: #cb2027 !important;
+    }
+
+    .product-ratings i {
+        color: #cb2027;
+    }
+</style>
+
+<!-- Breadcrumb Area -->
+@section BreadCrumbs {
+    <ol class="breadcrumb">
+        <li class="list-inline-item"><a href="/">Home</a></li>
+        <li class="list-inline-item"><a href="/categories/@product.CategoryId/@product.CategoryName">@product.CategoryName</a></li>
+        <li class="list-inline-item"><a href="/products/@product.Id-@product.Name">@product.Name</a></li>
+        <li class="list-inline-item">Reviews</li>
+    </ol>
+}
+
+<div class="row custom-margin"></div>
+
+
+<div class="container">
+
+    <div class="card site-page-content">
+        <div class="card-body" style="padding: 0">
+
+            <div class="row" style="padding: 0">
+                <div class="product-area col-md-9">                    
+
+                    <div class="col-md-12">
+                        <h3 class="title">Reviews</h3>
+
+                        @foreach (var review in Model.ProductReviews)
+                        {
+                            <div class="media a-review">
+                                <img class="align-self-start mr-3 img-circle" style="width: 40px; height: 40px" src="@Url.Content("~/" + review.ProfilePicturePath)" alt="Generic placeholder image">
+                                <div class="media-body">
+                                    <div class="product-ratings">
+                                        @for (int i = 0; i < review.Rating; i++)
+                                        {
+                                            <i class="fa fa-star"></i>
+                                        }
+                                        @for (int i = 0; i < 5 - review.Rating; i++)
+                                        {
+                                            <i class="fa fa-star-o"></i>
+                                        }
+                                    </div>
+
+                                    <p> <strong>@review.ReviewerName</strong> - @review.Date.ToString("MMMM dd, yyyy")</p>
+                                    <p>
+                                        @review.Feedback
+                                    </p>
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="vendor-area" style="background: #f3f3f3; text-align: center">
+                        <div class="image">
+                            <a href="/Sellers/@vendor.VendorId">
+                                <img src="@Url.Content("~/" + vendor.LogoUrl)" alt="Vendor Picture or Logo" />
+                            </a>
+                        </div>
+                        <a href="/Sellers/@vendor.VendorId"><h4 class="vendor-name">@vendor.Name</h4></a>
+
+                        <div class="divider"></div>
+
+                        <div><h4>@vendor.Contact?.PhoneNumber</h4></div>
+
+                        <div class="divider"></div>
+
+                        <div class="chat-box vert-indent">
+                            <div class="text-danger mb-2" style="display: none" id="post-msg-error">Unable to send message. Please try again later.</div>
+                            <div class="text-success mb-2" style="display: none" id="post-msg-success">Message sent!</div>
+                            <div class="text-danger mb-2" style="display: none" id="post-msg-length-error">Message must be at least 20 characters</div>
+                            <textarea id="seller-msg" class="form-control" rows="4" placeholder="Send message to seller"></textarea>
+
+                            <div class="buttons">
+                                <button onclick="postMessage()" class="btn btn-primary">Post</button>
+                                <img id="post-msg-spinner" src="~/images/spinner.jpg" style="height:40px; display: none" />
+                            </div>
+                        </div>
+                        <div>Safety Tips</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row custom-margin"></div>
+
+
+@section Scripts {
+
+    <script type="text/javascript">
+
+        function postReview() {
+            showHideElements(false, ['#review-comment-error', '#review-rating-error', '#post-review-error'])
+
+            var msg = document.getElementById('review-msg').value;
+            var rating = document.getElementById('rating_value').value;
+
+            if (msg.length < 10) {
+                showHideElement(true, '#review-comment-error');
+                return;
+            }
+            if (rating == '') {
+                showHideElement(true, '#review-rating-error');
+                return;
+            }
+
+            var data = {
+                "message": msg,
+                "rating": parseFloat(rating),
+                "productId": @product.Id,
+                "storeId": @product.StoreId
+            };
+
+            showHideElement(true, '#post-review-spinner');
+            fetch('/api/operations/productreviews', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+            .then(data => {
+                showHideElement(false, '#post-review-spinner');
+                showSuccessMessage("#post-review");
+                $('#review-box').html('<div class="alert alert-success">Thanks! Your review has been taken.</div>');
+            })
+            .catch(function (e) {
+                showHideElement(false, '#post-review-spinner');
+                showErrorMessage("#post-review");
+            });
+    }
+        function postMessage() {
+            showHideElements(false, ['#post-msg-error', '#post-msg-success', '#post-msg-length-error'])
+
+            var msg = document.getElementById('seller-msg').value;
+
+            if (msg.length < 20) {
+                showHideElement(true, '#post-msg-length-error');
+                return;
+            }
+
+            var data = {
+                "message": msg,
+                "productId": @product.Id,
+                "storeId": @product.StoreId
+            }
+
+            showHideElement(true, '#post-msg-spinner');
+            fetch('/api/operations/vendormessage', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+                })
+                .then(response => {
+                    if (response.ok) return response;
+
+                    throw new Error("error");
+                })
+                .then(data => {
+                    showSuccessMessage("#post-msg");
+                    document.getElementById('seller-msg').value = '';
+                    showHideElement(false, '#post-msg-spinner');
+                })
+                .catch(function (e) {
+                    showHideElement(false, '#post-msg-spinner');
+                    console.log("exception thrown" + e)
+                    showErrorMessage("#post-msg");
+                });
+        }
+
+        function showHideElement(show, elem_id) {
+            if (show) {
+                $('' + elem_id).show();
+            }
+            else {
+                $('' + elem_id).hide();
+            }
+        }
+
+        function showSuccessMessage(elem_id){
+            $(elem_id+'-error').hide();
+            $(elem_id+'-success').show();
+        }
+
+        function showErrorMessage(elem_id){
+            $(elem_id+'-success').hide();
+            $(elem_id+'-error').show();
+        }
+
+        function showHideElements(show, elems) {
+            if (!elems || elems.length == 0) return;
+            for (i = 0; i < elems.length; i++)
+                showHideElement(show, elems[i]);
+        }
+
+    </script>
+        
+    <script type="text/javascript">
+        function replaceImage(image) {
+            $('.product-image img').attr('src', image);
+        }
+    </script>
+}

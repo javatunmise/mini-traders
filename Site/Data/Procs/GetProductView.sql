@@ -5,7 +5,7 @@
 AS
 SELECT 
 	p.Id,
-	p.Name,
+	p.[Name],
 	p.ProductDetails,
 	p.Specifications,
 	p.ImageUrl,
@@ -15,6 +15,7 @@ SELECT
 	p.OldPrice,
 	p.StoreId,
 	p.CategoryId,
+	c.[Name] as CategoryName,
 	p.ReviewsCount,
 	p.AverageRating,
 	st.StoreName as VendorName,
@@ -24,4 +25,5 @@ SELECT
 	st.LogoPath as VendorLogoPath
 FROM Products p (nolock)
 JOIN Stores st (nolock) ON p.StoreId = st.Id
+JOIN Categories c ON c.Id = p.CategoryId
 WHERE p.Id = @ProductId

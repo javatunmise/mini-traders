@@ -1,48 +1,36 @@
-﻿@*@model site.ViewComponents.ProductsGrid.ProductsGridInfo*@
+﻿@model site.ViewComponents.ProductsGrid_FlashDeals.FlashDealInfo
 
-@{
-    //string title = Model?.Title ?? "Featured Products";
-    var categories = new List<site.Data.Category>
-{
-        new site.Data.Category { Name = "Fashion & Clothing" },
-        new site.Data.Category { Name = "Health & Beauty" },
-        new site.Data.Category { Name = "Grocery & Kitchen Items" },
-    };
-
-    var counter = 0;
-    var numbers = new[] { "one", "two", "three" };
-    var productTitles = new[]
-    {
-        "Chrysolite Designs 27 Polo",
-        "iWay Bluetooth Speaker V4.2",
-        "Tooth Paste Dispenser And Brush Holder",
-        "Traveling Steam Iron",
-        "Paxton Proximity Reader",
-        "Paxton Proximity Reader",
-    };
+@{   
+    var isVisible = Model.FlashDeal != null && Model.FlashDealProducts.Any();
+    var timeLeft = Model.TimeLeft();
 }
 
 
-<div class="container">
+<div class="container @(isVisible ? "" : "hide")">
     <div class="home-flash-deals">
         <div class="home-flash-deals-header row">
             <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12"><h2 style="color:#333" class="title">Flash Deals</h2></div>
             <div class="col-lg-8 col-md-6 col-sm-10 col-xs-9" style="padding-top: 15px; height:65px">
-                <div class="box-timer">
-                    <h5>Ends On:</h5>
-                    <div class="timer-grid" data-countdown="2020/09/24 03:59:00">
-                        <div class="box-time-date">
-                            <span class="time-num time-day">74</span> days
-                        </div>
-                        <div class="box-time-date">
-                            <span class="time-num">20</span> hrs
-                        </div>
-                        <div class="box-time-date">
-                            <span class="time-num">30</span>mins
-                        </div>
-                        <div class="box-time-date">
-                            <span class="time-num">08</span>secs
-                        </div>
+                <div class="box-timer countdown" data-Date='2020/09/30 13:53:43'>
+                    
+                    <div class="running">
+                        <timer>
+                            <div class="timer-grid" data-countdown="@Model.FlashDeal.EndDate">
+                                <div class="box-time-date">
+                                    <span class="time-num time-day days">@timeLeft.Days</span> days
+                                </div>
+                                <div class="box-time-date">
+                                    <span class="time-num hours">@timeLeft.Hours</span> hrs
+                                </div>
+                                <div class="box-time-date">
+                                    <span class="time-num minutes">@timeLeft.Minutes</span>mins
+                                </div>
+                                <div class="box-time-date">
+                                    <span class="time-num seconds">@timeLeft.Seconds</span>secs
+                                </div>
+                            </div>
+                        </timer>
+
                     </div>
                 </div>
             </div>
@@ -56,27 +44,9 @@
 
         <div class="carousel-wrapper">
             <div class="owl-carousel two">
-                @foreach (var product in Enumerable.Range(0, 5).Select(c => new site.Data.Category { }))
+                @foreach (var product in Model.FlashDealProducts)
                 {
-                    <div class="item item-carousel" style="">
-                        <div class="image">
-                            <a href="/product/the-crash-bad-instant-folding-long-twin-bed-3/"><img src="~/images/products/product-@(counter % 4 + 1).jpg" alt="The Crash Bad Instant Folding long Twin Bed"></a>
-                        </div>
-
-                        <div class="title"><a href="/products/123-same products">The Crash Bad Instant Folding long Twin Bed</a></div>
-                        <div class="rating">
-                            @for (int i = 0; i < 5; i++)
-                            {
-                                <i class="fa fa-star"></i>
-                            }
-                        </div>
-                        <div class="price">
-                            <span class="price-before">N120.00</span>
-                            <span class="price-current">N100.00</span>
-                        </div>
-                    </div>
-
-                    counter++;
+                    @await Html.PartialAsync("~/Pages/Shared/TempViews/_GridProductView.cshtml", product)
                 }
             </div>
         </div>

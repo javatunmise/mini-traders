@@ -8,6 +8,9 @@ namespace Shared.Entities
 {
     public class Product
     {
+        public Product()
+        {
+        }
         public int Id { get; set; }
         public string Name { get; set; }
         public string ProductDetails { get; set; }
@@ -31,6 +34,8 @@ namespace Shared.Entities
 
         public double ReviewsCount { get; set; }
         public double AverageRating { get; set; }
+
+        public ICollection<ProductTag> ProductTags { get; set; }
 
         [NotMapped]
         public List<string> OtherImageUrls { get; set; }

@@ -30,7 +30,8 @@ namespace site.Repositories
                 user = new SiteUser
                 {
                     Email = username,
-                    ReferralCode = StringUtil.GenerateReferralCode(username)
+                    ReferralCode = StringUtil.GenerateReferralCode(username),
+                    ProfilePicturePath = "images/vendor-photo.png"
                 };
 
                 _context.SiteUsers.Add(user);
@@ -82,7 +83,7 @@ namespace site.Repositories
 
         public Task<SiteUser> FindSiteUser(string username)
         {
-           return _context.SiteUsers.AsNoTracking().FirstAsync(f => f.Email == username);
+           return _context.SiteUsers.AsNoTracking().FirstOrDefaultAsync(f => f.Email == username);
         }
     }
 }

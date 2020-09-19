@@ -13,6 +13,7 @@ using NuGet.Frameworks;
 using site.Data;
 using site.Helpers;
 using site.Repositories;
+using Newtonsoft.Json;
 
 namespace site.Pages.Profile.Store
 {
@@ -73,16 +74,26 @@ namespace site.Pages.Profile.Store
             if (!currentUser.HasStore)
                 return RedirectToPage("/Profile/Index");
 
-            var productImagePath = "";
-            if (FormInput.ImageUpload != null)
-            {
-                productImagePath = await CreateFile();
-                if (productImagePath == UPLOAD_NOT_SUPPORTED)
+            IList<string> productImagePaths = new[]{""};
+            if (FormInput.ImageUpload != null && FormInput.ImageUpload.Any())
+            {            
+                if (FormInput.ImageUpload.Count > 5)
+                {
+                    ModelState.AddModelError(nameof(FormInput.ImageUpload), "Only 5 pictures allowed");
+                    await LoadDropdownCategories();
+                    return Page();
+                }
+
+                productImagePaths = await CreateFile();
+                if (productImagePaths[0] == UPLOAD_NOT_SUPPORTED)
                 {
                     ModelState.AddModelError(nameof(FormInput.ImageUpload), "Uploaded file format not supported");
+                    await LoadDropdownCategories();
                     return Page();
                 }
             }
+     
+            var categories = await _siteContentProvider.GetAllCategories();
 
             var product = new Shared.Entities.Product
             {
@@ -92,10 +103,12 @@ namespace site.Pages.Profile.Store
                 Price = FormInput.Price,
                 OldPrice = FormInput.Price,
                 CategoryId = FormInput.CategoryId,
-                ImageUrl = productImagePath,
-                SmallImageUrl = productImagePath,
+                ImageUrl = productImagePaths[0],
+                SmallImageUrl = productImagePaths[0],
                 StoreId = currentUser.Store.Id,
-                Specifications = FormInput.Specifications
+                Specifications = FormInput.Specifications,
+                RenderedAsService = StoreUtil.IsServiceCategory(FormInput.CategoryId, categories.ToList()),
+                OtherImageUrlsJson = JsonConvert.SerializeObject(productImagePaths)
             };
 
             try
@@ -114,18 +127,30 @@ namespace site.Pages.Profile.Store
             return Page();
         }
 
-        private async Task<string> CreateFile()
+        private async Task<IList<string>> CreateFile()
         {
-            if (!StringUtil.TryGetSafeImageExtension(FormInput.ImageUpload.FileName, out string extension))
-                return UPLOAD_NOT_SUPPORTED;
+            var filePaths = await Task.Run<IList<string>>(async () =>
+            {
+                var filePaths = new List<string>();
+                foreach (var upload in FormInput.ImageUpload)
+                {
+                    if (!StringUtil.TryGetSafeImageExtension(upload.FileName, out string extension))
+                        return new[] { UPLOAD_NOT_SUPPORTED };
 
-            var fileName = $"logo_{StringUtil.SafeGuid()}.{extension}";
-            var relativePath = "images/products/";
-            var path = Path.Combine("wwwroot/" + relativePath, fileName);
-            var file = Path.Combine(_environment.ContentRootPath, path);
-            using var fileStream = new FileStream(file, FileMode.Create);
-            await FormInput.ImageUpload.CopyToAsync(fileStream);
-            return relativePath + fileName;
+                    var fileName = $"item_{StringUtil.SafeGuid()}.{extension}";
+                    var relativePath = "images/products/";
+                    var path = Path.Combine("wwwroot/" + relativePath, fileName);
+                    var file = Path.Combine(_environment.ContentRootPath, path);
+                    using var fileStream = new FileStream(file, FileMode.Create);
+                    await upload.CopyToAsync(fileStream);
+
+                    filePaths.Add(relativePath + fileName);
+                }
+
+                return filePaths;
+            });
+
+            return filePaths;
         }
 
         private async Task LoadDropdownCategories()
@@ -170,7 +195,7 @@ namespace site.Pages.Profile.Store
             public decimal Price { get; set; }
 
             [Display(Name = "Image")]
-            public IFormFile ImageUpload { get; set; }
+            public List<IFormFile >ImageUpload { get; set; }
         }
     }
 }

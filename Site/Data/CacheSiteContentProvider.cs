@@ -1,5 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using Shared.Entities;
 using site.Data.Repositories;
+using Site.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,24 +17,34 @@ namespace site.Data
     {
         private readonly LocationRepository _locationRepo;
         private readonly CategoriesRepository _categoriesRepo;
+        private readonly ApplicationDbContext _context;
+        private readonly ILogger<CacheSiteContentProvider> _logger;
 
-        public CacheSiteContentProvider(LocationRepository locationRepository, CategoriesRepository categoriesRepository)
+        public CacheSiteContentProvider(LocationRepository locationRepository, 
+                                        CategoriesRepository categoriesRepository, 
+                                        ApplicationDbContext context,
+                                        ILogger<CacheSiteContentProvider> logger)
         {
             _locationRepo = locationRepository;
             _categoriesRepo = categoriesRepository;
+            _context = context;
+            _logger = logger;
         }
 
         public async Task<IEnumerable<Carousel>> GetCarousel()
         {
-            var data = new List<Carousel>
-            {
-                new Carousel { Id = 1, Name = "First Slide", Type = CarouselType.MainScroller,
-                DestinationUrl = "/categories/1-123", ImageUrl = "CONFORT.png" },
-                new Carousel { Id = 1, Name = "Second Slide", Type = CarouselType.MainScroller,
-                DestinationUrl = "/categories/4-456", ImageUrl = "Few Second.png" },
-            };
+            var carousels = await _context.SiteImages.Where(e => e.GroupCode == ImageUploadGroups.Carousels)
+                                                     .ToListAsync();
 
-            await Task.CompletedTask;
+            var data = carousels.Select(e => new Carousel
+            {
+                Id = e.Id,
+                Name = e.EntityId,
+                Type = CarouselType.MainScroller,
+                DestinationUrl = e.Link,
+                ImageUrl = e.ImagePath,
+                Ordering = e.Ordering
+            });
 
             return data;
         }
@@ -122,8 +138,9 @@ namespace site.Data
 
             foreach(var cat in categories)
             {
-                if (cat.Parent != null && string.IsNullOrEmpty(cat.Parent.Name))
-                    cat.Parent.Name = categories.SingleOrDefault(c => c.Id == cat.Parent.Id)?.Name;
+                if(cat.Parent != null){
+                    cat.Parent = categories.FirstOrDefault(e => e.Id == cat.Parent.Id);
+                }		                
             }
 
             return categories;
@@ -131,18 +148,9 @@ namespace site.Data
 
         public async Task<Site> GetSiteInfo()
         {
-            await Task.CompletedTask;
-            return new Site
-            {
-                PhoneNumber = "+234 813 776 8881",
-                    Email = "shopatfirstchoice@yahoo.com",
-                    Address = "159 Olonade Yaba, Lagos",               
-                FacebookUrl = "http://facebook.com/pages/first-choice-online",
-                YoutubeUrl = "",
-                InstagramUrl = "",
-                TwitterUrl = "",
-                LinkedInUrl = ""
-            };
+            var siteId = new Guid(Shared.Entities.Site.Identifier);
+            var site = await _context.Sites.FirstOrDefaultAsync(e => e.Id == siteId);
+            return new Site(site);
         }
 
         public async Task<FooterLinks> GetFooterHelpAndSupportLinks()
@@ -196,6 +204,48 @@ namespace site.Data
                 new FooterLink { Text = "Invenstor Relations", Url ="/pages/1022-Invenstor Relations "},
                 new FooterLink { Text = "Contact Us", Url ="/pages/1022-Contact Us "},
             });
+        }
+
+        public async Task<IEnumerable<Product>> GetTopServices()
+        {
+            return await _context.Products.FromSqlRaw(SQLUtil.GetTopServicesQuery()).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Product>> GetRecommended(SiteUser siteUser)
+        {
+            var campus = new SqlParameter("campusId", System.Data.SqlDbType.Int)
+            {
+                Value = siteUser?.CampusId ?? 0
+            };
+
+            var query = SQLUtil.GetRecommendedQuery();
+            _logger.LogInformation("QUERY: " + query);
+            return await _context.Products.FromSqlRaw(query, campus).ToListAsync();
+        }
+
+        public async Task<List<Product>> GetLatestProducts(int categoryId, int numOfRecords)
+        {
+            return await _context.Products.Where(e => e.CategoryId == categoryId)
+                         .OrderByDescending(e => e.CreatedOn)
+                         .Take(numOfRecords)
+                         .ToListAsync();
+        }
+
+        public async Task<List<Product>> GetFlashDeals()
+        {
+            await Task.CompletedTask;
+            return new List<Product>();
+        }
+
+        public async Task<FlashDeal> GetCurrentFlashDeal()
+        {
+            await Task.CompletedTask;
+            return new FlashDeal()
+            {
+                Name = "Easter Sales",
+                StartDate = DateTime.Now.AddDays(-5),
+                EndDate = DateTime.Now.AddDays(3)
+            };
         }
     }
 }

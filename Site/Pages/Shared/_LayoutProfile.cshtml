@@ -10,12 +10,33 @@
     var currentUser = await _accountRepo.FindSiteUser(User.Identity.Name);
     var name = User.Identity.Name;
     var photoUrl = Url.Content("~/images/vendor-photo.png");
+    var menus = new List<KeyValuePair<string, string>>
+    {
+                new KeyValuePair<string, string>("Edit Profile","/Profile"),
+                new KeyValuePair<string, string>("My Messages","/Profile/Messages")
+    };
+
     if (currentUser != null)
     {
         photoUrl = currentUser.ProfilePicturePath.IsEmpty() ? photoUrl : currentUser.ProfilePicturePath;
-        if(!string.IsNullOrEmpty(currentUser.FirstName))
+        if (!string.IsNullOrEmpty(currentUser.FirstName))
         {
             name = $"{currentUser.FirstName} {currentUser.LastName ?? ""}";
+        }
+
+        var account = await _accountRepo.FindByUsername(User.Identity.Name);
+        if (account.HasStore && account.Store.Id > 0)
+        {
+            menus.AddRange(new List<KeyValuePair<string, string>>
+            {
+                new KeyValuePair<string, string>("My Store","/Profile/Store"),
+                new KeyValuePair<string, string>("Referrals","/Profile/Referrals"),
+                new KeyValuePair<string, string>("My Balances","/Profile/Balances"),
+            });
+        }
+
+        if (!account.IsAdmin) {
+            menus.Add(new KeyValuePair<string, string>("Site Management", "/Admin"));
         }
     }
 }
@@ -230,11 +251,10 @@
                                 <br />
 
                                 <ul class="list-group list-group-flush">
-                                    <li class="list-group-item"><a href="/Profile/Store">My Store</a></li>
-                                    <li class="list-group-item"><a href="/Profile">Edit Profile</a></li>
-                                    <li class="list-group-item"><a href="/Profile/Referrals">Referrals</a></li>
-                                    <li class="list-group-item"><a href="/Profile/Balances">My Balances</a></li>
-                                    @*<li class="list-group-item">Settings</li>*@
+                                    @foreach (var menu in menus)
+                                    {
+                                        <li class="list-group-item"><a href="@menu.Value">@menu.Key</a></li>
+                                    }
                                 </ul>
                             </div>
                         </div>

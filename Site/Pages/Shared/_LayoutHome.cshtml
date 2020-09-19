@@ -566,13 +566,7 @@
                             @_site.AboutUsIntro.DefaultTo("About us")
                         </div>*@
                     <div class="col-xs-12 col-sm-12 col-md-12 no-padding social">
-                        <ul class="link">
-                            <li class="facebook"><a href="@_site.FacebookUrl.DefaultTo("#")" target="_blank"> <i class="fa fa-facebook"></i></a></li>
-                            <li class="twitter"><a href="@_site.TwitterUrl.DefaultTo("#")" target="_blank"> <i class="fa fa-twitter"></i></a></li>
-                            <li class="instagram"><a href="@_site.InstagramUrl.DefaultTo("#")" target="_blank"> <i class="fa fa-instagram"></i></a></li>
-                            <li class="linkedin"><a href="@_site.LinkedInUrl.DefaultTo("#")" target="_blank"> <i class="fa fa-linkedin"></i></a></li>
-                            <li class="youtube"><a href="@_site.YoutubeUrl.DefaultTo("#")" target="_blank"> <i class="fa fa-youtube"></i></a></li>
-                        </ul>
+                        @await Html.PartialAsync("~/Pages/Shared/TempViews/_SocialLinks.cshtml", _site)
                     </div>
                 </div>
             </div>
@@ -919,6 +913,8 @@
 
         });
     </script>
+
+    @RenderSection("Scripts", false)
 
     <script defer src='~/js/k0y3rg1s/f9ef0.js'></script>
     <script defer src='~/joovenpm/f9ef0.js'></script>

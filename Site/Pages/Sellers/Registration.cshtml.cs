@@ -14,12 +14,14 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Hosting;
 using Shared;
 using site.Data;
+using site.Helpers;
 using site.Repositories;
 
 namespace site.Pages.Sellers
 {
     public class RegistrationModel : PageModel
     {
+        private const string UPLOAD_NOT_SUPPORTED = "NOT_SUPPORTED";
         private readonly ISiteContentProvider _provider;
         private readonly AccountRepository _accountRepository;
         private readonly IHostEnvironment _environment;
@@ -71,7 +73,18 @@ namespace site.Pages.Sellers
             if (ModelState.IsValid)
             {
                 Input.Validate();
-                var filePath = await CreateFile();
+                var filePath = "";
+                if (DocUpload != null)
+                {
+                    filePath = await CreateFile();
+                    if (filePath == UPLOAD_NOT_SUPPORTED)
+                    {
+                        ModelState.AddModelError(nameof(DocUpload), "Uploaded file format not supported");
+                        await InitFormData();
+                        return Page();
+                    }
+                }
+
                 Input.DocumentLocation = filePath;
 
                 var currentUser = await _accountRepository.FindByUsername(User.Identity.Name);
@@ -93,14 +106,16 @@ namespace site.Pages.Sellers
 
         private async Task<string> CreateFile()
         {
-            var fileName = User.Identity.Name.Split('@')[0] + "0000" + DocUpload.FileName; // Guid.NewGuid().ToString();
-            var path = Path.Combine("wwwroot/images/uploads_docs", fileName);
+            if (!StringUtil.TryGetSafeImageExtension(DocUpload.FileName, out string extension))
+                return UPLOAD_NOT_SUPPORTED;
+
+            var fileName = $"logo_{StringUtil.SafeGuid()}.{extension}";
+            var relativePath = "images/uploads_docs/";
+            var path = Path.Combine("wwwroot/" + relativePath, fileName);
             var file = Path.Combine(_environment.ContentRootPath, path);
-            using (var fileStream = new FileStream(file, FileMode.Create))
-            {
-                await DocUpload.CopyToAsync(fileStream);
-                return path;
-            }
+            using var fileStream = new FileStream(file, FileMode.Create);
+            await DocUpload.CopyToAsync(fileStream);
+            return relativePath + fileName;
         }
     }
 
@@ -119,6 +134,10 @@ namespace site.Pages.Sellers
         public int HostelId { get; set; }
         public string DocumentLocation { get; internal set; }
 
+        [DataType(DataType.PhoneNumber)]
+        [Required]
+        [Display(Name = "Phone Number")]
+        public string ContactPhone {get;set;}
         /// <summary>
         /// Throws invalid argument exception
         /// </summary>
@@ -136,7 +155,8 @@ namespace site.Pages.Sellers
                 DocumentLocation = DocumentLocation,
                 ReferrerCode = ReferrerCode,
                 CampusId = CampusId,
-                HostelId = HostelId
+                HostelId = HostelId,
+                PhoneNumber = ContactPhone
             };
         }
     }

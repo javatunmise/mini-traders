@@ -1,29 +1,6 @@
-﻿@*@model site.ViewComponents.ProductsGrid.ProductsGridInfo*@
+﻿@model IEnumerable<global::Shared.Entities.Product>
 
-@{
-    //string title = Model?.Title ?? "Featured Products";
-    var categories = new List<site.Data.Category>
-{
-        new site.Data.Category { Name = "Fashion & Clothing" },
-        new site.Data.Category { Name = "Health & Beauty" },
-        new site.Data.Category { Name = "Grocery & Kitchen Items" },
-    };
-
-    var counter = 0;
-    var numbers = new[] { "one", "two", "three" };
-    var productTitles = new[]
-    {
-        "Chrysolite Designs 27 Polo",
-        "iWay Bluetooth Speaker V4.2",
-        "Tooth Paste Dispenser And Brush Holder",
-        "Traveling Steam Iron",
-        "Paxton Proximity Reader",
-        "Paxton Proximity Reader",
-    };
-}
-
-
-<div class="container">
+<div class="container @(Model.Any() ? "" : "hide")">
     <div class="home-services">
         <div class="home-services-header row">
             <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12"><h2 class="title">Services</h2></div>
@@ -41,27 +18,26 @@
         <div class="carousel-wrapper">
             <div class="owl-carousel two">
 
-                @foreach (var product in Enumerable.Range(0, 5).Select(c => new site.Data.Category { }))
+                @foreach (var _product in Model)
                 {
                     <div class="item item-carousel" style="">
                         <div class="image">
-                            <a href="/product/the-crash-bad-instant-folding-long-twin-bed-3/"><img src="~/images/products/product-@(counter % 4 + 1).jpg" alt="The Crash Bad Instant Folding long Twin Bed"></a>
+                            <a href="/products/@($"{_product.Id}-{_product.Name}")"><img src="@Url.Content("~/"+_product.SmallImageUrl)" alt="@_product.Name"></a>
                         </div>
 
-                        <div class="title"><a href="/products/123-same products">The Crash Bad Instant Folding long Twin Bed</a></div>
+                        <div class="title"><a href="/products/@($"{_product.Id}-{_product.Name}")">@_product.Name</a></div>
                         <div class="rating">
-                            @for (int i = 0; i < 5; i++)
+                            @for (int i = 0; i < _product.AverageRating; i++)
                             {
                                 <i class="fa fa-star"></i>
                             }
                         </div>
                         <div class="price">
-                            <span class="price-before">N120.00</span>
-                            <span class="price-current">N100.00</span>
+                            <span class="price-before @(_product.Price == _product.OldPrice ? "hide" : "")">N@_product.OldPrice.ToString("N2")</span>
+                            <span class="price-current">N@_product.Price.ToString("N2")</span>
                         </div>
                     </div>
 
-                    counter++;
                 }
             </div>
         </div>

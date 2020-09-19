@@ -11,8 +11,8 @@
 <div class="container">
     <div class="row custom-margin">
         <div class="col-md-12">
-            <a href="/" target="_self" class="vc_single_image-wrapper vc_box_border_grey">
-                <img width="1160" height="102" src="~/images/banners/@Model.TopBannerFileName" alt="" />
+            <a href="@Model.TopBannerFileName.Link" target="_self" class="vc_single_image-wrapper vc_box_border_grey">
+                <img width="1160" height="102" src="@Url.Content("~/" + Model.TopBannerFileName.ImagePath)" alt="" />
             </a>
         </div>
     </div>
@@ -53,10 +53,10 @@
 <div class="container">
     <div class="row custom-margin">
         <div class="col-md-6" style="margin-bottom: 15px">
-            <img width="565" height="160" src="~/images/banners/@Model.MiddleBanner1FileName" alt="" />
+            <img width="565" height="160" src="@Url.Content("~/" + Model.MiddleBanner1FileName.ImagePath)" alt="" />
         </div>
         <div class="col-md-6">
-            <img width="565" height="160" src="~/images/banners/@Model.MiddleBanner2FileName" alt="" />
+            <img width="565" height="160" src="@Url.Content("~/" + Model.MiddleBanner2FileName.ImagePath)" alt="" />
         </div>
     </div>
 </div>
@@ -78,7 +78,7 @@
     <div class="row">
         <div class="col-md-12 text-center">
             <div style="background: #ffffff">
-                <img class="img-responsive" style="max-height:220px; margin: auto" src="~/images/banners/@Model.BannerAfterMiddleFileName" alt="" />
+                <img class="img-responsive" style="max-height:220px; margin: auto" src="@Url.Content("~/" + Model.BannerAfterMiddleFileName.ImagePath)" alt="" />
             </div>
         </div>
     </div>
@@ -99,3 +99,7 @@
 <div class="row custom-margin"></div>
 
 @await Component.InvokeAsync("ProductsGrid_FlashDeals")
+
+@section Scripts {
+    <script src="~/js/multi-countdown.js"></script>
+}

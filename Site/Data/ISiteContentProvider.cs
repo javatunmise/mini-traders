@@ -1,4 +1,5 @@
-﻿using site.ViewComponents;
+﻿using Shared.Entities;
+using site.ViewComponents;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -15,6 +16,12 @@ namespace site.Data
 
         Task<IEnumerable<Carousel>> GetCarousel();
         Task<Site> GetSiteInfo();
+        Task<List<Product>> GetFlashDeals();
+        Task<FlashDeal> GetCurrentFlashDeal();
+        Task<IEnumerable<Product>> GetRecommended(SiteUser siteUser);
+        Task<IEnumerable<Product>> GetTopServices();
+        Task<List<Product>> GetLatestProducts(int categoryId, int numOfRecords);
+
         //Task<IEnumerable<Product>> GetFeaturedProducts();
         //Task<IEnumerable<Product>> GetNewProducts();
 
@@ -55,6 +62,30 @@ namespace site.Data
 
     public class Site
     {
+        public Site()
+        {
+
+        }
+
+        public Site(Shared.Entities.Site site)
+        {
+            if (site != null)
+            {
+                AboutUsIntro = site.AboutUsIntro;
+                CopyRightName = site.CopyRightName;
+                PhoneNumber = site.PhoneNumber;
+                Email = site.Email;
+                Address = site.Address;
+                WorkingHours = site.WorkingHours;
+                FacebookUrl = site.FacebookUrl;
+                YoutubeUrl = site.YoutubeUrl;
+                InstagramUrl = site.InstagramUrl;
+                LinkedInUrl = site.LinkedInUrl;
+                TwitterUrl = site.TwitterUrl;
+                IsGoogleAnalyticsEnabled = site.IsGoogleAnalyticsEnabled;
+            }
+        }
+
         public string AboutUsIntro { get; set; }
         public string CopyRightName { get; internal set; }
         public string PhoneNumber { get; internal set; }
@@ -69,7 +100,7 @@ namespace site.Data
 
         public bool IsGoogleAnalyticsEnabled { get; set; }
     }
-
+    
     //public class Product
     //{
     //    public int Id { get; set; }
@@ -89,9 +120,11 @@ namespace site.Data
 
     public class Review
     {
+        public string ProfilePicturePath { get; set; }
         public string ReviewerName { get; set; }
-        public string Title { get; set; }
+        public int Rating { get; set; }
         public string Feedback { get; set; }
+        public DateTime Date;
     }
 
     public class Vendor
@@ -141,6 +174,7 @@ namespace site.Data
         public string Name { get; set; }
         public string ImageUrl { get; set; }
         public string DestinationUrl { get; internal set; }
+        public int Ordering { get; internal set; }
         internal CarouselType Type { get; set; }
     }
 

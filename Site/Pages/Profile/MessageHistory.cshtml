@@ -1,0 +1,123 @@
+﻿@page "{id}"
+@model site.Pages.Profile.MessageHistoryModel
+@{
+    ViewData["Title"] = "Referrals";
+    Layout = "~/Pages/Shared/_LayoutProfile.cshtml";
+}
+
+
+@section BreadCrumbs {
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a href="/Profile">Profile</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Chat History</li>
+    </ol>
+}
+
+<h3 class="page-title-notpadded">Chat History - @Model.RecipientName</h3>
+
+<table class="table table-striped table-bordered @(Model.Messages.Any() ? "visible": "hide")">
+    <tbody>
+        @foreach (var message in Model.Messages)
+        {
+            <tr>
+                <td>
+                    <div class="media">
+                        <img src="@Url.Content("~/" + message.ProfilePicture)" style="width:40px; height: 40px" class="align-self-start mr-3 img-circle" alt="...">
+                        <div class="media-body">
+                            <h5 class="mt-0">@message.CreatedOn.ToString("dd-MM-yyyy HH:mm")</h5>
+                            <p>@message.Message</p>
+                            @*<p></p>*@
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        }
+
+        <tr>
+            <td>
+                <div>Reply:</div>
+                <div class="form-group">
+                    <textarea id="seller-msg" class="form-control"></textarea>
+                </div>
+                <div class="text-danger mb-2" style="display: none" id="post-msg-error">Unable to send message. Please try again later.</div>
+                <div class="text-success mb-2" style="display: none" id="post-msg-success">Message sent!</div>
+                <div class="text-danger mb-2" style="display: none" id="post-msg-length-error">Message must be at least 10 characters</div>
+                <button class="btn btn-sm btn-danger" onclick="postMessage()">Submit</button>
+
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+@section Scripts {
+    <script type="text/javascript">
+
+        function postMessage() {
+            showHideElements(false, ['#post-msg-error', '#post-msg-success', '#post-msg-length-error'])
+
+            var msg = document.getElementById('seller-msg').value;
+
+            if (msg.length < 10) {
+                showHideElement(true, '#post-msg-length-error');
+                return;
+            }
+
+            var data = {
+                "message": msg,
+                "chatId": @RouteData.Values["id"]
+            }
+
+            showHideElement(true, '#post-msg-spinner');
+            fetch('/api/operations/vendormessage', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+                })
+                .then(response => {
+                    if (response.ok) return response;
+
+                    throw new Error("error");
+                })
+                .then(data => {
+                    showSuccessMessage("#post-msg");
+                    document.getElementById('seller-msg').value = '';
+                    showHideElement(false, '#post-msg-spinner');
+                    window.location.reload();
+                    return false;
+                })
+                .catch(function (e) {
+                    showHideElement(false, '#post-msg-spinner');
+                    console.log("exception thrown" + e)
+                    showErrorMessage("#post-msg");
+                });
+
+        }
+
+        function showSuccessMessage(elem_id) {
+            $(elem_id + '-error').hide();
+            $(elem_id + '-success').show();
+        }
+
+        function showErrorMessage(elem_id) {
+            $(elem_id + '-success').hide();
+            $(elem_id + '-error').show();
+        }
+
+        function showHideElements(show, elems) {
+            if (!elems || elems.length == 0) return;
+            for (i = 0; i < elems.length; i++)
+                showHideElement(show, elems[i]);
+        }
+
+        function showHideElement(show, elem_id) {
+            if (show) {
+                $('' + elem_id).show();
+            }
+            else {
+                $('' + elem_id).hide();
+            }
+        }
+
+    </script>
+}

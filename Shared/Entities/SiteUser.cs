@@ -10,5 +10,7 @@
         public Store Store { get; set; }
         public string ProfilePicturePath { get; set; }
         public string ReferralCode { get; set; }
+        public int? CampusId { get; set; }
+        public Campus Location { get; set; }
     }
 }

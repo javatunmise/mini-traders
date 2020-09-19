@@ -12,6 +12,8 @@ namespace Shared.Entities
         public string ReferrerCode { get; set; }
         public string PhoneNumber { get; set; }
 
+        public StoreStatuses Status { get; set; }
+
         public int CampusId { get; set; }
         public Campus Campus { get; set; }
 
@@ -20,5 +22,13 @@ namespace Shared.Entities
 
         public int SiteUserId { get; set; }
         public SiteUser User { get; set; }
+    }
+
+    public enum StoreStatuses
+    {
+        Inactive = 0,
+        Active = 1,
+        Deactivated = 2,
+        Suspended = 3
     }
 }

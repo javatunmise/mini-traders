@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE SearchProduct
+﻿ALTER PROCEDURE SearchProduct
 (
 	@SearchText varchar(50) = NULL,
 	@LocationId int = NULL,
@@ -8,7 +8,7 @@
 	@PriceMax int = NULL,
 	@PageIndex int = 1,
 	@PageSize int = 20,
-	@Sort varchar(20) = 'latest'
+	@Sort varchar(20) = 'date'
 )
 AS
 DECLARE
@@ -30,6 +30,26 @@ DECLARE @table as table(Id int,
 	StoreName varchar(128),
 	CampusId int)
 
+declare @catids as table(id int)
+
+IF @CategoryId IS NOT NULL
+BEGIN
+	;WITH MyCTE AS 
+	(
+		SELECT Id, Name, ISNULL(ParentId, Id) ParentId
+		FROM Categories
+		WHERE Id = @categoryid 
+		UNION ALL
+		SELECT c.Id, c.Name, c.ParentId
+		FROM Categories c
+		INNER JOIN MyCTE ON c.ParentId = MyCTE.Id
+		WHERE c.Id != @categoryid
+	)
+	INSERT INTO @catids
+	SELECT DISTINCT Id FROM MyCTE
+END
+
+
 INSERT INTO @table
 SELECT 
 	p.Id,
@@ -47,9 +67,9 @@ SELECT
 FROM Products p (nolock)
 JOIN Stores st (nolock) ON p.StoreId = st.Id
 WHERE 
-	(p.Name LIKE @SearchText + '%' OR @SearchText IS NULL) AND
-	(p.CategoryId = @CategoryId OR @CategoryId IS NULL) AND
-	(p.Price >= @PriceMin AND (p.Price <= @PriceMax OR @PriceMax IS NULL)) AND
+	(@SearchText IS NULL OR p.Name LIKE @SearchText + '%') AND
+	(@CategoryId IS NULL OR p.CategoryId IN (select id from @catids)) AND
+	(p.Price >= @PriceMin AND (@PriceMax IS NULL OR p.Price <= @PriceMax)) AND
 	(st.CampusId = @LocationId OR @LocationId IS NULL) AND
 	(st.HostelId = @SubLocationId OR @SubLocationId IS NULL)
 

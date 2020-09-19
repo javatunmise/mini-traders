@@ -40,6 +40,7 @@ namespace site.Repositories
                 StoreName = store.Name,
                 StoreDescription = store.StoreDescription,
                 ReferrerCode = store.ReferrerCode,
+                PhoneNumber = store.PhoneNumber,
                 LogoPath = store.LogoPath,
                 UploadedDocPath = store.UploadedDocLocation,
                 SiteUserId = store.Owner.Id
@@ -62,6 +63,13 @@ namespace site.Repositories
             _context.Stores.Add(_store);
 
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<Shared.Entities.Store> GetStoreById(int storeId)
+        {
+            var _store = await _context.Stores.FirstOrDefaultAsync(_ => _.Id == storeId);
+
+            return _store;
         }
 
         public Task Update(Shared.Store updatedStore)

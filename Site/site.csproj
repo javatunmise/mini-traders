@@ -3,7 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UserSecretsId>aspnet-Site-DC9AFDF5-34D2-4810-A8EA-C2AF875AFF67</UserSecretsId>
-    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+    <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
+    <AssemblyName>Site</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
@@ -40,6 +41,16 @@
     <Compile Remove="Data\Migrations\20200905140358_Schema_InitialCreate.Designer.cs" />
     <Compile Remove="Data\Migrations\20200905144432_Schema_InitialCreate.cs" />
     <Compile Remove="Data\Migrations\20200905144432_Schema_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20200909225337_ProductReviews_Schema.cs" />
+    <Compile Remove="Migrations\20200909225337_ProductReviews_Schema.Designer.cs" />
+    <Compile Remove="Migrations\20200909232528_ProductReviews_Schema.cs" />
+    <Compile Remove="Migrations\20200909232528_ProductReviews_Schema.Designer.cs" />
+    <Compile Remove="Migrations\20200909233042_ProductReviews_Schema.cs" />
+    <Compile Remove="Migrations\20200909233042_ProductReviews_Schema.Designer.cs" />
+    <Compile Remove="Migrations\20200915051301_ProductTags_Schema.cs" />
+    <Compile Remove="Migrations\20200915051301_ProductTags_Schema.Designer.cs" />
+    <Compile Remove="Migrations\20200915052007_ProductTags_Schema.cs" />
+    <Compile Remove="Migrations\20200915052007_ProductTags_Schema.Designer.cs" />
   </ItemGroup>
 
 
@@ -66,6 +77,7 @@
     <Folder Include="Data\Migrations\" />
     <Folder Include="wwwroot\assets\images\" />
     <Folder Include="wwwroot\fonts\" />
+    <Folder Include="wwwroot\images\adr_images\" />
     <Folder Include="wwwroot\images\uploads_docs\" />
     <Folder Include="wwwroot\js\assets\" />
     <Folder Include="wwwroot\lib\simple-line-icons\dist\css\" />

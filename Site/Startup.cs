@@ -15,13 +15,14 @@ using System.Threading.Tasks;
 using System;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Rewrite;
+using Shared.Entities;
+using Shared;
+using site.ViewComponents;
 
 namespace Site
 {
     public class Startup
     {
-        private ApplicationDbContext var_context;
-
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -32,6 +33,7 @@ namespace Site
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<LatestProductsCategories>(Configuration.GetSection("LatestProductsCategories"));
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -55,12 +57,15 @@ namespace Site
             services.AddScoped<LocationRepository>();
             services.AddScoped<ProductsRepository>();
             services.AddScoped<CategoriesRepository>();
+            services.AddScoped<ChatRepository>();
+            services.AddScoped<ICurrentDate, ServerDateTime>();
 
             services.AddMvc()
                 //.SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddRazorPagesOptions(options =>
                 {
                     options.Conventions.AuthorizeFolder("/Profile");
+                    options.Conventions.AuthorizeFolder("/Admin");
                     options.Conventions.AuthorizePage("/Sellers/Registration");
                 });
         }
@@ -99,6 +104,15 @@ namespace Site
 
                 await next();
             });
+
+            //app.Use(async (context, next) =>
+            //{
+            //    if (context.Response.StatusCode == 404)
+            //    {
+            //        context.Request.Path = "/error404";
+            //        await next();
+            //    }
+            //});
 
             app.UseEndpoints(endpoints =>
             {

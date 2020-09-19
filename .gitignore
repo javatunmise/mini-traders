@@ -31,3 +31,9 @@ msbuild.wrn
 # Visual Studio 2015
 .vs/
 out/
+wwwroot/images/products/*.jpg
+wwwroot/images/products/*.png
+wwwroot/images/products/*.gif
+wwwroot/images/uploads_docs/*.jpg
+wwwroot/images/uploads_docs/*.png
+wwwroot/images/uploads_docs/*.gif

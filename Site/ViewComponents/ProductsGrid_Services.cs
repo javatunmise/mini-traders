@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using site.Data;
+using site.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,13 +10,18 @@ namespace site.ViewComponents
 {
     public class ProductsGrid_Services : ViewComponent
     {
+        private readonly ISiteContentProvider _provider;
 
+        public ProductsGrid_Services(ISiteContentProvider provider)
+        {
+            _provider = provider;
+        }
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            await Task.CompletedTask;
+            IEnumerable<Shared.Entities.Product> services = await _provider.GetTopServices();
 
-            return View();
+            return View(services);
         }
     }
 

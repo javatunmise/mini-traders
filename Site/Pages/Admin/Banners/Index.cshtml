@@ -1,0 +1,72 @@
+﻿@page
+@model site.Pages.Admin.Banners.IndexModel
+@{
+    ViewData["Title"] = "Carousels";
+    Layout = "~/Pages/Shared/_LayoutAdmin.cshtml";
+
+    var positions = new SelectList(Model.BannerPositions, "");
+}
+
+
+@section BreadCrumbs {
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+    </ol>
+}
+
+<h3 class="page-title-notpadded">Banners</h3>
+
+@foreach (var image in Model.Banners)
+{
+    <div class="" style="border: solid 1px #dddddd; margin-bottom:15px; padding: 5px;">
+        <div class="blockquote">
+            <p>Link: <a href="@image.Link">@image.Link</a></p>
+            <p>Position: @image.EntityId</p>
+        </div>
+        <form method="post">
+            <div class="form-group">
+                <img src="@Url.Content("~/" + image.ImagePath)" />
+                <p></p>
+                <a href="/Admin/Banners/Edit/@image.EntityId">Delete</a> |
+                <a href="/Admin/Banners/Edit/@image.EntityId">Upload new image</a>
+            </div>
+        </form>
+    </div>
+}
+
+@if (Model.Banners.Count <= 5)
+{
+    <div class="alert alert-primary">
+        <h4>Upload new image</h4>
+
+        <form method="post" enctype="multipart/form-data">
+
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <div class="form-group">
+                <input asp-for="Input.ImageUpload" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Input.Link">Provide link when the image is clicked</label>
+                <input asp-for="Input.Link" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Input.Link">Position</label>
+                <select asp-for="Input.EntityId" class="form-control" asp-items="positions"></select>
+            </div>
+            <p></p>
+            <button type="submit" class="btn-primary btn"> Save </button>
+
+        </form>
+    </div>
+}
+
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+}
+

@@ -10,7 +10,7 @@
         {
             <div class="carousel-item h-100 @(banner.index == 0 ? "active" : "")">
                 <a href="@banner.DestinationUrl">
-                    <img class="d-block w-100 h-100" src="~/images/banners/@banner.filename" alt="First slide">
+                    <img class="d-block w-100 h-100" src="@Url.Content("~/"+banner.filename)" alt="First slide">
                 </a>
             </div>
         }

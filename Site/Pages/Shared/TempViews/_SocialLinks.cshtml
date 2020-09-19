@@ -1,0 +1,13 @@
+﻿@model site.Data.Site;
+
+@{ 
+    var _site = Model;
+}
+
+<ul class="link">
+    <li class="facebook"><a href="@_site.FacebookUrl.DefaultTo("#")" target="_blank"> <i class="fa fa-facebook"></i></a></li>
+    <li class="twitter"><a href="@_site.TwitterUrl.DefaultTo("#")" target="_blank"> <i class="fa fa-twitter"></i></a></li>
+    <li class="instagram"><a href="@_site.InstagramUrl.DefaultTo("#")" target="_blank"> <i class="fa fa-instagram"></i></a></li>
+    <li class="linkedin"><a href="@_site.LinkedInUrl.DefaultTo("#")" target="_blank"> <i class="fa fa-linkedin"></i></a></li>
+    <li class="youtube"><a href="@_site.YoutubeUrl.DefaultTo("#")" target="_blank"> <i class="fa fa-youtube"></i></a></li>
+</ul>

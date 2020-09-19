@@ -18,7 +18,9 @@ namespace Shared
                 UploadedDocLocation = form.DocumentLocation,
                 ReferrerCode = form.ReferrerCode,
                 CampusId = form.CampusId,
-                HostelId = form.HostelId
+                HostelId = form.HostelId,
+                PhoneNumber = form.PhoneNumber,
+                LogoPath = "images/vendor-photo.png"
             };
 
             return store;

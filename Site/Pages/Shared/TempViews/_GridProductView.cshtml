@@ -1,0 +1,24 @@
+﻿@model global::Shared.Entities.Product
+
+@{
+    var _product = Model;
+}
+
+
+    <div class="item item-carousel" style="">
+        <div class="image">
+            <a href="/products/@($"{_product.Id}-{_product.Name}")"><img src="@Url.Content("~/"+_product.SmallImageUrl)" alt="@_product.Name"></a>
+        </div>
+
+        <div class="title"><a href="/products/@($"{_product.Id}-{_product.Name}")">@_product.Name</a></div>
+        <div class="rating">
+            @for (int i = 0; i < _product.AverageRating; i++)
+            {
+                <i class="fa fa-star"></i>
+            }
+        </div>
+        <div class="price">
+            <span class="price-before @(_product.Price == _product.OldPrice ? "hide" : "")">N@(_product.OldPrice.ToString("N2"))</span>
+            <span class="price-current">N@_product.Price.ToString("N2")</span>
+        </div>
+    </div>

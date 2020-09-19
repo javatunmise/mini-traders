@@ -4,6 +4,11 @@
     ViewData["Title"] = "MY STORE";
 
     Layout = "~/Pages/Shared/_LayoutStore.cshtml";
+
+    var selectedValue = Model.SearchQuery.FilterByServices ? "Services" : "Products";
+    var filterOptions = new SelectList(new[]{"Products","Services"}, selectedValue);
+
+    Func<int, string> GetEditProductUrl = productId => $"./Store/EditProduct/{productId}";
 }
 
 
@@ -21,9 +26,7 @@
 
         <form class="form-inline">
             <label class="sr-only" for="inlineFormInputName2">Merchandize</label>
-            <select name="FilterByServices" class="form-control mb-2 mr-sm-2">
-                <option value="0">Products</option>
-                <option value="1">Services</option>
+            <select name="filter" class="form-control mb-2 mr-sm-2" asp-items="filterOptions">
             </select>
 
             <button type="submit" class="btn btn-primary mb-2">Search</button>
@@ -45,7 +48,7 @@
                         <div>Status: @product.Status</div>
 
                         <div class="action-buttons">
-                            <a href="/EditProduct/@product.Id" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i> Edit</a>
+                            <a href="@GetEditProductUrl(product.Id)" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i> Edit</a>
                         </div>
                     </div>
                 </li>
@@ -67,7 +70,9 @@
                 {
                     <tr>
                         <td>
-                            <img src="@Url.Content("~/" + product.ImageUrl)" style="height:100px; width:100px" class="img-fluid" alt="...">
+                            <a href="@PathUtil.GetProductPath(product)">
+                               <img src="@Url.Content("~/" + product.ImageUrl)" style="height:100px; width:100px" class="img-fluid" alt="...">
+                            </a>
                         </td>
                         <td>
                             <h4 class="mt-0 mb-1">@product.Name</h4>
@@ -80,7 +85,7 @@
                         </td>
                         <td>@product.Status</td>
                         <td>
-                            <a href="./Store/EditProduct/@product.Id" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i> Edit</a>
+                            <a href="@GetEditProductUrl(product.Id)" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i> Edit</a>
                         </td>
                     </tr>
                 }

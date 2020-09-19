@@ -44,6 +44,7 @@ namespace site.Pages.Profile.Store
 
     public class ProductSearchQuery
     {
-        public bool FilterByServices { get; set; }
+        public string Filter { get; set; }
+        public bool FilterByServices => Filter?.ToLower() == "services";
     }
 }

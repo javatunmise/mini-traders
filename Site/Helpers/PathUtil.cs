@@ -10,6 +10,19 @@ namespace site.Helpers
 {
     public static class PathUtil
     {
-        public static string GetCategoryPath(Category category) => $"/categories/{category.Id}/{UrlEncoder.Default.Encode(category.Name)}";
+        public static string GetCategoryPath(Category category)
+        {
+            return $"/categories/{category.Id}/{UrlEncoder.Default.Encode(category.Name)}";
+        }
+
+        public static string GetProductPath(Shared.Entities.Product product)
+        {
+            return $"/products/{product.Id}-{UrlEncoder.Default.Encode(product.Name)}";
+        }
+
+        public static string Escape(string path)
+        {
+            return path.TrimStart('/');
+        }
     }
 }
