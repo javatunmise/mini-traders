@@ -1,0 +1,77 @@
+﻿@page
+
+@using global::Shared.Entities
+@model site.Pages.Admin.FooterLinks.IndexModel
+@{
+    ViewData["Title"] = "Pages";
+    Layout = "~/Pages/Shared/_LayoutAdmin.cshtml";
+}
+
+@section BreadCrumbs {
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+    </ol>
+}
+
+<h3 class="page-title-notpadded">Footer Links</h3>
+
+<div class="alert alert-info">
+    <form class="form-inline" method="get">
+        <label>Footer: &nbsp;&nbsp;</label>
+        <div class="input-group">
+
+            <select asp-for="Input.GroupId" class="form-control" onchange="location.href = '/Admin/FooterLinks?footerheader='+this.value">
+                <option value="@((int)SiteLink.LinkGroups.FooterLinkHelpAndSupport)">Help and Support</option>
+                <option value="@((int)SiteLink.LinkGroups.FooterLinkCustomerService)">Customer Service</option>
+                <option value="@((int)SiteLink.LinkGroups.FooterLinkCorporation)">Our Company</option>
+                <option value="@((int)SiteLink.LinkGroups.FooterLinkWhyChoseUs)">Why Choose Us</option>
+            </select>
+        </div>
+    </form>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Text</th>
+            <th>Link</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.SiteLinks)
+        {
+            <tr>
+                <td>@item.Text</td>
+                <td>@item.Url</td>
+                <td><a href="/Admin/FooterLinks/DeleteLink?footerheader=@((int)item.LinkGroup)&link=@item.Id">Remove</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="alert alert-info">
+    <h4>Add New Link</h4>
+
+    <form method="post">
+        <input type="hidden" asp-for="Input.GroupId" />
+        <div class="form-group">
+            <label>Text</label>
+            <input asp-for="Input.Text" placeholder="FAQ" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label>Link</label>
+            <input asp-for="Input.Link" placeholder="/pages/123-faq" class="form-control" />
+        </div>
+
+        <p>
+            <button type="submit" class="btn btn-primary">Save</button>
+        </p>
+    </form>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+}

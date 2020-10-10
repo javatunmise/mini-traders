@@ -16,12 +16,15 @@ namespace Shared.Entities
 
         public int CampusId { get; set; }
         public Campus Campus { get; set; }
-
         public int? HostelId { get; set; }
         public Hostel Hostel { get; set; }
-
         public int SiteUserId { get; set; }
         public SiteUser User { get; set; }
+        public bool IsDocumentVerified { get; set; }
+        public DateTime? LastSubscribedOn { get; set; }
+        public decimal LastSubscriptionAmount { get; set; }
+        public DateTime? SubscriptionExpiresOn { get; set; }
+        public DateTime? ActivatedOn { get; set; }
     }
 
     public enum StoreStatuses

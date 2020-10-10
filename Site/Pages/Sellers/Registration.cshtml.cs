@@ -92,8 +92,11 @@ namespace site.Pages.Sellers
                     return RedirectToPage("/Profile/AccountNotFound");
 
                 var storeKeeper = new StoreKeeper();
-                var store = storeKeeper.AssignStore(currentUser, Input.CreateRegistrationForm());                
+                var store = storeKeeper.AssignStore(currentUser, Input.CreateRegistrationForm());
                 await _storeRepository.Create(store);
+                await _storeRepository.CreateAccounts(currentUser.Id, 
+                                                      StringUtil.GenerateWalletAccountId(store.Id, currentUser.Id), 
+                                                      StringUtil.GenerateTokenAccountId(store.Id, currentUser.Id));
 
                 return RedirectToPage("/Profile/Store/Index");
             }

@@ -1,0 +1,28 @@
+﻿@page "{status}"
+@model site.Pages.Profile.Store.InvalidStatusModel
+@{
+    ViewData["Title"] = "Invalid Store Status";
+    Layout = "~/Pages/Shared/_LayoutStore.cshtml";
+}
+
+@if (Model.StoreStatus == global::Shared.Entities.StoreStatuses.Suspended)
+{
+    <div class="">
+        <h3 class="page-title-notpadded">Invalid Store Condition</h3>
+        Your store has been suspended. Please contact the site administrators.
+    </div>
+}
+else if (Model.StoreStatus == global::Shared.Entities.StoreStatuses.Deactivated)
+{
+    <div class="">
+        <h3 class="page-title-notpadded">Invalid Store Condition</h3>
+        Your store has been deactivated. Please contact the site administrators.
+    </div>
+}
+else
+{
+    <div class="">
+        <h3 class="page-title-notpadded">Invalid Store Condition</h3>
+        Please contact the site administrators.
+    </div>
+}

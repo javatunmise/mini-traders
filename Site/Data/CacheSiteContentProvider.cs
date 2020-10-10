@@ -155,55 +155,38 @@ namespace site.Data
 
         public async Task<FooterLinks> GetFooterHelpAndSupportLinks()
         {
-            await Task.CompletedTask;
-            return new FooterLinks("Help and Support", new List<FooterLink>
-            {
-                new FooterLink { Text = "My account", Url ="/pages/1022-my-account" },
-                new FooterLink { Text = "Order History", Url ="/pages/1022-order-history" },
-                new FooterLink { Text = "FAQ", Url ="/pages/1022-faq" },
-                new FooterLink { Text = "Specials", Url ="/pages/1022-specials" },
-                new FooterLink { Text = "Help Center", Url ="/pages/1022-help-center" }
+            var links = await _context.SiteLinks.Where(e => e.LinkGroup == SiteLink.LinkGroups.FooterLinkHelpAndSupport)
+            .ToListAsync();
 
-            });
+            return new FooterLinks("Help and Support", links.Select(e =>
+                new FooterLink { Text = e.Text, Url = e.Url }));
         }
 
         public async Task<FooterLinks> GetFooterCustomerServiceLinks()
         {
-            await Task.CompletedTask;
-            return new FooterLinks("Customer Service", new List<FooterLink>
-            {
-                new FooterLink { Text = "My account", Url ="/pages/1022-My account "},
-                new FooterLink { Text = "Order History", Url ="/pages/1022-Order History "},
-                new FooterLink { Text = "FAQ", Url ="/pages/1022-FAQ "},
-                new FooterLink { Text = "Specials", Url ="/pages/1022-Specials "},
-                new FooterLink { Text = "Help Center", Url ="/pages/1022-Help Center "},
-            });
+            var links = await _context.SiteLinks.Where(e => e.LinkGroup == SiteLink.LinkGroups.FooterLinkCustomerService)
+            .ToListAsync();
+
+            return new FooterLinks("Customer Service", links.Select(e =>
+                new FooterLink { Text = e.Text, Url = e.Url }));
         }
 
         public async Task<FooterLinks> GetFooterCorporationSectionLinks()
         {
-            await Task.CompletedTask;
-            return new FooterLinks("Our Company", new List<FooterLink>
-            {
-                new FooterLink { Text = "About Us", Url ="/pages/1022-About Us "},
-                new FooterLink { Text = "Customer Service", Url ="/pages/1022-Customer Service "},
-                new FooterLink { Text = "Company", Url ="/pages/1022-Company "},
-                new FooterLink { Text = "Investor Relations", Url ="/pages/1022-Investor Relations "},
-                new FooterLink { Text = "Advanced Search", Url ="/pages/1022-Advanced Search "},
-            });
+            var links = await _context.SiteLinks.Where(e => e.LinkGroup == SiteLink.LinkGroups.FooterLinkCorporation)
+            .ToListAsync();
+
+            return new FooterLinks("Our Company", links.Select(e =>
+                new FooterLink { Text = e.Text, Url = e.Url }));
         }
 
         public async Task<FooterLinks> GetFooterWhyUsLinks()
         {
-            await Task.CompletedTask;
-            return new FooterLinks("Why Choose Us", new List<FooterLink>
-            {
-                new FooterLink { Text = "Shopping Guide", Url ="/pages/1022-Shopping Guide "},
-                new FooterLink { Text = "Blog", Url ="/pages/1022-Blog "},
-                new FooterLink { Text = "Company", Url ="/pages/1022-Company "},
-                new FooterLink { Text = "Invenstor Relations", Url ="/pages/1022-Invenstor Relations "},
-                new FooterLink { Text = "Contact Us", Url ="/pages/1022-Contact Us "},
-            });
+            var links = await _context.SiteLinks.Where(e => e.LinkGroup == SiteLink.LinkGroups.FooterLinkWhyChoseUs)
+            .ToListAsync();
+
+            return new FooterLinks("Why Choose Us", links.Select(e =>
+                new FooterLink { Text = e.Text, Url = e.Url }));
         }
 
         public async Task<IEnumerable<Product>> GetTopServices()
@@ -219,7 +202,6 @@ namespace site.Data
             };
 
             var query = SQLUtil.GetRecommendedQuery();
-            _logger.LogInformation("QUERY: " + query);
             return await _context.Products.FromSqlRaw(query, campus).ToListAsync();
         }
 

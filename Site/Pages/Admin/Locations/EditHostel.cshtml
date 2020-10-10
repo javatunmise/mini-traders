@@ -1,0 +1,32 @@
+﻿@page "{id}"
+@model site.Pages.Admin.Locations.EditHostelModel
+@{
+    ViewData["Title"] = "Edit Hostel";
+    Layout = "~/Pages/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<h3 class="page-title-notpadded">Edit Hostel (@Model.CurrentRecord?.Name)</h3>
+
+
+<div class="">
+    <form method="post">
+
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <div class="form-group">
+            <label>Hostel name:</label>
+            <input asp-for="Input.Name" class="form-control" />
+        </div>
+
+        <p>
+            <button type="submit" class="btn btn-primary">Save</button>
+        </p>
+
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+}

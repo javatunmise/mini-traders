@@ -19,6 +19,8 @@ namespace site.Data.Configurations
 
             builder.HasOne(p => p.Hostel).WithMany().OnDelete(DeleteBehavior.NoAction);
             builder.HasOne(p => p.Campus).WithMany().OnDelete(DeleteBehavior.NoAction);
+
+            builder.Property(p => p.LastSubscriptionAmount).HasColumnType("decimal(18,2)");
         }
     }
 

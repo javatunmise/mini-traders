@@ -27,10 +27,7 @@
 
                         <div class="title"><a href="/products/@($"{_product.Id}-{_product.Name}")">@_product.Name</a></div>
                         <div class="rating">
-                            @for (int i = 0; i < _product.AverageRating; i++)
-                            {
-                                <i class="fa fa-star"></i>
-                            }
+                            <partial name="Shared/TempViews/_Ratings" model="@_product.AverageRating" />
                         </div>
                         <div class="price">
                             <span class="price-before @(_product.Price == _product.OldPrice ? "hide" : "")">N@_product.OldPrice.ToString("N2")</span>

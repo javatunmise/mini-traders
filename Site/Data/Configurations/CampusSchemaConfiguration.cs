@@ -11,5 +11,4 @@ namespace site.Data.Configurations
             builder.Property(p => p.Name).HasMaxLength(100);
         }
     }
-
 }

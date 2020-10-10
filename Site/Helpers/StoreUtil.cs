@@ -5,7 +5,8 @@ using System.Linq;
 namespace site.Helpers
 {
     public static class StoreUtil
-    {        
+    {
+        public const string ENTITY_TYPE_STORE = "STORE";
         public static bool IsServiceCategory(int currentCategoryId, List<Category> categories)
         {
             var category = categories.FirstOrDefault(e => e.Id == currentCategoryId);

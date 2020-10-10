@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 
 namespace site.Data.Configurations
 {
-    public class CategorySchemaConfiguration : IEntityTypeConfiguration<Category>
+    public class CategorySchemaConfiguration : IEntityTypeConfiguration<Shared.Entities.Category>
     {
-        public void Configure(EntityTypeBuilder<Category> builder)
+        public void Configure(EntityTypeBuilder<Shared.Entities.Category> builder)
         {
             builder.Property(p => p.Name).HasMaxLength(100);
+            builder.Property(p => p.IconImagePath).HasMaxLength(128);
         }
     }
 }

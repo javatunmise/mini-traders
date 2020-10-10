@@ -1,0 +1,66 @@
+﻿@page "{id}"
+@model site.Pages.Admin.Locations.HostelsModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/_LayoutAdmin.cshtml";
+    var rowCount = 0;
+}
+
+
+@section BreadCrumbs {
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+    </ol>
+}
+
+<h3 class="page-title-notpadded">Hostels (@Model.CurrentRecord?.Name)</h3>
+
+<table class="table table-striped table-bordered ">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Hostel</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var hostel in Model.Hostels)
+        {
+            <tr>
+                <td>@(++rowCount)</td>
+                <td>@hostel.Name</td>
+                <td>
+                    <a href="/Admin/Locations/EditHostel/@hostel.Id">Edit</a> |
+                    <a href="/Admin/Locations/DeleteHostel/@hostel.Id">Delete</a>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<div class="alert alert-info">
+    <h4>Add Hostel to @Model.CurrentRecord?.Name</h4>
+
+    <form method="post">
+
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <div class="form-group">
+            <label>Hostel name:</label>
+            <input asp-for="Input.Name" class="form-control" />
+        </div>
+
+        <p>
+            <button type="submit" class="btn btn-primary">Save</button>
+        </p>
+
+    </form>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+}

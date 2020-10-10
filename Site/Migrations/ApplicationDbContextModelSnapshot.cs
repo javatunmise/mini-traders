@@ -242,8 +242,13 @@ namespace site.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("IconImagePath")
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
+
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
 
                     b.Property<int?>("ParentId")
                         .HasColumnType("int");
@@ -504,43 +509,55 @@ namespace site.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("AboutUsIntro")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(1024)")
+                        .HasMaxLength(1024);
 
                     b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
 
                     b.Property<string>("CopyRightName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
 
                     b.Property<string>("FacebookUrl")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
 
                     b.Property<string>("GoogleAnalyticsScript")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(1024)")
+                        .HasMaxLength(1024);
 
                     b.Property<string>("InstagramUrl")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
 
                     b.Property<bool>("IsGoogleAnalyticsEnabled")
                         .HasColumnType("bit");
 
                     b.Property<string>("LinkedInUrl")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(20)")
+                        .HasMaxLength(20);
 
                     b.Property<string>("TwitterUrl")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
 
                     b.Property<string>("WorkingHours")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(20)")
+                        .HasMaxLength(20);
 
                     b.Property<string>("YoutubeUrl")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
 
                     b.HasKey("Id");
 
@@ -555,16 +572,19 @@ namespace site.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("EntityId")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.Property<int>("GroupCode")
                         .HasColumnType("int");
 
                     b.Property<string>("ImagePath")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
 
                     b.Property<string>("Link")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
 
                     b.Property<int>("Ordering")
                         .HasColumnType("int");
@@ -572,6 +592,105 @@ namespace site.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("SiteImages");
+                });
+
+            modelBuilder.Entity("Shared.Entities.SiteLink", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("LinkGroup")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Ordering")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Target")
+                        .HasColumnType("nvarchar(10)")
+                        .HasMaxLength(10);
+
+                    b.Property<string>("Text")
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Url")
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SiteLinks");
+                });
+
+            modelBuilder.Entity("Shared.Entities.SitePage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Content")
+                        .HasColumnType("nvarchar(max)")
+                        .HasMaxLength(8000);
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("LastModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SitePages");
+                });
+
+            modelBuilder.Entity("Shared.Entities.SitePayment", b =>
+                {
+                    b.Property<string>("PaymentRef")
+                        .HasColumnType("nvarchar(20)")
+                        .HasMaxLength(20);
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
+
+                    b.Property<string>("EntityId")
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("EntityType")
+                        .HasColumnType("nvarchar(20)")
+                        .HasMaxLength(20);
+
+                    b.Property<string>("ExternalRef")
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
+
+                    b.Property<DateTime?>("PaymentDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PaymentDescription")
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("PaymentRef");
+
+                    b.ToTable("Payments");
                 });
 
             modelBuilder.Entity("Shared.Entities.SiteUser", b =>
@@ -608,6 +727,14 @@ namespace site.Migrations
                         .HasColumnType("nvarchar(20)")
                         .HasMaxLength(20);
 
+                    b.Property<string>("TokenAccountCode")
+                        .HasColumnType("nvarchar(25)")
+                        .HasMaxLength(25);
+
+                    b.Property<string>("WalletAccountCode")
+                        .HasColumnType("nvarchar(25)")
+                        .HasMaxLength(25);
+
                     b.HasKey("Id");
 
                     b.HasIndex("CampusId");
@@ -622,11 +749,23 @@ namespace site.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime?>("ActivatedOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("CampusId")
                         .HasColumnType("int");
 
                     b.Property<int?>("HostelId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("IsDocumentVerified")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LastSubscribedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("LastSubscriptionAmount")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("LogoPath")
                         .HasColumnType("nvarchar(255)")
@@ -653,6 +792,9 @@ namespace site.Migrations
                     b.Property<string>("StoreName")
                         .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
+
+                    b.Property<DateTime?>("SubscriptionExpiresOn")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("UploadedDocPath")
                         .HasColumnType("nvarchar(255)")
@@ -685,28 +827,66 @@ namespace site.Migrations
                     b.ToTable("Tags");
                 });
 
-            modelBuilder.Entity("site.Data.Category", b =>
+            modelBuilder.Entity("Shared.Entities.TransactionAccount", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("IconClass")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("AccountId")
+                        .HasColumnType("nvarchar(25)")
+                        .HasMaxLength(25);
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(100)")
-                        .HasMaxLength(100);
+                    b.Property<int>("AccountType")
+                        .HasColumnType("int");
 
-                    b.Property<int?>("ParentId")
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("SiteUserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ParentId");
+                    b.HasIndex("AccountId")
+                        .IsUnique()
+                        .HasFilter("[AccountId] IS NOT NULL")
+                        .HasAnnotation("SqlServer:Clustered", false);
 
-                    b.ToTable("Category");
+                    b.HasIndex("SiteUserId");
+
+                    b.ToTable("TransactionAccounts");
+                });
+
+            modelBuilder.Entity("Shared.Entities.TransactionEntry", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("EntryType")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Narration")
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
+
+                    b.Property<int>("TransactionAccountId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TransactionAccountId");
+
+                    b.ToTable("TransactionEntries");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -874,11 +1054,22 @@ namespace site.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("site.Data.Category", b =>
+            modelBuilder.Entity("Shared.Entities.TransactionAccount", b =>
                 {
-                    b.HasOne("site.Data.Category", "Parent")
-                        .WithMany("Children")
-                        .HasForeignKey("ParentId");
+                    b.HasOne("Shared.Entities.SiteUser", "SiteUser")
+                        .WithMany()
+                        .HasForeignKey("SiteUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Shared.Entities.TransactionEntry", b =>
+                {
+                    b.HasOne("Shared.Entities.TransactionAccount", "Account")
+                        .WithMany()
+                        .HasForeignKey("TransactionAccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

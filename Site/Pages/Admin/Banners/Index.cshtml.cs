@@ -42,11 +42,12 @@ namespace site.Pages.Admin.Banners
         public async Task<IActionResult> OnPost()
         {
             var filePath = await CreateFile(Input.ImageUpload);
+            Banners = await _dbContext.SiteImages.Where(e => e.GroupCode == ImageUploadGroups.Banners)
+                   .ToListAsync();
+
             if (filePath == UPLOAD_NOT_SUPPORTED)
             {
                 ModelState.AddModelError(nameof(Input.ImageUpload), "Uploaded file format not supported");
-                Banners = await _dbContext.SiteImages.Where(e => e.GroupCode == ImageUploadGroups.Banners)
-                                   .ToListAsync();
                 return Page();
             }
 

@@ -1,0 +1,44 @@
+﻿@page
+@model site.Pages.Admin.SitePages.IndexModel
+@{
+    ViewData["Title"] = "Pages";
+    Layout = "~/Pages/Shared/_LayoutAdmin.cshtml";
+}
+
+@section BreadCrumbs {
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+    </ol>
+}
+
+<h3 class="page-title-notpadded">Site Pages</h3>
+
+
+
+<div>
+    <a href="/Admin/SitePages/AddPage" class="btn btn-info btn-sm">Add New Page</a>    
+</div>
+<br />
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Link</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Pages)
+        {
+        <tr>
+            <td>@item.Title</td>
+            <td><a href="@($"/pages/{item.Id}/{item.Title?.Replace(" ","-")}")">@($"/pages/{item.Id}/{item.Title?.Replace(" ","-")}")</a></td>
+            <td>
+                <a href="/Admin/SitePages/EditPage/@item.Id">View Content</a> | 
+                <a href="/Admin/SitePages/DeletePage/@item.Id">Delete</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

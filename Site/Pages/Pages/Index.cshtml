@@ -1,4 +1,4 @@
-﻿@page "/pages/{id}"
+﻿@page "{id}/{slug}"
 @model site.Pages.Pages.IndexModel
 @{
     var currPage = Model.CurrentPage;
@@ -23,7 +23,7 @@
 
             <h3 class="title">@currPage.Title</h3>
 
-            @Html.Raw(Model.CurrentPage.SafeHtmlContent)
+            @Html.Raw(Model.CurrentPage.SafeHtmlContent.Replace("\n", "<br />"))
         </div>
     </div>
 

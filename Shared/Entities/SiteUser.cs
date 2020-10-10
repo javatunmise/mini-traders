@@ -12,5 +12,7 @@
         public string ReferralCode { get; set; }
         public int? CampusId { get; set; }
         public Campus Location { get; set; }
+        public string WalletAccountCode { get; set; }
+        public string TokenAccountCode { get; set; }
     }
 }

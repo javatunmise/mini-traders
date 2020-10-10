@@ -39,12 +39,12 @@
                     <div>
                         <div class="product-image">
                             <div class="image">
-                                <a href="/categories/123-fashion"><i class="fa fa-@icons[counter]"></i></a>
+                                <a href="@PathUtil.GetCategoryPath(category)"><i class="fa fa-@icons[counter]"></i></a>
                             </div>
                         </div>
                         <div class="product-info">
                             <div class="name">
-                                <a href="/categories/123-fashion">
+                                <a href="@PathUtil.GetCategoryPath(category)">
                                     @category.Name
                                     @if (category.Name?.Length < 16)
                                     {

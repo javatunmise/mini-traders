@@ -1,0 +1,12 @@
+﻿@using global::Shared.Entities
+@model StoreStatuses
+@{ 
+    var storeStatus = Model;
+}
+
+@if(storeStatus == StoreStatuses.Inactive)
+{
+    <div>
+        <h3>Inactive store message</h3>
+    </div>
+}

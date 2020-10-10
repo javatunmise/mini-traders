@@ -1,0 +1,43 @@
+﻿@page
+@model site.Pages.Payments.CompletedModel
+@{
+}
+
+<div class="row custom-margin"></div>
+
+<div class="container" style="width: 400px">
+
+    <div class="card site-page-content">
+        <div class="card-body">
+
+
+            @if (Model.ErrorOccurred)
+            {
+                <div class="">
+                    <h3 class="page-title-notpadded">Something went wrong!</h3>
+
+                    <div><em>@Model.ErrorMessage</em></div>
+                    <hr />
+                    <p>Please contact the site administrators for more information</p>
+
+                    <p></p>
+                    <a href="/Profile/Store" class="btn btn-sm btn-warning">Go to my store</a>
+                </div>
+            }
+            else
+            {
+                <div class="">
+                    <h3 class="page-title-notpadded">Congratulations!</h3>
+
+                    Your store has been activated. Your products will now be visible to customers.
+                    
+                    <p></p>
+                    Please ontinue to your store
+                    to manage your products and services.
+                    <p></p>
+                    <a href="/Profile/Store" class="btn btn-sm btn-warning">Go to my store</a>
+                </div>
+            }
+        </div>
+    </div>
+</div>

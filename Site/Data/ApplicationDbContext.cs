@@ -17,19 +17,22 @@ namespace Site.Data
         public DbSet<Store> Stores { get; set; }
         public DbSet<Campus> Campuses { get; set; }
         public DbSet<Hostel> Hostels { get; set; }
-
+        public DbSet<SitePayment> Payments { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<ProductTag> ProductTags { get; set; }
         public DbSet<Referral> Referrals { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<ProductReview> ProductReviews { get; set; }
-
+        public DbSet<TransactionEntry> TransactionEntries { get; set; }
+        public DbSet<TransactionAccount> TransactionAccounts { get; set; }
         public DbSet<Chat> Chats { get; set; }
         public DbSet<ChatMessage> ChatMessages { get; set; }
 
         public DbSet<Shared.Entities.Site> Sites { get; set; }
         public DbSet<SiteImage> SiteImages { get; set; }
+        public DbSet<SiteLink> SiteLinks { get; set; }
+        public DbSet<SitePage> SitePages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -44,7 +47,17 @@ namespace Site.Data
                 new ProductSchemaConfiguration(),
                 new ProductReviewSchemaConfiguration(),
                 new ChatSchemaConfiguration(),
-                new ChatMessageSchemaConfiguration()
+                new ChatMessageSchemaConfiguration(),
+
+                new SiteImageSchemaConfiguration(),
+                new SiteLinkSchemaConfiguration(),
+                new ProductTagSchemaConfiguration(),
+                new SiteSchemaConfiguration(),
+                new SitePageSchemaConfiguration(),
+                new SitePaymentSchemaConfiguration(),
+
+                new TransactionAccountSchemaConfiguration(),
+                new TransactionEntrySchemaConfiguration()
             };
 
             foreach (var schema in schemaConfigs)

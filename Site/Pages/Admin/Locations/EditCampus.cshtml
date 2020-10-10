@@ -1,0 +1,28 @@
+﻿@page "{id}"
+@model site.Pages.Admin.Locations.EditCampusModel
+@{
+    ViewData["Title"] = "EditCampus";
+    Layout = "~/Pages/Shared/_LayoutAdmin.cshtml";
+    var rowCount = 0;
+}
+
+
+<h3 class="page-title-notpadded">Edit Campus (@Model.CurrentRecord?.Name)</h3>
+
+
+<div class="">
+    <form method="post">
+
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <div class="form-group">
+            <label>Campus name:</label>
+            <input asp-for="Input.Name" class="form-control" />
+        </div>
+
+        <p>
+            <button type="submit" class="btn btn-primary">Save</button>
+        </p>
+
+    </form>
+</div>

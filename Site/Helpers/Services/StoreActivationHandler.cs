@@ -1,0 +1,62 @@
+﻿using Shared.Entities;
+using site.Repositories;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace site.Helpers.Services
+{
+    public class StoreActivationHandler
+    {
+        public ActivateStoreResult Handle(SitePayment payment, Store store, 
+                                          RefererAccount referer)
+        {
+            if (payment.Amount <= 0) return null;
+            if (payment.EntityType != "STORE") return null;
+            if (store.Status == StoreStatuses.Active) return null;
+
+            store.Status = StoreStatuses.Active;
+
+            var transEntries = new List<TransactionEntry>();
+
+            Console.WriteLine("NOT_ELIGIBLE: " + referer.Store.Status + referer.WalletAccountId.Value +
+                   referer.TokenAccountId.Value);
+
+            if (referer != null && IsEligible(referer))
+            {
+                Console.WriteLine("IS_ELIGIBLE");
+                transEntries.Add(new CreditEntry(payment.Amount * 0.25M,
+                                                 referer.WalletAccountId.Value,
+                                                 $"Bonus from referring {store.StoreName}"));
+
+                transEntries.Add(new CreditEntry(payment.Amount * 0.25M,
+                                                 referer.TokenAccountId.Value,
+                                                 $"Bonus from referring {store.StoreName}"));
+            }
+
+            var result = new ActivateStoreResult
+            {
+                Entries = transEntries,
+                Store = store,
+                Payment = payment
+            };
+
+            return result;
+        }
+
+        private bool IsEligible(RefererAccount referer)
+        {
+            return referer.Store.Status == StoreStatuses.Active &&
+                   referer.WalletAccountId.HasValue && 
+                   referer.TokenAccountId.HasValue;
+        }
+    }
+
+    public class ActivateStoreResult
+    {
+        public List<TransactionEntry> Entries { get; set; }
+        public Store Store { get; set; }
+        public SitePayment Payment { get; set; }
+    }
+}

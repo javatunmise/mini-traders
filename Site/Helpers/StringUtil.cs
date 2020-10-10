@@ -47,5 +47,27 @@ namespace site.Helpers
             var code = _username.Substring(0, Math.Min(_username.Length, 5));
             return $"{code}{Guid.NewGuid()}".Substring(0,10).ToUpper();
         }
+
+        internal static string GenerateWalletAccountId(int storeId, int userId)
+        {
+            //var numbers = "0123456789";
+            //var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+            //var rN = new Random().Next(0, 9);
+            //var rA = new Random().Next(0, 25);
+
+            return $"WLT{storeId}{userId}{DateTime.Now:yyyyMMddHHmmssffff}";
+        }
+
+        internal static string GenerateTokenAccountId(int storeId, int userId)
+        {
+            //var numbers = "0123456789";
+            //var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+            //var rN = new Random().Next(0, 9);
+            //var rA = new Random().Next(0, 25);
+
+            return $"TK{storeId}{userId}{DateTime.Now:yyyyMMddHHmmssffff}";
+        }
     }
 }

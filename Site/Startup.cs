@@ -18,6 +18,8 @@ using Microsoft.AspNetCore.Rewrite;
 using Shared.Entities;
 using Shared;
 using site.ViewComponents;
+using site.Configs;
+using site.Helpers.Services;
 
 namespace Site
 {
@@ -34,12 +36,20 @@ namespace Site
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<LatestProductsCategories>(Configuration.GetSection("LatestProductsCategories"));
+            services.Configure<PaymentConfig>(Configuration.GetSection("PaymentConfiguration"));
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+
+            PaymentConfig paymentConfig = GetPaymentConfigSection();
+            services.AddHttpClient("paystack", client =>
+            {
+                client.BaseAddress = new Uri(paymentConfig.PaystackUrl);
+                client.DefaultRequestHeaders.Add("Authorization", $"Bearer {paymentConfig.SecretKey}");
             });
 
             services.AddDbContext<ApplicationDbContext>(options =>
@@ -58,7 +68,9 @@ namespace Site
             services.AddScoped<ProductsRepository>();
             services.AddScoped<CategoriesRepository>();
             services.AddScoped<ChatRepository>();
+            services.AddScoped<PaymentRepository>();
             services.AddScoped<ICurrentDate, ServerDateTime>();
+            services.AddScoped<StoreActivationHandler>();
 
             services.AddMvc()
                 //.SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
@@ -68,6 +80,11 @@ namespace Site
                     options.Conventions.AuthorizeFolder("/Admin");
                     options.Conventions.AuthorizePage("/Sellers/Registration");
                 });
+        }
+
+        private PaymentConfig GetPaymentConfigSection()
+        {
+            return Configuration.GetSection("PaymentConfiguration").Get<PaymentConfig>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

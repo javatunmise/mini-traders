@@ -19,10 +19,14 @@
 <div class="card bg-light ">
     <div class="card-body">
         <h4 class="page-title-notpadded">My Wallet</h4>
-        <h3 class="card-title page-title-notpadded">N80,000</h3>
+        <h3 class="card-title page-title-notpadded">N@(Model.WalletBalance.ToString("N2"))</h3>
         @*<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>*@
+
+        @if (Model.WalletAccount?.Id > 0)
+        {
         <a href="#" class="btn btn-sm btn-danger">Withdraw</a>
         <a href="#" class="btn btn-sm btn-info">Transaction history</a>
+        }
     </div>
 </div>
 
@@ -30,8 +34,14 @@
 <div class="card bg-light ">
     <div class="card-body">
         <h4 class="page-title-notpadded">My Token</h4>
-        <h3 class="card-title page-title-notpadded">N3,000</h3>
+        <h3 class="card-title page-title-notpadded">N@(Model.TokenBalance.ToString("N2"))</h3>
         <p class="card-text">You can use your token to buy items on this site</p>
-        <a href="#" class="btn btn-sm btn-danger">Transaction history</a>
+
+
+        @if (Model.TokenAccount?.Id > 0)
+        {
+        <a href="#" class="btn btn-sm btn-danger">Transfer to a vendor</a>
+        <a href="#" class="btn btn-sm btn-info">Transaction history</a>
+        }
     </div>
 </div>

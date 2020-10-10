@@ -23,12 +23,14 @@ namespace site.Pages.Profile.Store
         private readonly ISiteContentProvider _siteContentProvider;
         private readonly IWebHostEnvironment _environment;
         private readonly ProductsRepository _productRepository;
+        private readonly StoreRepository _storeRepo;
         private readonly ILogger<CreateProductModel> _logger;
         private const string UPLOAD_NOT_SUPPORTED = "NOT_SUPPORTED";
 
         public CreateProductModel(AccountRepository accountRepository, 
                                   ISiteContentProvider siteContentProvider,
                                   ProductsRepository productsRepository,
+                                  StoreRepository storeRepository,
                                   IWebHostEnvironment env,
                                   ILogger<CreateProductModel> logger)
         {
@@ -36,6 +38,7 @@ namespace site.Pages.Profile.Store
             _siteContentProvider = siteContentProvider;
             _environment = env;
             _productRepository = productsRepository;
+            _storeRepo = storeRepository;
             _logger = logger;
 
             FormInput = new Input();
@@ -101,7 +104,8 @@ namespace site.Pages.Profile.Store
             try
             {
                 await _productRepository.Create(product);
-                return RedirectToPage("/Profile/Store/Index");
+                var filter = product.RenderedAsService ? "services" : "";
+                return Redirect($"/Profile/Store?filter={filter}");
             }
             catch (Exception ex)
             {

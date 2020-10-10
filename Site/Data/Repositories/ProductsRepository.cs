@@ -67,6 +67,11 @@ namespace site.Repositories
             await conn.ExecuteAsync("Insert_ProductTags", parameters, commandType: CommandType.StoredProcedure);
         }
 
+        internal async Task<int> CountByStore(int id)
+        {
+            return await _dbContext.Products.AsNoTracking().CountAsync(e => e.StoreId == id);
+        }
+
         private static string ToXML(List<string> tags)
         {
             return string.Join("", tags.Select(e => $"<Tag>{e}</Tag>"));

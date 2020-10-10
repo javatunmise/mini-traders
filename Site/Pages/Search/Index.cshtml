@@ -188,11 +188,7 @@
                                         </div>
                                         <div class="title"><a href="~/products/@($"{p.Id}-{p.Name}")">@p.Name</a></div>
                                         <div class="ratings">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
+                                            <partial name="Shared/TempViews/_Ratings" model="@p.AverageRating" />
                                         </div>
                                         <div class="price">
                                             <span class="price-before">N@(p.OldPrice)</span>

@@ -6,7 +6,7 @@
   "compilationOptions": {
     "defines": [
       "TRACE",
-      "DEBUG",
+      "RELEASE",
       "NETCOREAPP",
       "NETCOREAPP3_1"
     ],
@@ -14,7 +14,7 @@
     "platform": "",
     "allowUnsafe": false,
     "warningsAsErrors": false,
-    "optimize": false,
+    "optimize": true,
     "keyFile": "",
     "emitEntryPoint": true,
     "xmlDoc": false,
@@ -22,7 +22,7 @@
   },
   "targets": {
     ".NETCoreApp,Version=v3.1": {
-      "site/1.0.0": {
+      "Site/1.0.0": {
         "dependencies": {
           "Dapper": "2.0.35",
           "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "3.1.6",
@@ -300,10 +300,10 @@
           "WindowsBase": "4.0.0.0"
         },
         "runtime": {
-          "site.dll": {}
+          "Site.dll": {}
         },
         "compile": {
-          "site.dll": {}
+          "Site.dll": {}
         }
       },
       "Dapper/2.0.35": {
@@ -4172,7 +4172,7 @@
     }
   },
   "libraries": {
-    "site/1.0.0": {
+    "Site/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

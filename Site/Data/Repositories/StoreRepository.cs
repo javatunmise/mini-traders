@@ -1,23 +1,29 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Shared;
 using Shared.Entities;
-using site.Data;
-using site.Helpers;
+using site.Helpers.Services;
 using Site.Data;
-using SQLitePCL;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Dapper;
+using Microsoft.Data.SqlClient;
+using site.Data.Repositories;
+using Microsoft.Extensions.Configuration;
 
 namespace site.Repositories
 {
     public class StoreRepository
     {
         private readonly ApplicationDbContext _context;
+        private readonly ICurrentDate _serverDate;
+        private readonly IConfiguration _configuration;
 
-        public StoreRepository(ApplicationDbContext context)
+        public StoreRepository(ApplicationDbContext context, ICurrentDate serverDate, IConfiguration configuration)
         {
             _context = context;
+            _serverDate = serverDate;
+            _configuration = configuration;
         }
 
         public async Task Create(Shared.Store store)
@@ -65,11 +71,52 @@ namespace site.Repositories
             await _context.SaveChangesAsync();
         }
 
+        internal async Task SaveActivationResult(ActivateStoreResult result)
+        {
+            if (result == null) return;
+
+            var store = await _context.Stores.FirstAsync(e => e.Id == result.Store.Id);
+            store.Status = StoreStatuses.Active;
+            store.ActivatedOn = _serverDate.Now();
+
+            foreach(var tran in result.Entries)
+            {
+                _context.TransactionEntries.Add(tran);
+            }
+
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<Shared.Entities.Store> GetStoreById(int storeId)
         {
             var _store = await _context.Stores.FirstOrDefaultAsync(_ => _.Id == storeId);
 
             return _store;
+        }
+        public async Task<RefererAccount> GetRefererStoreById(int storeId)
+        {
+            var referral = await _context.Referrals.AsNoTracking().Include(e => e.Store).FirstOrDefaultAsync(_ => _.StoreId == storeId);
+            if (referral == null) return null;
+
+            var query = @"
+            SELECT
+	            u.Id SiteUserId,
+	            ISNULL(u.FirstName,'') + ISNULL(' '+u.LastName,'') As FullName,
+	            token.Id TokenAccountId,
+	            wallet.Id WalletAccountId,
+				sto.Id as StoreId,
+				sto.StoreName,
+				sto.[Status] as StoreStatus
+            FROM siteusers u
+			JOIN Stores sto ON sto.SiteUserId = u.id
+            LEFT JOIN TransactionAccounts wallet ON wallet.SiteUserId = u.Id AND wallet.AccountType = 100
+            LEFT JOIN TransactionAccounts token ON token.SiteUserId = u.Id AND token.AccountType = 200
+            WHERE u.Id = @userid";
+
+            using var conn = new SqlConnection(Config.GetConnectionString(_configuration));
+            conn.Open();
+            var referer = await conn.QueryFirstAsync<RefererAccount>(query, new { userid = referral.ReferrerUserId });
+            return referer;
         }
 
         public Task Update(Shared.Store updatedStore)
@@ -88,9 +135,29 @@ namespace site.Repositories
             return _context.SaveChangesAsync();
         }
 
-        private string UpdateIfChanged(string oldValue, string newValue)
+        internal async Task CreateAccounts(int userId, string WalletAccountId, string TokenAccountId)
         {
-            return oldValue != newValue ? newValue : oldValue;
+            var user = await _context.SiteUsers.SingleAsync(e => e.Id == userId);
+            user.TokenAccountCode = TokenAccountId;
+            user.WalletAccountCode = WalletAccountId;
+
+            var tkn = _context.TransactionAccounts.Add(new TransactionAccount
+            {
+                AccountId = TokenAccountId,
+                AccountType = AccountTypes.Token,
+                CreatedOn = _serverDate.Now(),
+                SiteUserId = userId
+            });
+
+            var wlt = _context.TransactionAccounts.Add(new TransactionAccount
+            {
+                AccountId = WalletAccountId,
+                AccountType = AccountTypes.Wallet,
+                CreatedOn = _serverDate.Now(),
+                SiteUserId = userId
+            });
+
+            await _context.SaveChangesAsync();
         }
 
         private void EnsureNonNull(object o, string paramName)

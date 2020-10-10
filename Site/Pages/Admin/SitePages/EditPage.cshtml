@@ -1,0 +1,40 @@
+﻿@page "{id}"
+@model site.Pages.Admin.SitePages.EditPageModel
+@{
+    ViewData["Title"] = "AddPage";
+    Layout = "~/Pages/Shared/_LayoutAdmin.cshtml";
+}
+
+@section BreadCrumbs {
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+    </ol>
+}
+
+<h3 class="page-title-notpadded">Edit Page (@Model.CurrentRecord?.Title)</h3>
+
+<div>
+    <form method="post" enctype="multipart/form-data">
+       
+        <div class="form-group">
+            <label>Page title</label>
+            <input asp-for="Input.Title" class="form-control" value="@Model.CurrentRecord?.Title" />
+        </div>
+
+        <div class="form-group">
+            <label>Upload page content</label>
+            <input asp-for="Input.FileUpload" class="form-control" />
+        </div>
+
+        <p>
+            <button type="submit" class="btn btn-primary">Save</button>
+        </p>
+
+    </form>
+</div>
+
+<hr />
+
+<h4>File Content (<a href="#">Download</a>)</h4>
+
+<div>@Model.CurrentRecord?.Content</div>

@@ -4,37 +4,44 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using Site.Data;
 using siteinfo;
 
 namespace site.Pages.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly IPageRepository pageRepository;
+        private readonly ApplicationDbContext _context;
+
+        //private readonly IPageRepository pageRepository;
 
         public SitePage CurrentPage { get; set; }
 
-        public IndexModel(IPageRepository pageRepository)
+        public IndexModel(ApplicationDbContext context)
         {
-            this.pageRepository = pageRepository;
+            _context = context;
         }
 
-        public void OnGet(string id)
+        public async Task OnGet(int id)
         {
-            var page = pageRepository.GetPages().FirstOrDefault(p => p.Slug == id);
+            var page = await _context.SitePages.FirstOrDefaultAsync(p => p.Id == id);
             if (page == null)
                 CurrentPage = SitePage.Create("Page Not Found", "The page you are looking for could not be found");
             else
-                CurrentPage = SitePage.Create(page.Title, page.Content ?? "<p style='color: magenta'>Some raw content</p>");
+                CurrentPage = SitePage.Create(page.Title, page.Content);
         }
 
         public sealed class SitePage
         {
             public static SitePage Create(string title, string content)
             {
-                var page = new SitePage();
-                page.Title = title;
-                page.SafeHtmlContent = content;
+                var page = new SitePage
+                {
+                    Title = title,
+                    SafeHtmlContent = content
+                };
+
                 return page;
             }
 

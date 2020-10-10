@@ -51,6 +51,18 @@
     <Compile Remove="Migrations\20200915051301_ProductTags_Schema.Designer.cs" />
     <Compile Remove="Migrations\20200915052007_ProductTags_Schema.cs" />
     <Compile Remove="Migrations\20200915052007_ProductTags_Schema.Designer.cs" />
+    <Compile Remove="Migrations\20201008050521_SitePayment_Schema.cs" />
+    <Compile Remove="Migrations\20201008050521_SitePayment_Schema.Designer.cs" />
+    <Compile Remove="Migrations\20201009065601_SitePayment_ExternalRef.cs" />
+    <Compile Remove="Migrations\20201009065601_SitePayment_ExternalRef.Designer.cs" />
+    <Compile Remove="Migrations\20201010001302_SiteUserAndReferrerUser.cs" />
+    <Compile Remove="Migrations\20201010001302_SiteUserAndReferrerUser.Designer.cs" />
+    <Compile Remove="Migrations\20201010020343_SiteUserAndReferrerUser.cs" />
+    <Compile Remove="Migrations\20201010020343_SiteUserAndReferrerUser.Designer.cs" />
+    <Compile Remove="Migrations\20201010021354_SiteUserAndReferrerUser.cs" />
+    <Compile Remove="Migrations\20201010021354_SiteUserAndReferrerUser.Designer.cs" />
+    <Compile Remove="Migrations\20201010022332_UserAccounts_AccountEntry.cs" />
+    <Compile Remove="Migrations\20201010022332_UserAccounts_AccountEntry.Designer.cs" />
   </ItemGroup>
 
 

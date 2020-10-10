@@ -19,6 +19,9 @@ namespace site.Data.Configurations
             builder.Property(p => p.ProfilePicturePath).HasMaxLength(255);
             builder.Property(p => p.ReferralCode).HasMaxLength(20);
 
+            builder.Property(p => p.TokenAccountCode).HasMaxLength(25);
+            builder.Property(p => p.WalletAccountCode).HasMaxLength(25);
+
             builder.HasOne(user => user.Store)
                    .WithOne(store => store.User)
                    .HasForeignKey<Store>(store => store.SiteUserId);
