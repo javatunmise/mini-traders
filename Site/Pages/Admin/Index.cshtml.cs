@@ -5,7 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using site.Data;
+using site.Helpers;
 using Site.Data;
 
 namespace site.Pages.Admin
@@ -13,17 +16,25 @@ namespace site.Pages.Admin
     public class IndexModel : PageModel
     {
         private readonly ApplicationDbContext _dbContext;
+        private readonly ISiteContentProvider _provider;
+        private readonly IConfiguration configuration;
 
-        public IndexModel(ApplicationDbContext context)
+        public IndexModel(ApplicationDbContext context, ISiteContentProvider siteContentProvider, IConfiguration configuration)
         {
             _dbContext = context;
+            _provider = siteContentProvider;
+            this.configuration = configuration;
         }
 
         public async Task OnGet()
         {
-            var siteId = new Guid(Shared.Entities.Site.Identifier);
-            var site = await _dbContext.Sites.FirstOrDefaultAsync(e => e.Id == siteId);
-            site = site ?? new Shared.Entities.Site();
+            if (!StoreUtil.IsAdmin(User.Identity.Name, configuration))
+            {
+                Response.Redirect("/");
+                return;
+            }
+
+            var site = await _provider.GetCurrentSite() ?? new Shared.Entities.Site();
 
             Input = new FormInput
             {

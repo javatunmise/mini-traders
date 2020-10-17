@@ -16,6 +16,6 @@ namespace Shared.Entities
 
     public enum AccountTypes
     {
-        Wallet = 100, Token = 200
+        SiteOwner = 1, Wallet = 100, Token = 200
     }
 }

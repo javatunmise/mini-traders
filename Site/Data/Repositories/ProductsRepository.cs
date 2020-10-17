@@ -16,6 +16,8 @@ using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using Shared;
 using System.Data;
+using System.Data.Common;
+using Microsoft.Extensions.Logging;
 
 namespace site.Repositories
 {
@@ -23,13 +25,18 @@ namespace site.Repositories
     {
         private readonly ApplicationDbContext _dbContext;
         private readonly IConfiguration _configuration;
-        private readonly ICurrentDate _currentDate;
+        private readonly ICurrentDate _serverDate;
+        private readonly ILogger<ProductsRepository> _logger;
 
-        public ProductsRepository(ApplicationDbContext context, IConfiguration configuration, ICurrentDate currentDate)
+        public ProductsRepository(ApplicationDbContext context, 
+                                  IConfiguration configuration, 
+                                  ICurrentDate currentDate,
+                                  ILogger<ProductsRepository> logger)
         {
             _dbContext = context;
             _configuration = configuration;
-            _currentDate = currentDate;
+            _serverDate = currentDate;
+            _logger = logger;
         }
 
         internal async Task<List<Product>> GetServices(int storeId)
@@ -44,14 +51,21 @@ namespace site.Repositories
 
         internal async Task Create(Product product)
         {
-            product.CreatedOn = _currentDate.Now();
-            product.LastModifiedOn = _currentDate.Now();
+            product.CreatedOn = _serverDate.Now();
+            product.LastModifiedOn = _serverDate.Now();
             
             _dbContext.Products.Add(product);
             
             await _dbContext.SaveChangesAsync();
 
-            await InsertProductKeywords(product.Id, GetValidKeywords(product));
+            try
+            {
+                await InsertProductKeywords(product.Id, GetValidKeywords(product));
+            }
+            catch(DbException ex)
+            {
+                _logger.LogDebug(ex.Message);
+            }
         }
 
         private async Task InsertProductKeywords(int productId, List<string> tags)
@@ -101,8 +115,8 @@ namespace site.Repositories
 "b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","$",
                 "1","2","3","4","5","6","7","8","9","0" };
 
-            var productKeywords = product.Name.Split()
-                                  .Concat(product.ProductDetails.Split())
+            var productKeywords = product.Name.ToLower().Split()
+                                  .Concat(product.ProductDetails.ToLower().Split())
                                   .Distinct()
                                   .Select(e => e.ToLower().Trim(',',';','.','?','(',')','[',']', ' '))
                                   .Where(e => !e.All(char.IsDigit));
@@ -123,7 +137,8 @@ namespace site.Repositories
             _product.LastModifiedOn = updated.LastModifiedOn;
             _product.Specifications = updated.Specifications;
             _product.RenderedAsService = updated.RenderedAsService;
-            _product.LastModifiedOn = _currentDate.Now();
+            _product.LastModifiedOn = _serverDate.Now();
+            _product.Status = updated.Status;
 
             if (!string.IsNullOrWhiteSpace(updated.ImageUrl))
                 _product.ImageUrl = updated.ImageUrl;
@@ -152,7 +167,7 @@ namespace site.Repositories
                 review.ReviewerName,
                 review.Rating,
                 review.HideUserIdentity,
-                CreatedOn = _currentDate.Now()
+                CreatedOn = _serverDate.Now()
             }, commandType: System.Data.CommandType.StoredProcedure);
         }
 

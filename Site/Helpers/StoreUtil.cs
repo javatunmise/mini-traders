@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Configuration;
 using site.Data;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,14 @@ namespace site.Helpers
             if (category.Parent != null && category.Parent.Parent != null && category.Parent.Parent.Name == "Services") return true;
 
             return false;
+        }
+
+        public static bool IsAdmin(string email, IConfiguration configuration)
+        {
+            var adminEmails = configuration["OtherOpsEmails"] ?? "";
+            if (string.IsNullOrEmpty(adminEmails)) return false;
+
+            return adminEmails.Split(',').Contains(email);
         }
     }
 }

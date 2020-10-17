@@ -14,5 +14,6 @@
         public Campus Location { get; set; }
         public string WalletAccountCode { get; set; }
         public string TokenAccountCode { get; set; }
+        public string FullName => $"{FirstName} {LastName}";
     }
 }

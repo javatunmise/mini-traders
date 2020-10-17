@@ -8,6 +8,9 @@
 @model site.Pages.Categories.IndexModel
 
 @{
+    var _pageSize = Convert.ToDouble(site.Pages.Search.IndexModel.PAGE_SIZE);
+    int numPages = (int)Math.Ceiling(Model.PagingInfo.TotalRecords / _pageSize);
+
     var options = new SelectList(new[] {
         new KeyValuePair<string, string>("date", "Sort by latest"),
         new KeyValuePair<string, string>("price", "Sort by price: low to high"),
@@ -46,6 +49,7 @@
             <div class="col-sm-3 col-xs-12 klb-sidebar">
                 <form role="search" method="get" id="category-searchform" action="/categories/@Model.Id/@Model.Category?.Name">
                     <input type="hidden" name="orderby" id="hd_order_by" value="date" />
+                    <input type="hidden" name="pageindex" id="pageindex" value="1" />
 
                     <div class="sidebar-widget woocommerce widget_product_search">
                         <div class="control-group">
@@ -164,21 +168,21 @@
             </div>
             <div class="col-sm-9">
                 @*<div id="category" class="category-carousel hidden-xs">
-                        <div class="item">
-                            <div class="image"> <img src="/uploads/2019/12/cat-banner-1.jpg" alt="BIG SALE" class="img-responsive"></div><div class="container-fluid">
-                                <div class="caption vertical-top text-left">
-                                    <div class="big-text"> BIG SALE</div><div class="excerpt hidden-sm hidden-md"> Save up to 49% off</div><div class="excerpt-normal hidden-sm hidden-md"> Lorem ipsum dolor sit amet, consectetur adipiscing elit</div><div class="buy-btn"><a href="#" class="lnk btn btn-primary">Shop Now</a></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>*@
+            <div class="item">
+                <div class="image"> <img src="/uploads/2019/12/cat-banner-1.jpg" alt="BIG SALE" class="img-responsive"></div><div class="container-fluid">
+                    <div class="caption vertical-top text-left">
+                        <div class="big-text"> BIG SALE</div><div class="excerpt hidden-sm hidden-md"> Save up to 49% off</div><div class="excerpt-normal hidden-sm hidden-md"> Lorem ipsum dolor sit amet, consectetur adipiscing elit</div><div class="buy-btn"><a href="#" class="lnk btn btn-primary">Shop Now</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>*@
 
                 <div class="woocommerce-notices-wrapper"></div>
                 <div class="clearfix filters-container m-t-10" style="margin-top: 0">
                     <div class="row">
                         <div class="col col-md-12 text-right">
-                                <select name="orderby" style="width:auto" class="orderby" aria-label="Shop order" asp-items="options" onchange="submitPriceFilter(this.value)">
-                                </select>
+                            <select name="orderby" style="width:auto" class="orderby" aria-label="Shop order" asp-items="options" onchange="submitPriceFilter(this.value)">
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -213,11 +217,21 @@
                         </div>
                     </div>
                 </div>
-                <nav class="woocommerce-pagination">
-                    <ul class="page-numbers">
-                        <li><span aria-current="page" class="page-numbers current">1</span></li>
-                        <li><a class="page-numbers" href="https://klbtheme.com/dealsdot/shop/page/2/">2</a></li>
-                        <li><a class="next page-numbers" href="https://klbtheme.com/dealsdot/shop/page/2/"></a></li>
+                <nav aria-label="...">
+                    <ul class="pagination pagination-lg">
+                        @for (int i = 1; i <= numPages && i <= 15; i++)
+                        {
+                            if (Model.Query.PageIndex == i)
+                            {
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#" tabindex="-1">@i</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="page-item"><a class="page-link" href="javascript:submitPaging('@i')">@i</a></li>
+                            }
+                        }
                     </ul>
                 </nav>
             </div>
@@ -296,6 +310,13 @@
             $('#hd_order_by').val(value); 
             $('#category-searchform').submit();
         }
+
+        function submitPaging(value) {
+            $('#pageindex').val(value);
+            $('#category-searchform').submit();
+        }
+
+
     </script>
 
 }

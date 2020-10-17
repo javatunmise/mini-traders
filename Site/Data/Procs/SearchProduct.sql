@@ -28,7 +28,8 @@ DECLARE @table as table(Id int,
 	AverageRating float,
 	CreatedOn datetime2,
 	StoreName varchar(128),
-	CampusId int)
+	CampusId int,
+	StoreLocation varchar(100))
 
 declare @catids as table(id int)
 
@@ -63,10 +64,13 @@ SELECT
 	p.AverageRating,
 	p.CreatedOn,
 	st.StoreName,
-	st.CampusId
+	st.CampusId,
+	c.Name as StoreLocation
 FROM Products p (nolock)
 JOIN Stores st (nolock) ON p.StoreId = st.Id
+JOIN Campuses c ON c.Id = st.CampusId
 WHERE 
+	st.[Status] = 1 AND p.[Status] = 1 AND
 	(@SearchText IS NULL OR p.Name LIKE @SearchText + '%') AND
 	(@CategoryId IS NULL OR p.CategoryId IN (select id from @catids)) AND
 	(p.Price >= @PriceMin AND (@PriceMax IS NULL OR p.Price <= @PriceMax)) AND
@@ -87,6 +91,7 @@ SELECT * FROM (
 	p.CategoryId,
 	p.AverageRating,
 	p.StoreName,
+	p.StoreLocation,
 	p.CampusId,
 	ROW_NUMBER() OVER (ORDER BY 
 			CASE WHEN @Sort = 'date' THEN p.CreatedOn END DESC,

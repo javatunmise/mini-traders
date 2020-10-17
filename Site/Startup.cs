@@ -20,6 +20,8 @@ using Shared;
 using site.ViewComponents;
 using site.Configs;
 using site.Helpers.Services;
+using System.Linq;
+using site.Helpers;
 
 namespace Site
 {
@@ -88,7 +90,7 @@ namespace Site
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IConfiguration configuration)
         {
             if (env.IsDevelopment())
             {
@@ -111,31 +113,38 @@ namespace Site
             app.UseRouting();
 
             app.UseAuthentication();
+
             app.UseAuthorization();
 
-            app.Use(async (context, next) => {
+            app.Use(async (context, next) =>
+            {
                 if (IsLogOutUrl(context))
                 {
                     context.Response.Redirect("/");
                 }
-
                 await next();
             });
 
-            //app.Use(async (context, next) =>
-            //{
-            //    if (context.Response.StatusCode == 404)
-            //    {
-            //        context.Request.Path = "/error404";
-            //        await next();
-            //    }
-            //});
+            app.MapWhen(context => AdminPagesButNotAdminUser(context), app =>
+                {
+                    app.Run(async context =>
+                    {
+                        context.Response.Redirect("/");
+                        await Task.CompletedTask;
+                    });
+                });
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
                 endpoints.MapControllers();
             });
+        }
+
+        private bool AdminPagesButNotAdminUser(HttpContext context)
+        {
+            return context.Request.Path.StartsWithSegments("/admin", StringComparison.OrdinalIgnoreCase)
+                && !StoreUtil.IsAdmin(context.User.Identity.Name, Configuration);
         }
 
         private bool IsLogOutUrl(HttpContext context)

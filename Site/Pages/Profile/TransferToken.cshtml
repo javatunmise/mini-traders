@@ -1,0 +1,51 @@
+﻿@page
+@model site.Pages.Profile.TransferTokenModel
+@{
+    ViewData["Title"] = "Transfer from token";
+    Layout = "~/Pages/Shared/_LayoutProfile.cshtml";
+}
+
+
+@section BreadCrumbs {
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a href="/Profile">Profile</a></li>
+        <li class="breadcrumb-item"><a href="/Profile/MyToken">My Token</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Transfer</li>
+    </ol>
+}
+
+<h3 class="page-title-notpadded">Transfer from Token</h3>
+<hr />
+
+@if (Model.Success)
+{
+    <div class="alert alert-success">
+        Transfer of @Model.Amount was successful!
+    </div>
+}
+
+<form method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="form-group">
+        <h4>Balance: @($"N{Model.AccountBalance.ToString("N2")}")</h4>
+    </div>
+
+    <div class="form-group">
+        <label>Vendor Token Id:</label>
+        <input asp-for="ReceipientTokenId" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Amount:</label>
+        <input asp-for="Amount" class="form-control" />
+    </div>
+
+    <button class="btn btn-primary">Submit</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+}

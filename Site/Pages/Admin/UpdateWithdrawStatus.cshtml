@@ -1,0 +1,59 @@
+﻿@page "{id}"
+@using global::Shared.Entities; 
+@model site.Pages.Admin.UpdateWithdrawStatusModel
+@{
+    ViewData["Title"] = "Withdrawal Requests";
+    Layout = "~/Pages/Shared/_LayoutAdmin.cshtml";
+}
+
+@section BreadCrumbs {
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+    </ol>
+}
+
+<h3 class="page-title-notpadded">Withdrawal Requests - Update Status</h3>
+<hr />
+
+
+
+<form method="post">
+    <table class="form-group">
+        <tr><td style="width:150px">User:</td><td>@Model.CurrentRequest.SiteUser.FullName</td></tr>
+        <tr><td>Amount:</td><td>@Model.CurrentRequest.Amount.ToString("N2")</td></tr>
+        <tr><td>Charge:</td><td>@Model.CurrentRequest.Charge.ToString("N2")</td></tr>
+        <tr><td>Date:</td><td>@Model.CurrentRequest.CreatedOn.ToString("yyyy-MMM-dd hh:mm tt")</td></tr>
+        <tr><td>Current Status:</td><td>@Model.CurrentRequest.Status</td></tr>
+    </table>
+
+    @if (Model.ShowForm)
+    {
+    <div class="form-group">
+        <label>Change Status: </label>
+        <select name="status" onchange="showWarningMessage(this)" class="form-control">
+            <option>-- Select --</option>
+            <option value="@WithdrawRequestStatuses.Processed">Processed</option>
+            <option value="@WithdrawRequestStatuses.Declined">Declined</option>
+        </select>
+    </div>
+
+    <div class="alert alert-danger" style="display:none">
+        <b>Note:</b>
+        <ul style="list-style-type: square; margin-left: 15px">
+            <li>Selecting <b>Processed</b> indicates that you have made tranfer of money to the user.</li>
+            <li>Selecting <b>Declined</b> will undo the withdrawal from user's wallet</li>
+        </ul>    </div>
+
+    <button class="btn btn-secondary">Back</button>
+    <button class="btn btn-primary">Proceed</button>
+    }
+</form>
+
+
+@section Scripts {
+    <script type="text/javascript">
+        function showWarningMessage(dropdown) {
+            console.log('dropdown: ' + dropdown.value);
+        }
+    </script>
+}

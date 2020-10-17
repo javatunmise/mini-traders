@@ -1,0 +1,19 @@
+declare 
+	@email varchar(20) = 'admin@admin.com',
+	@siteUserId int
+
+select @siteUserId = Id from SiteUsers where Email='admin@admin.com'
+
+if @siteUserId is null
+begin
+	insert into SiteUsers(FirstName, Email)
+	values('Admin', 'admin@admin.com')
+
+	select @siteUserId = Id from SiteUsers where Email='admin@admin.com'
+end
+
+if not exists(select 1 from TransactionAccounts where AccountId = 'STE202010111735274972')
+begin
+	insert into TransactionAccounts(AccountId, SiteUserId, AccountType, CreatedOn)
+	values('STE202010111735274972', @siteUserId, 1, getutcdate())
+end

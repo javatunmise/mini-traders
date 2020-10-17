@@ -98,7 +98,8 @@ namespace site.Pages.Profile.Store
                 SmallImageUrl = productImagePaths[0],
                 StoreId = currentUser.Store.Id,
                 RenderedAsService = StoreUtil.IsServiceCategory(FormInput.CategoryId, categories.ToList()),
-                OtherImageUrlsJson = JsonConvert.SerializeObject(productImagePaths)
+                OtherImageUrlsJson = JsonConvert.SerializeObject(productImagePaths),
+                Status = Shared.ProductStatuses.Active
             };
 
             try

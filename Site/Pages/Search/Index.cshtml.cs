@@ -17,13 +17,14 @@ namespace site.Pages.Search
     {
         private readonly ISiteContentProvider _provider;
         private readonly ProductsRepository _productsRepo;
+        public const int PAGE_SIZE = 20;
 
         public IEnumerable<Category> Categories { get; private set; }
         public IEnumerable<MarketLocation> Locations { get; private set; }
         public IEnumerable<MarketLocation> SubLocations { get; private set; }
         public SearchQuery Query { get; set; }
         public (decimal Min, decimal Max) PriceRange { get; set; } = (0, 100000);
-        public (int PageIndex, int TotalRecords) PagingInfo = (1, 20);
+        public (int PageIndex, int TotalRecords) PagingInfo = (1, PAGE_SIZE);
         public List<ProductSearchView.Data> Products { get; set; } = new List<ProductSearchView.Data>();
 
         public IndexModel(ISiteContentProvider provider, ProductsRepository productsRepository)
@@ -51,7 +52,7 @@ namespace site.Pages.Search
                 SearchText = string.IsNullOrWhiteSpace(query.SearchText) ? null : query.SearchText,
                 SubLocationId = subLocationId > 0 ? subLocationId : (int?)null,
                 PageIndex = query.PageIndex,
-                PageSize = 20,
+                PageSize = PAGE_SIZE,
                 Sort = GetValidSort(query.OrderBy)
             });
 

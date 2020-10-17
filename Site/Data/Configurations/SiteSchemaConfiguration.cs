@@ -21,6 +21,8 @@ namespace site.Data.Configurations
             builder.Property(p => p.InstagramUrl).HasMaxLength(128);
             builder.Property(p => p.LinkedInUrl).HasMaxLength(128);
             builder.Property(p => p.YoutubeUrl).HasMaxLength(128);
+            builder.Property(p => p.WithdrawalCharge).HasColumnType("decimal(18,2)");
+            builder.Property(p => p.SignOnFee).HasColumnType("decimal(18,2)");
         }
     }
 

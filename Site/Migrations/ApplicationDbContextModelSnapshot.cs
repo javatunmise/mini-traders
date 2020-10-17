@@ -547,9 +547,15 @@ namespace site.Migrations
                         .HasColumnType("nvarchar(20)")
                         .HasMaxLength(20);
 
+                    b.Property<decimal>("SignOnFee")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<string>("TwitterUrl")
                         .HasColumnType("nvarchar(128)")
                         .HasMaxLength(128);
+
+                    b.Property<decimal>("WithdrawalCharge")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("WorkingHours")
                         .HasColumnType("nvarchar(20)")
@@ -889,6 +895,65 @@ namespace site.Migrations
                     b.ToTable("TransactionEntries");
                 });
 
+            modelBuilder.Entity("Shared.Entities.WithdrawRequest", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Charge")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("SiteUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TransactionAccountId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("WalletCode")
+                        .HasColumnType("nvarchar(30)")
+                        .HasMaxLength(30);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SiteUserId");
+
+                    b.ToTable("WithdrawRequests");
+                });
+
+            modelBuilder.Entity("Shared.Entities.WithdrawRequestWorkflowHistory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("RequestId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RequestId");
+
+                    b.ToTable("WithdrawRequestWorkflowHistory");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -1070,6 +1135,22 @@ namespace site.Migrations
                         .HasForeignKey("TransactionAccountId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Shared.Entities.WithdrawRequest", b =>
+                {
+                    b.HasOne("Shared.Entities.SiteUser", "SiteUser")
+                        .WithMany()
+                        .HasForeignKey("SiteUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Shared.Entities.WithdrawRequestWorkflowHistory", b =>
+                {
+                    b.HasOne("Shared.Entities.WithdrawRequest", "Request")
+                        .WithMany("WorkflowHistories")
+                        .HasForeignKey("RequestId");
                 });
 #pragma warning restore 612, 618
         }

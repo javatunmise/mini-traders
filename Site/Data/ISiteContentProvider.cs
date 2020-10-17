@@ -19,6 +19,7 @@ namespace site.Data
         Task<List<Product>> GetFlashDeals();
         Task<FlashDeal> GetCurrentFlashDeal();
         Task<IEnumerable<Product>> GetRecommended(SiteUser siteUser);
+        Task<Shared.Entities.Site> GetCurrentSite();
         Task<IEnumerable<Product>> GetTopServices();
         Task<List<Product>> GetLatestProducts(int categoryId, int numOfRecords);
 

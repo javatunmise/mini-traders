@@ -20,12 +20,8 @@ namespace site.Helpers.Services
 
             var transEntries = new List<TransactionEntry>();
 
-            Console.WriteLine("NOT_ELIGIBLE: " + referer.Store.Status + referer.WalletAccountId.Value +
-                   referer.TokenAccountId.Value);
-
             if (referer != null && IsEligible(referer))
             {
-                Console.WriteLine("IS_ELIGIBLE");
                 transEntries.Add(new CreditEntry(payment.Amount * 0.25M,
                                                  referer.WalletAccountId.Value,
                                                  $"Bonus from referring {store.StoreName}"));

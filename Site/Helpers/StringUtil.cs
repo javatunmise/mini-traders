@@ -56,7 +56,7 @@ namespace site.Helpers
             //var rN = new Random().Next(0, 9);
             //var rA = new Random().Next(0, 25);
 
-            return $"WLT{storeId}{userId}{DateTime.Now:yyyyMMddHHmmssffff}";
+            return $"WLT{storeId}{userId}{DateTime.Now:yyyyMMddHHmmss}";
         }
 
         internal static string GenerateTokenAccountId(int storeId, int userId)
@@ -67,7 +67,7 @@ namespace site.Helpers
             //var rN = new Random().Next(0, 9);
             //var rA = new Random().Next(0, 25);
 
-            return $"TK{storeId}{userId}{DateTime.Now:yyyyMMddHHmmssffff}";
+            return $"TK{storeId}{userId}{DateTime.Now:yyyyMMddHHmmss}";
         }
     }
 }

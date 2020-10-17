@@ -37,3 +37,4 @@ wwwroot/images/products/*.gif
 wwwroot/images/uploads_docs/*.jpg
 wwwroot/images/uploads_docs/*.png
 wwwroot/images/uploads_docs/*.gif
+Site/deploy/*.*

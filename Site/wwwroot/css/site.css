@@ -526,3 +526,7 @@ label {
 .page-title-notpadded {
     margin-top: 0;
 }
+
+.cnt-block.siteinfo {
+    padding: 15px;
+}

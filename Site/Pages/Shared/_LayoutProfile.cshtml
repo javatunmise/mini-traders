@@ -1,11 +1,13 @@
 ﻿@using site.Helpers;
 @inject site.Data.ISiteContentProvider _provider;
 @inject site.Repositories.AccountRepository _accountRepo;
+@inject Microsoft.Extensions.Configuration.IConfiguration configuration;
 @{
     var _site = (await _provider.GetSiteInfo()) ?? new site.Data.Site();
     var loggedIn = Context.User.Identity.IsAuthenticated;
     var userName = Context.User.Identity.Name;
     var siteName = "Shop@Firstchoice";
+    var isAdmin = StoreUtil.IsAdmin(User.Identity.Name, configuration);
 
     var currentUser = await _accountRepo.FindSiteUser(User.Identity.Name);
     var name = User.Identity.Name;
@@ -31,11 +33,12 @@
             {
                 new KeyValuePair<string, string>("My Store","/Profile/Store"),
                 new KeyValuePair<string, string>("Referrals","/Profile/Referrals"),
-                new KeyValuePair<string, string>("My Balances","/Profile/Balances"),
+                new KeyValuePair<string, string>("My Wallet","/Profile/MyWallet"),
+                new KeyValuePair<string, string>("My Token","/Profile/MyToken"),
             });
         }
 
-        if (!account.IsAdmin) {
+        if (isAdmin) {
             menus.Add(new KeyValuePair<string, string>("Site Management", "/Admin"));
         }
     }
@@ -139,9 +142,9 @@
 
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav mr-auto col-xs-12 text-sm-right text-left">
-                                <li class="nav-item">
+                                @*<li class="nav-item">
                                     <a class="nav-link" href="/pages/contact-us">Contact Us</a>
-                                </li>
+                                </li>*@
                                 @*<li class="nav-item">
                                         <a class="nav-link" href="/pages/faq">FAQ</a>
                                     </li>*@
@@ -196,7 +199,7 @@
                                 <div class="navbar-collapse collapse">
                                     <div class="nav-outer">
                                         <ul class="nav navbar-nav">
-                                            <li><a href="/contact-us">Contact</a></li>
+                                            @*<li><a href="/contact-us">Contact</a></li>*@
                                             @*<li class="dropdown menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children">
                                                     <a class="dropdown-toggle" href="#">Coupons</a>
                                                     <ul class="dropdown-menu pages">

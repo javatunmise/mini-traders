@@ -10,6 +10,8 @@ using Dapper;
 using Microsoft.Data.SqlClient;
 using site.Data.Repositories;
 using Microsoft.Extensions.Configuration;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace site.Repositories
 {
@@ -69,6 +71,33 @@ namespace site.Repositories
             _context.Stores.Add(_store);
 
             await _context.SaveChangesAsync();
+        }
+
+        internal async Task<PagedResult<StoreView>> GetStoreList(int pageIndex, int pageSize)
+        {
+            var query = @"
+SELECT * FROM (
+	SELECT
+	s.*,
+	c.Name as CampusName,
+	h.Name as HostelName,
+	ROW_NUMBER() OVER (ORDER BY s.StoreName) rowNum 
+ FROM Stores s
+ LEFT JOIN Campuses c ON c.Id = s.CampusId
+ LEFT JOIN Hostels h ON h.Id = s.HostelId) s
+ WHERE RowNum BETWEEN ((@PageIndex - 1) * @PageSize) + 1 AND (@PageIndex * @PageSize)
+
+ SELECT Count(1) as [TotalRecords] FROM Stores";
+
+            using var conn = new SqlConnection(Config.GetConnectionString(_configuration));
+            conn.Open();
+            var result = await conn.QueryMultipleAsync(query, new { pageIndex, pageSize });
+
+            var records = result.Read<StoreView>().ToList();
+            var pagedResult = result.Read<PagedResult<StoreView>>().First();
+            pagedResult.Records = records;
+            
+            return pagedResult;
         }
 
         internal async Task SaveActivationResult(ActivateStoreResult result)

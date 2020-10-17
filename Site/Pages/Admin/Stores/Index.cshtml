@@ -1,0 +1,92 @@
+﻿@page
+@model site.Pages.Admin.Stores.IndexModel
+@{
+    ViewData["Title"] = "Stores";
+    Layout = "~/Pages/Shared/_LayoutAdmin.cshtml";
+    int rowCount = 0;
+}
+
+
+@section BreadCrumbs {
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+    </ol>
+}
+
+<h3 class="page-title-notpadded">Stores</h3>
+
+<table class="table table-bordered">
+
+    <thead>
+        <tr>
+            <th></th>
+            <th>Logo</th>
+            <th>Details</th>
+            <th>Location</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var store in Model.Stores)
+        {
+        <tr>
+            <td>@(++rowCount)</td>
+            <td><img style="width:40px; height:40px;" src="@Url.Content("~/" + store.LogoPath)" /></td>
+            <td>
+                <div><b>@store.StoreName</b></div>
+                <div style="padding:5px 0"><em>@store.StoreDescription</em></div>
+                <div>Status: <b>@store.Status</b> (@store.ActivatedOn?.ToString("dd-MMM-yyyy"))</div>
+            </td>
+            <td>
+                <div>Campus: @store.CampusName</div>
+                <div>Hostel: @store.HostelName</div>
+            </td>
+            <td>
+                @if (store.Status == global::Shared.Entities.StoreStatuses.Active)
+                {
+                    <a href="/Admin/Stores/Deactivate/@store.Id?pageindex=@Model.PageIndex">Deactivate</a>
+                }
+                else
+                {
+                    <a href="/Admin/Stores/Activate/@store.Id?pageindex=@Model.PageIndex">Activate</a>
+                }
+
+                | <a href="@Url.Content("~/" + store.UploadedDocPath)" target="_blank">View Uploaded Docs</a>
+            </td>
+
+        </tr>
+        }
+    </tbody>
+
+</table>
+
+<nav aria-label="...">
+    <ul class="pagination pagination-lg">
+        @for (int i = 1; i <= Model.TotalPages && i <= 15; i++)
+        {
+            if (Model.PageIndex == i)
+            {
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1">@i</a>
+                </li>
+            }
+            else
+            {
+                <li class="page-item"><a class="page-link" href="/Admin/Stores?pageindex=@i">@i</a></li>
+            }
+        }
+    </ul>
+</nav>
+
+
+
+@section Scripts {
+    <script type="text/javascript">
+
+        function submitPaging(value) {
+            $('#pageindex').val(value);
+            $('#category-searchform').submit();
+        }
+
+    </script>
+}

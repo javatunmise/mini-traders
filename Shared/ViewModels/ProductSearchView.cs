@@ -21,6 +21,7 @@ namespace Shared.ViewModels
             public decimal OldPrice { get; set; }
             public int StoreId { get; set; }
             public string StoreName { get; set; }
+            public string StoreLocation { get; set; }
             public int CategoryId { get; set; }
             public double AverageRating { get; set; }
             public int CampusId { get; set; }

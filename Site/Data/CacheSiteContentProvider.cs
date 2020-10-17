@@ -229,5 +229,10 @@ namespace site.Data
                 EndDate = DateTime.Now.AddDays(3)
             };
         }
+
+        public async Task<Shared.Entities.Site> GetCurrentSite()
+        {
+            return await _context.Sites.SingleOrDefaultAsync(e => e.Id == new Guid(Shared.Entities.Site.Identifier));
+        }
     }
 }

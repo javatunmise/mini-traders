@@ -33,6 +33,7 @@ namespace Site.Data
         public DbSet<SiteImage> SiteImages { get; set; }
         public DbSet<SiteLink> SiteLinks { get; set; }
         public DbSet<SitePage> SitePages { get; set; }
+        public DbSet<WithdrawRequest> WithdrawRequests { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -55,6 +56,7 @@ namespace Site.Data
                 new SiteSchemaConfiguration(),
                 new SitePageSchemaConfiguration(),
                 new SitePaymentSchemaConfiguration(),
+                new WithdrawRequestSchemaConfiguration(),
 
                 new TransactionAccountSchemaConfiguration(),
                 new TransactionEntrySchemaConfiguration()

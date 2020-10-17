@@ -23,5 +23,7 @@ namespace Shared.Entities
 
         public bool IsGoogleAnalyticsEnabled { get; set; }
         public string GoogleAnalyticsScript { get; set; }
+        public decimal SignOnFee { get; set; }
+        public decimal WithdrawalCharge { get; set; }
     }
 }

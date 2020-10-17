@@ -1,11 +1,26 @@
 ﻿@page
 
 @inject site.Data.ISiteContentProvider  _siteContentProvider;
+@inject Microsoft.Extensions.Configuration.IConfiguration configuration
 
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
     Layout = "Shared/_LayoutHome.cshtml";
+}
+
+@if (configuration["SiteLaunched"] == "false")
+{
+    <style type="text/css">
+        body {
+            background-image: url(images/under-construction.png);
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+    </style>
+
+    Layout = null;
+    return;
 }
 
 <div class="container">

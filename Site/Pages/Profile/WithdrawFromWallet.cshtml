@@ -1,0 +1,51 @@
+﻿@page
+@model site.Pages.Profile.WithdrawFromWalletModel
+@{
+    ViewData["Title"] = "Withdraw from wallet";
+    Layout = "~/Pages/Shared/_LayoutProfile.cshtml";
+}
+
+<h3 class="page-title-notpadded">Withdraw from Wallet</h3>
+<hr />
+
+@if (!Model.Success)
+{
+<div class="alert alert-info">
+    <b>Note:</b> Every withdrawal attracts a charge of @($"N{Model.WithdrawalCharge}").
+</div>
+}
+
+@if (Model.Success)
+{
+    <div class="alert alert-success">
+        Your request for withdrawal of @Model.Amount has been submitted. Please note that it will take between 24 to 48 hours to process.
+    </div>
+}
+
+@if (!Model.Success)
+{
+    <form method="post">
+
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <div class="form-group">
+            <h4>Balance: @($"N{Model.AccountBalance.ToString("N2")}")</h4>
+        </div>
+
+        <div class="form-group">
+            <label>Amount:</label>
+            <input asp-for="Amount" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label>Charge: @($"N{Model.WithdrawalCharge}")</label>
+        </div>
+
+        <button class="btn btn-primary">Submit</button>
+    </form>
+
+    <br />
+    <div class="blockquote">
+        &equiv; <a href="/Profile/WithdrawRequests">View previous withdrawal requests</a>
+    </div>
+}

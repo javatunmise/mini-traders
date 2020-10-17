@@ -14,6 +14,8 @@ using site.Data;
 using site.Helpers;
 using site.Repositories;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Shared;
 
 namespace site.Pages.Profile.Store
 {
@@ -42,6 +44,7 @@ namespace site.Pages.Profile.Store
         }
 
         public IEnumerable<Category> TopCategories { get; private set; }
+        public SelectList StatusList { get; private set; }
 
         [BindProperty]
         public Input FormInput { get; set; }
@@ -108,7 +111,8 @@ namespace site.Pages.Profile.Store
                 StoreId = currentUser.Store.Id,
                 Specifications = FormInput.Specifications,
                 RenderedAsService = StoreUtil.IsServiceCategory(FormInput.CategoryId, categories.ToList()),
-                OtherImageUrlsJson = JsonConvert.SerializeObject(productImagePaths)
+                OtherImageUrlsJson = JsonConvert.SerializeObject(productImagePaths),
+                Status = FormInput.Status
             };
 
             try
@@ -170,6 +174,8 @@ namespace site.Pages.Profile.Store
             }
 
             TopCategories = categories;
+
+            StatusList = new SelectList(new[] { ProductStatuses.Active, ProductStatuses.Inactive }, FormInput.Status);
         }
 
         private Category FindParent(Category c, IList<Category> categories) => categories.FirstOrDefault(e => e.Id == c.Parent?.Id);
@@ -196,6 +202,7 @@ namespace site.Pages.Profile.Store
 
             [Display(Name = "Image")]
             public List<IFormFile >ImageUpload { get; set; }
+            public Shared.ProductStatuses Status { get; internal set; }
         }
     }
 }

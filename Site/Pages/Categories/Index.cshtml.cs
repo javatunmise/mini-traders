@@ -25,7 +25,7 @@ namespace site.Pages.Categories
         public IEnumerable<MarketLocation> SubLocations { get; private set; }
         public SearchQuery Query { get; set; }
         public (decimal Min, decimal Max) PriceRange { get; set; } = (0, 100000);
-        public (int PageIndex, int TotalRecords) PagingInfo = (1, 20);
+        public (int PageIndex, int TotalRecords) PagingInfo = (1, Search.IndexModel.PAGE_SIZE);
         public List<ProductSearchView.Data> Products { get; set; } = new List<ProductSearchView.Data>();
         public ProductSearchView SearchSummary = new ProductSearchView();
 
@@ -60,7 +60,7 @@ namespace site.Pages.Categories
                 SearchText = string.IsNullOrWhiteSpace(query.SearchText) ? null : query.SearchText,
                 SubLocationId = subLocationId > 0 ? subLocationId : (int?)null,
                 PageIndex = query.PageIndex,
-                PageSize = 20,
+                PageSize = Search.IndexModel.PAGE_SIZE,
                 Sort = GetValidSort(query.OrderBy)
             });
 

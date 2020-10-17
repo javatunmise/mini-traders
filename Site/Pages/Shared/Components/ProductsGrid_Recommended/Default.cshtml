@@ -1,5 +1,18 @@
 ﻿@model IEnumerable<global::Shared.Entities.Product>
 
+<style type="text/css">
+    .owl-carousel .owl-item img {
+        display: inline-block;
+        width: auto;
+    }
+
+    .item-carousel .image {
+        height: 170px;
+        text-align: center;
+        border: solid 1px #eee;
+    }
+</style>
+
 <div class="container @(Model.Any() ? "" : "hide")">
     <div class="home-recommended">
         <div class="home-recommended-header row">

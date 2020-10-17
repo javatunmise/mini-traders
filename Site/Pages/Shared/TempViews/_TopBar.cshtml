@@ -1,13 +1,16 @@
 ﻿@inject site.Repositories.AccountRepository _accountRep
+@inject site.Data.ISiteContentProvider _siteContentProvider
 
 @{ 
-    bool? hasStore = false;
-    if (User.Identity.IsAuthenticated) 
-    {
-        var currentUser = await _accountRep.FindByUsername(User.Identity.Name);
-        hasStore = currentUser?.HasStore;
+        bool? hasStore = false;
+        if (User.Identity.IsAuthenticated)
+        {
+            var currentUser = await _accountRep.FindByUsername(User.Identity.Name);
+            hasStore = currentUser?.HasStore;
+        }
+
+        var site = await _siteContentProvider.GetCurrentSite() ?? new global::Shared.Entities.Site();
     }
-}
 
 
 <div class="top-bar animate-dropdown">
@@ -16,7 +19,7 @@
             <div class="cnt-account">
                 <ul id="menu-top-right" class="list-unstyled">
                     <li><a href="/" aria-current="page">Home</a></li>
-                    <li><a href="/pages/contact-us/">Contact</a></li>
+                    @*<li><a href="/pages/contact-us/">Contact</a></li>*@
                     @if (!hasStore.Value)
                     {
                         <li><a href="/sellers/registration">Become a Seller</a></li>
@@ -39,17 +42,19 @@
             </div>
 
             @*<div class="cnt-block">
-                <ul id="menu-top-left" class="list-unstyled list-inline">
+                <ul  class="list-inline">
                     <li class="dropdown dropdown-small menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children"><a class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown" href="#"><span class="value">USD</span><b class="caret"></b></a> <ul class="dropdown-menu"> <li class="dropdown dropdown-small menu-item menu-item-type-custom menu-item-object-custom"><a class="nav-link dropdown-item" href="#"><span class="value">USD</span></a></li> <li class="dropdown dropdown-small menu-item menu-item-type-custom menu-item-object-custom"><a class="nav-link dropdown-item" href="#"><span class="value">INR</span></a></li> <li class="dropdown dropdown-small menu-item menu-item-type-custom menu-item-object-custom"><a class="nav-link dropdown-item" href="#"><span class="value">GBP</span></a></li> </ul> </li>
                     <li class="dropdown dropdown-small menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children"><a class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown" href="#"><span class="value">English</span><b class="caret"></b></a> <ul class="dropdown-menu"> <li class="dropdown dropdown-small menu-item menu-item-type-custom menu-item-object-custom"><a class="nav-link dropdown-item" href="#"><span class="value">English</span></a></li> <li class="dropdown dropdown-small menu-item menu-item-type-custom menu-item-object-custom"><a class="nav-link dropdown-item" href="#"><span class="value">French</span></a></li> <li class="dropdown dropdown-small menu-item menu-item-type-custom menu-item-object-custom"><a class="nav-link dropdown-item" href="#"><span class="value">German</span></a></li> </ul> </li>
                 </ul>
             </div>*@
 
-        @*<div class="cnt-block">
+        <div class="cnt-block siteinfo">
             <ul id="menu-top-left" class="list-unstyled list-inline">
-                <li><i class="fa fa-phone"></i> 08032794350</li>
+                <li><i class="fa fa-phone"></i> @site.PhoneNumber</li>
+                <li>|</li>
+                <li><i class="fa fa-inbox"></i> @site.Email</li>
             </ul>                
-        </div>*@
+        </div>
 
             <div class="clearfix"></div>
 

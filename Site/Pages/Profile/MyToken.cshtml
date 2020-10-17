@@ -1,0 +1,59 @@
+﻿@page
+@model site.Pages.Profile.MyTokenModel
+@{
+    ViewData["Title"] = "Balances";
+    Layout = "~/Pages/Shared/_LayoutProfile.cshtml";
+}
+
+@section BreadCrumbs {
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a href="/Profile">Profile</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Balances</li>
+    </ol>
+}
+
+<h3 class="page-title-notpadded">My Token</h3>
+<hr />
+
+<div class="alert alert-info">
+    <div class="row">
+        <div class="col-md-8">
+            <h4>Balance</h4>
+            <h3 class="card-title page-title-notpadded">N@(Model.TokenBalance.ToString("N2"))</h3>
+            Token Id: @Model.TokenAccount.AccountId
+        </div>
+        <div class="col-md-4">
+            @if (Model.TokenBalance > 0)
+            {
+                <div class="text-right">
+                    <a href="/Profile/TransferToken" class="btn btn-sm btn-danger">Transfer to other vendors</a>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<h4>History</h4>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Description</th>
+            <th>Amount</th>
+            <th>Trans-Type</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var entry in Model.TransHistories)
+        {
+            <tr>
+                <td>@entry.CreatedOn.ToString("dd-MM-yyyy hh:mm tt")</td>
+                <td>@entry.Narration</td>
+                <td>@($"N{entry.Amount}")</td>
+                <td>@entry.EntryType.ToString()</td>
+            </tr>
+        }
+    </tbody>
+</table>
