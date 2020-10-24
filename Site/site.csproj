@@ -63,16 +63,21 @@
     <Compile Remove="Migrations\20201010021354_SiteUserAndReferrerUser.Designer.cs" />
     <Compile Remove="Migrations\20201010022332_UserAccounts_AccountEntry.cs" />
     <Compile Remove="Migrations\20201010022332_UserAccounts_AccountEntry.Designer.cs" />
+    <Compile Remove="Migrations\20201021032929_Payment_Charge_Column.cs" />
+    <Compile Remove="Migrations\20201021032929_Payment_Charge_Column.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.35" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.6" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.6" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.9" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.7" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.7" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.9">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.7" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
 
@@ -102,6 +107,12 @@
     <ProjectReference Include="..\sellers\sellers.csproj" />
     <ProjectReference Include="..\shared\Shared.csproj" />
     <ProjectReference Include="..\siteinfo\siteinfo.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Pages\Admin\Stores\Activate - Copy.cshtml.cs">
+      <DependentUpon>Activate.cshtml.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
 
 </Project>

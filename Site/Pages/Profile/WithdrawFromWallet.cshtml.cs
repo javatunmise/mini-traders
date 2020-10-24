@@ -134,8 +134,7 @@ namespace site.Pages.Profile
                                    .Where(e => e.TransactionAccountId == userWalletAccount.Id)
                                    .SumAsync(e => e.Amount);
 
-            var totalAmount = withdrawAmount + charge;
-            if (balance < totalAmount) throw new InvalidOperationException($"Insufficient balance: you need a total of N{totalAmount} in your wallet");
+            if (balance < withdrawAmount) throw new InvalidOperationException($"Insufficient balance: you need a total of N{withdrawAmount} in your wallet");
 
             var siteOwnerAccount = await _dbContext.TransactionAccounts
                                                 .Where(e => e.AccountId == siteOwnerAccountCode && e.AccountType == AccountTypes.SiteOwner)
@@ -147,8 +146,8 @@ namespace site.Pages.Profile
 
             var transEntries = new List<TransactionEntry>
             {
-                new DebitEntry(totalAmount, userWalletAccount.Id, "Withdrawal from Wallet"),
-                new CreditEntry(totalAmount, siteOwnerAccount.Id, $"Withdraw from Wallet: {siteUser.WalletAccountCode} ({senderName})")
+                new DebitEntry(withdrawAmount, userWalletAccount.Id, "Withdrawal from Wallet"),
+                new CreditEntry(withdrawAmount, siteOwnerAccount.Id, $"Withdraw from Wallet: {siteUser.WalletAccountCode} ({senderName})")
             };
 
             foreach (var tran in transEntries)
@@ -161,7 +160,7 @@ namespace site.Pages.Profile
                 CreatedOn = serverDate.Now(),
                 SiteUserId = siteUser.Id,
                 Status = WithdrawRequestStatuses.Submitted,
-                Amount = withdrawAmount,
+                Amount = withdrawAmount - charge,
                 Charge = charge,
                 TransactionAccountId = userWalletAccount.Id,
                 WalletCode = userWalletAccount.AccountId

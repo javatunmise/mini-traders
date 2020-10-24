@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Options;
 using Shared.Entities;
 using site.Configs;
+using site.Data;
 using site.Data.Repositories;
 using site.Helpers;
 using site.Pages.Categories;
@@ -21,12 +22,14 @@ namespace site.Pages.Profile.Store
         private readonly StoreRepository _storeRepo;
         private readonly PaymentRepository _paymentRepo;
         private readonly PaymentConfig _paymentConfig;
+        private readonly ISiteContentProvider _provider;
 
         public IndexModel(AccountRepository accountRepository,
                 ProductsRepository productRepository,
                 PaymentRepository paymentRepository,
                 StoreRepository storeRepository,
-                IOptions<PaymentConfig> paymentConfig)
+                IOptions<PaymentConfig> paymentConfig,
+                ISiteContentProvider provider)
         {
             _accountRepo = accountRepository;
             SearchQuery = new ProductSearchQuery();
@@ -34,6 +37,7 @@ namespace site.Pages.Profile.Store
             _storeRepo = storeRepository;
             _paymentRepo = paymentRepository;
             _paymentConfig = paymentConfig.Value;
+            _provider = provider;
         }
 
         public async Task<IActionResult> OnGet(ProductSearchQuery query)
@@ -55,9 +59,13 @@ namespace site.Pages.Profile.Store
             StoreHasNotBeenActivated = storeDetails.Status == StoreStatuses.Inactive;
             if (StoreHasNotBeenActivated)
             {
+                var site = await _provider.GetCurrentSite();
                 ActivationPaymentCode = GeneratePaymentRef(storeDetails);
-                var activationAmount = int.Parse(_paymentConfig.ActivateStoreAmount);
-                await _paymentRepo.CreatePayment(new ActivateStorePaymentReservationData(store, activationAmount, ActivationPaymentCode, email));
+                ActivationAmount = site.SignOnFee;
+                await _paymentRepo.CreatePayment(new ActivateStorePaymentReservationData(store, ActivationAmount, ActivationPaymentCode, email)
+                {
+                    Charge = _paymentConfig.SignUpCharge
+                });
             }
 
             IEnumerable<Product> products = query.FilterByServices ? await _productRepository.GetServices(store.Id) :
@@ -79,6 +87,7 @@ namespace site.Pages.Profile.Store
         public ProductSearchQuery SearchQuery { get; set; }
         public bool StoreHasNotBeenActivated { get; private set; }
         public string ActivationPaymentCode { get; private set; }
+        public decimal ActivationAmount { get; private set; }
     }
 
     public class ProductSearchQuery

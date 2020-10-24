@@ -26,16 +26,19 @@ namespace site.Pages.Sellers
         private readonly AccountRepository _accountRepository;
         private readonly IHostEnvironment _environment;
         private readonly StoreRepository _storeRepository;
+        private readonly UserManager<IdentityUser> _userManager;
 
         public RegistrationModel(ISiteContentProvider provider, 
                                  AccountRepository accountRepository,
                                  StoreRepository storeRepository,
+                                 UserManager<IdentityUser> userManager,
                                  IHostEnvironment env)
         {
             _provider = provider;
             _accountRepository = accountRepository;
             _environment = env;
             _storeRepository = storeRepository;
+            _userManager = userManager;
         }
 
         public async Task<IActionResult> OnGet(string ref_id = "")
@@ -44,6 +47,10 @@ namespace site.Pages.Sellers
 
             if (currentUser.HasStore)
                 return RedirectToPage("/Profile/Store/Index");
+
+            var identityUser = await _userManager.GetUserAsync(User);
+            if(!await _userManager.IsEmailConfirmedAsync(identityUser))
+                return RedirectToPage("/EmailNotConfirmed");
 
             Input = new InputModel { ReferrerCode = ref_id };
 

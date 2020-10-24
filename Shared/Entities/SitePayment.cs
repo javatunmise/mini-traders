@@ -8,6 +8,7 @@ namespace Shared.Entities
     {
         public string PaymentRef { get; set; }
         public decimal Amount { get; set; }
+        public decimal Charge { get; set; }
         public string EntityId { get; set; }
         public string EntityType { get;set; }
         public string PaymentDescription { get; set; }

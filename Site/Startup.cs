@@ -22,6 +22,8 @@ using site.Configs;
 using site.Helpers.Services;
 using System.Linq;
 using site.Helpers;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using site.Data;
 
 namespace Site
 {
@@ -39,6 +41,7 @@ namespace Site
         {
             services.Configure<LatestProductsCategories>(Configuration.GetSection("LatestProductsCategories"));
             services.Configure<PaymentConfig>(Configuration.GetSection("PaymentConfiguration"));
+            services.Configure<EmailSetting>(Configuration.GetSection("EmailSetting"));
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -73,6 +76,7 @@ namespace Site
             services.AddScoped<PaymentRepository>();
             services.AddScoped<ICurrentDate, ServerDateTime>();
             services.AddScoped<StoreActivationHandler>();
+            services.AddScoped<IEmailSender, EmailSender>();
 
             services.AddMvc()
                 //.SetCompatibilityVersion(CompatibilityVersion.Version_2_2)

@@ -1,0 +1,51 @@
+﻿@page
+@model site.Pages.EmailNotConfirmedModel
+@{
+    ViewData["Title"] = "Confirm Email";
+}
+
+@section BreadCrumbs {
+    <ol class="breadcrumb">
+        <li class="list-inline-item"><a href="/">Home</a></li>
+        <li class="list-inline-item">Confirm Email</li>
+    </ol>
+}
+
+<div class="row custom-margin"></div>
+
+<div class="container" style="width: 400px">
+
+
+    @if (Model.Success)
+    {
+        <h3 class="page-title-notpadded">Confirm Email Sent!</h3>
+
+        <div class="alert alert-success">
+            A confirmation link has been sent to your email. Please click the link to confirm your email.
+            
+            @*User.Identity.Name*@
+        </div>
+    }
+
+    @if (!Model.Success)
+    {
+        <div class="card site-page-content">
+            <div class="card-body">
+
+                <div class="">
+                    <h3 class="page-title-notpadded">Confirm Your Email!</h3>
+
+                    A confirmation link was sent to your email when you registered on this site. Kindly click the link to confirm your email.
+
+                    <p></p>
+                    <p></p>
+
+                    <form method="post">
+
+                        <button type="submit" class="btn btn-sm btn-warning">Resend Confirmation Link</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+</div>

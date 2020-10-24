@@ -14,6 +14,7 @@ namespace site.Data.Configurations
             builder.Property(p => p.EntityId).HasMaxLength(50);
             builder.Property(p => p.Email).HasMaxLength(128);
             builder.Property(p => p.Amount).HasColumnType("decimal(18,2)");
+            builder.Property(p => p.Charge).HasColumnType("decimal(18,2)");
             builder.Property(p => p.ExternalRef).HasMaxLength(128);
             builder.HasKey(p => p.PaymentRef);
         }

@@ -30,6 +30,7 @@ namespace site.Data.Repositories
                 PaymentDescription = data.Purpose,
                 CreatedOn = _serverDate.Now(),
                 PaymentRef = data.PaymentRef,
+                Charge = data.Charge,
                 Status = PaymentStatuses.Initiated
             });
 

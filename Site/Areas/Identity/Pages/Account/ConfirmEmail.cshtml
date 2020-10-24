@@ -1,0 +1,33 @@
+﻿@page
+@model ConfirmEmailModel
+@{
+    ViewData["Title"] = "Confirm email";
+}
+
+<div class="row custom-margin"></div>
+
+<div class="card">
+    <div class="card-body">
+
+        @if (Model.Success)
+        {
+            <div class="alert alert-success">
+                <h4>Congratulations!</h4>
+
+                Your email has been confirmed.
+
+                <p>Thanks.</p>
+            </div>
+        }
+
+        @if (!Model.Success)
+        {
+            <div class="alert alert-warning">
+                <h4>Oops!</h4>
+
+                Something was not right!
+            </div>
+        }
+
+    </div>
+</div>

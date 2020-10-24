@@ -20,13 +20,14 @@ namespace site.Helpers.Services
 
             var transEntries = new List<TransactionEntry>();
 
+            var shareAmount = payment.Amount - payment.Charge;
             if (referer != null && IsEligible(referer))
             {
-                transEntries.Add(new CreditEntry(payment.Amount * 0.25M,
+                transEntries.Add(new CreditEntry(shareAmount * 0.25M,
                                                  referer.WalletAccountId.Value,
                                                  $"Bonus from referring {store.StoreName}"));
 
-                transEntries.Add(new CreditEntry(payment.Amount * 0.25M,
+                transEntries.Add(new CreditEntry(shareAmount * 0.25M,
                                                  referer.TokenAccountId.Value,
                                                  $"Bonus from referring {store.StoreName}"));
             }

@@ -44,9 +44,14 @@ namespace site.Repositories
             return await _dbContext.Products.Where(e => e.StoreId == storeId && e.RenderedAsService).ToListAsync();
         }
 
-        internal async Task<IEnumerable<Product>> GetProducts(int id)
+        internal async Task<IEnumerable<Product>> GetProducts(int storeId)
         {
-            return await _dbContext.Products.Where(e => e.StoreId == id && !e.RenderedAsService).ToListAsync();
+            return await _dbContext.Products.Where(e => e.StoreId == storeId && !e.RenderedAsService).ToListAsync();
+        }
+
+        internal async Task<IEnumerable<Product>> GetAllProducts(int storeId)
+        {
+            return await _dbContext.Products.Where(e => e.StoreId == storeId).ToListAsync();
         }
 
         internal async Task Create(Product product)
@@ -124,6 +129,15 @@ namespace site.Repositories
             return (from kw in productKeywords
                     where !noiseWords.Contains(kw)
                     select kw).ToList();
+        }
+
+        internal async Task Delete(int id)
+        {
+            var product = await _dbContext.Products.FirstOrDefaultAsync(e => e.Id == id);
+            if (product == null) return;
+
+            _dbContext.Products.Remove(product);
+            await _dbContext.SaveChangesAsync();
         }
 
         internal async Task Update(Product updated)

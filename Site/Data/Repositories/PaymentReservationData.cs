@@ -10,6 +10,7 @@ namespace site.Data.Repositories
         public string Purpose { get; protected set; }
         public decimal Amount { get; protected set; }
         public string Email { get; protected set; }
+        public decimal Charge { get; set; }
     }
 
     public class ActivateStorePaymentReservationData : PaymentReservationData

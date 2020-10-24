@@ -133,7 +133,8 @@ namespace site.Data
                 {
                     Name = e.Name,
                     Id = e.Id,
-                    Parent = e.ParentId.HasValue ? new Category { Id = e.ParentId.Value } : null
+                    Parent = e.ParentId.HasValue ? new Category { Id = e.ParentId.Value } : null,
+                    IconImagePath = e.IconImagePath
                 }).ToList();
 
             foreach(var cat in categories)

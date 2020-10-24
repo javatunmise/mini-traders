@@ -195,7 +195,7 @@
                                     {
                                         <div class="a-product col-sm-6 col-md-4 col-lg-4">
                                             <div class="overlay">
-                                                <a class="vendor-name" href="~/sellers/@p.StoreId-@p.StoreName">@p.StoreName</a>
+                                                <a class="vendor-name" href="~/sellers/@p.StoreId/@p.StoreName">@p.StoreName</a>
                                             </div>
                                             <div class="image">
                                                 <a href="~/products/@($"{p.Id}-{p.Name}")">
@@ -207,9 +207,10 @@
                                                 <partial name="Shared/TempViews/_Ratings" model="@p.AverageRating" />
                                             </div>
                                             <div class="price">
-                                                <span class="price-before">N@(p.OldPrice)</span>
-                                                <span class="price-current">N@(p.Price)</span>
+                                                <span class="price-before @(p.Price == p.OldPrice ? "hide" : "")">N@(p.OldPrice.ToString("N2"))</span>
+                                                <span class="price-current">N@(p.Price.ToString("N2"))</span>
                                             </div>
+                                            <div>@p.StoreLocation</div>
                                         </div>
                                     }
                                 </div>

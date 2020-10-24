@@ -46,6 +46,10 @@ namespace site.Pages.Profile.Store
         public IEnumerable<Category> TopCategories { get; private set; }
         public SelectList StatusList { get; private set; }
 
+        [FromForm]
+        public string Action { get; set; }
+
+
         [BindProperty]
         public Input FormInput { get; set; }
 
@@ -63,7 +67,8 @@ namespace site.Pages.Profile.Store
                 Description = product.ProductDetails,
                 CategoryId = product.CategoryId,
                 Price = product.Price,
-                Specifications = product.Specifications
+                Specifications = product.Specifications,
+                Status = product.Status
             };
 
             await LoadDropdownCategories();
@@ -76,6 +81,11 @@ namespace site.Pages.Profile.Store
             var currentUser = await _accountRepo.FindByUsername(User.Identity.Name);
             if (!currentUser.HasStore)
                 return RedirectToPage("/Profile/Index");
+
+            var categories = await _siteContentProvider.GetAllCategories();
+            var isRenderedAsService = StoreUtil.IsServiceCategory(FormInput.CategoryId, categories.ToList());
+
+            if (Action == "deleted") return await OnDeleteAsync(id, isRenderedAsService);
 
             IList<string> productImagePaths = new[]{""};
             if (FormInput.ImageUpload != null && FormInput.ImageUpload.Any())
@@ -96,8 +106,6 @@ namespace site.Pages.Profile.Store
                 }
             }
      
-            var categories = await _siteContentProvider.GetAllCategories();
-
             var product = new Shared.Entities.Product
             {
                 Id = id,
@@ -110,7 +118,7 @@ namespace site.Pages.Profile.Store
                 SmallImageUrl = productImagePaths[0],
                 StoreId = currentUser.Store.Id,
                 Specifications = FormInput.Specifications,
-                RenderedAsService = StoreUtil.IsServiceCategory(FormInput.CategoryId, categories.ToList()),
+                RenderedAsService = isRenderedAsService,
                 OtherImageUrlsJson = JsonConvert.SerializeObject(productImagePaths),
                 Status = FormInput.Status
             };
@@ -118,7 +126,8 @@ namespace site.Pages.Profile.Store
             try
             {
                 await _productRepository.Update(product);
-                return RedirectToPage("/Profile/Store/Index");
+                var url = product.RenderedAsService ? "/Profile/Store?filter=Services" : "/Profile/Store";
+                return Redirect(url);
             }
             catch (Exception ex)
             {
@@ -129,6 +138,13 @@ namespace site.Pages.Profile.Store
             await LoadDropdownCategories();
 
             return Page();
+        }
+
+        private async Task<IActionResult> OnDeleteAsync(int id, bool isService)
+        {
+            var url = isService ? "/Profile/Store?filter=Services" : "/Profile/Store";
+            await _productRepository.Delete(id);
+            return Redirect(url);
         }
 
         private async Task<IList<string>> CreateFile()
@@ -202,7 +218,7 @@ namespace site.Pages.Profile.Store
 
             [Display(Name = "Image")]
             public List<IFormFile >ImageUpload { get; set; }
-            public Shared.ProductStatuses Status { get; internal set; }
+            public Shared.ProductStatuses Status { get; set; }
         }
     }
 }

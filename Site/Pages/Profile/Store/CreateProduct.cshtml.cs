@@ -97,6 +97,7 @@ namespace site.Pages.Profile.Store
                 ImageUrl = productImagePaths[0],
                 SmallImageUrl = productImagePaths[0],
                 StoreId = currentUser.Store.Id,
+                Specifications = FormInput.Specifications,
                 RenderedAsService = StoreUtil.IsServiceCategory(FormInput.CategoryId, categories.ToList()),
                 OtherImageUrlsJson = JsonConvert.SerializeObject(productImagePaths),
                 Status = Shared.ProductStatuses.Active

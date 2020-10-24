@@ -160,6 +160,7 @@ namespace site.Data
         public string Name { get; set; }
         public IEnumerable<Category> Children { get; set; }
         public string IconClass { get; set; }
+        public string IconImagePath { get; set; }
     }
 
     public class MarketLocation

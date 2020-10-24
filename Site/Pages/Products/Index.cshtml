@@ -7,6 +7,18 @@
 
     var product = Model.Product ?? new global::Shared.ViewModels.ProductView();
     var vendor = Model.Vendor ?? new site.Data.Vendor { Contact = new site.Data.VendorContact() };
+
+    Func<Microsoft.AspNetCore.Http.HttpRequest, string> absolutePath = (request) => $"http://rapidoiz.com{request.Path.Value}";
+}
+
+@section MetaTags {
+    <!-- You can use Open Graph tags to customize link previews.
+    Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
+    <meta property="og:url" content="@absolutePath(Request)" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="@product.Name" />
+    <meta property="og:description" content="@product.ProductDetails" />
+    <meta property="og:image" content="~/@product.SmallImageUrl" />
 }
 
 <style type="text/css">
@@ -130,6 +142,11 @@
 
 <div class="row custom-margin"></div>
 
+<a class="twitter-share-button"
+   href="https://twitter.com/intent/tweet">
+    Tweet
+</a>
+
 
 <div class="container">
 
@@ -190,7 +207,10 @@
                         <div class="social-icons">
                             <div class="col-xs-12 col-sm-12 col-md-12 no-padding social" style="padding:0">
                                 <ul class="link">
-                                    <li class="facebook"><a href="#" target="_blank"> <i class="fa fa-facebook"></i></a></li>
+                                    <li class="facebook">
+                                        <a href="https://www.facebook.com/sharer/sharer.php?kid_directed_site=0&sdk=joey&u=@(absolutePath(Request))&display=popup&ref=plugin&src=share_button" target="_blank"> 
+                                            <i class="fa fa-facebook"></i></a>
+                                    </li>
                                     <li class="twitter"><a href="#" target="_blank"> <i class="fa fa-twitter"></i></a></li>
                                     <li class="instagram"><a href="#" target="_blank"> <i class="fa fa-instagram"></i></a></li>
                                 </ul>
@@ -238,14 +258,14 @@
 <div class="row custom-margin"></div>
 
 @*<div class="container">
-    <div class="card">
-        <div class="card-body site-page-content">
-            <h3 class="title">Product Details</h3>
+        <div class="card">
+            <div class="card-body site-page-content">
+                <h3 class="title">Product Details</h3>
 
-            @product.ProductDetails
+                @product.ProductDetails
+            </div>
         </div>
-    </div>
-</div>*@
+    </div>*@
 
 @*<div class="row custom-margin"></div>*@
 
@@ -259,10 +279,10 @@
             <table cellpadding="5">
                 @foreach (var spec in Model.Product.ProductSpecList)
                 {
-                <tr>
-                    <td width="100px" class="text-right">@spec.Key:</td>
-                    <td>@spec.Value</td>
-                </tr>
+                    <tr>
+                        <td width="100px" class="text-right">@spec.Key:</td>
+                        <td>@spec.Value</td>
+                    </tr>
                 }
             </table>
         </div>
@@ -301,7 +321,7 @@
                 </div>
             }
 
-            @if(Model.ProductReviews.Count >= 5)
+            @if (Model.ProductReviews.Count >= 5)
             {
                 <div><a href="./@product.Id/allreviews">See all reviews</a></div>
             }
@@ -494,10 +514,21 @@
         }
 
     </script>
-        
+
     <script type="text/javascript">
         function replaceImage(image) {
             $('.product-image img').attr('src', image);
         }
     </script>
+
+    <!-- Load Facebook SDK for JavaScript -->
+    <div id="fb-root"></div>
+    <script>
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
 }

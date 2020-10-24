@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using site.Helpers;
@@ -18,11 +19,14 @@ namespace site.Pages.Profile
         private readonly AccountRepository _accountRepository;
         private readonly IWebHostEnvironment _environment;
         private const string UPLOAD_NOT_SUPPORTED = "NOT_SUPPORTED";
+        private readonly UserManager<IdentityUser>  _userManager;
 
-        public IndexModel(AccountRepository accountRepository, IWebHostEnvironment env)
+        public IndexModel(AccountRepository accountRepository,
+                                 UserManager<IdentityUser> userManager, IWebHostEnvironment env)
         {
             _accountRepository = accountRepository;
             _environment = env;
+            _userManager = userManager;
         }
 
         public async Task<IActionResult> OnGet()
@@ -30,6 +34,10 @@ namespace site.Pages.Profile
             var currentUser = await _accountRepository.FindSiteUser(User.Identity.Name);
             if (currentUser == null)
                 return RedirectToPage("AccountNotFound");
+
+            var identityUser = await _userManager.GetUserAsync(User);
+            if (!await _userManager.IsEmailConfirmedAsync(identityUser))
+                return RedirectToPage("/EmailNotConfirmed");
 
             ProfileEdit = new Input
             {

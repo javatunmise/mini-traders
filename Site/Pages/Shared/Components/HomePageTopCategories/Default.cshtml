@@ -39,7 +39,10 @@
                     <div>
                         <div class="product-image">
                             <div class="image">
-                                <a href="@PathUtil.GetCategoryPath(category)"><i class="fa fa-@icons[counter]"></i></a>
+                                <a href="@PathUtil.GetCategoryPath(category)">
+                                @*<i class="fa fa-@icons[counter]"></i>*@
+                                    <img src="@Url.Content("~/" + category.IconImagePath)" width="48" height="48" />
+                                </a>
                             </div>
                         </div>
                         <div class="product-info">

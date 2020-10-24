@@ -24,7 +24,7 @@
 
     <div class="alert alert-danger @(Model.StoreHasNotBeenActivated ? "visible": "hide")">
         Please note that your products and services will not be visible to customers
-        until you activate your account. <a href="/payments/@Model.ActivationPaymentCode">Activate here</a>
+        until you activate your account. <a href="/payments/@Model.ActivationPaymentCode">Activate here</a> with @($"N{Model.ActivationAmount}") only.
     </div>
 
     <div class="store-filter" style="border-bottom: solid 1px #ddd">

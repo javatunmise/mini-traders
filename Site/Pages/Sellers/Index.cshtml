@@ -1,14 +1,130 @@
-﻿@page "{id}"
+﻿@page "{id?}/{name?}"
 @model site.Pages.Sellers.IndexModel
 @{
-    ViewData["Title"] = "Seller's Collections and Services";
+    ViewData["Title"] = "Seller Products and Services";
+    var vendor = Model.Vendor;
 }
 
 <!-- Breadcrumb Area -->
 @section BreadCrumbs {
     <ol class="breadcrumb">
         <li class="list-inline-item"><a href="/">Home</a></li>
-        <li class="list-inline-item">Sellers</li>
+        <li class="list-inline-item">@vendor.Name</li>
     </ol>
 }
 
+<link href="~/css/site-products-list.css" rel="stylesheet" />
+<style type="text/css">
+
+    .vendor-area {
+        padding: 15px;
+    }
+
+        .vendor-area .vert-indent {
+            padding: 15px 0;
+        }
+
+        .vendor-area .image {
+            text-align: center;
+            padding: 15px;
+        }
+
+        .vendor-area .vendor-name {
+            text-align: center;
+            margin-top: 0;
+        }
+
+        .vendor-area .image img {
+            width: 80px;
+        }
+
+    .divider {
+        height: 1px;
+        border-bottom: solid 1px #eeeeee;
+        margin: 15px 0;
+    }
+
+        .divider.hint {
+            border-bottom: solid 1px #f9b900;
+        }
+
+    .chat-box textarea {
+        width: 100%;
+    }
+
+    .chat-box .buttons {
+        margin-top: 15px;
+    }
+
+</style>
+
+<div class="row custom-margin"></div>
+
+
+<div class="container">
+
+    <div class="card site-page-content">
+
+        <div class="card-body" style="padding-top: 0; padding-bottom: 0">
+
+            <div class="vendor-area" style="text-align: center; padding: 0px">
+                <table class="table" style="border:none; width:300px; display: inline-block">
+                    <tr>
+                        <td style="border:none">
+                            <div class="image">
+                                <img src="@Url.Content("~/" + vendor.LogoUrl)" alt="Vendor Picture or Logo" />
+                            </div>
+                        </td>
+                        <td style="border:none; padding-top:10px">
+                            <h4>@vendor.Name</h4>
+
+                            <div class="ratings">
+                                <partial name="Shared/TempViews/_Ratings" model="@Model.VendorRating" />
+                            </div>
+                            <div><h4>@vendor.Contact?.PhoneNumber</h4></div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+
+        <div class="card-body" style="padding: 0">
+
+            <div class="row" style="padding: 0">
+                <div class="product-area col-md-12">
+                    <div class="search-result-container">
+                        <div id="myTabContent" class="tab-content category-list" style="padding-top: 0">
+                            <div class="tab-pane active" id="grid-container">
+                                <div class="grid-product">
+                                    <div class="row">
+                                        @foreach (var p in Model.Products)
+                                        {
+                                            <div class="a-product col-sm-6 col-md-4 col-lg-3">
+                                                <div class="image">
+                                                    <a href="~/products/@($"{p.Id}-{p.Name}")">
+                                                        <img src="@Url.Content("~/" + p.SmallImageUrl)" />
+                                                    </a>
+                                                </div>
+                                                <div class="title"><a href="~/products/@($"{p.Id}-{p.Name}")">@p.Name</a></div>
+                                                <div class="ratings">
+                                                    <partial name="Shared/TempViews/_Ratings" model="@p.AverageRating" />
+                                                </div>
+                                                <div class="price">
+                                                    <span class="price-before @(p.Price == p.OldPrice ? "hide" : "")">N@(p.OldPrice.ToString("N2"))</span>
+                                                    <span class="price-current">N@(p.Price.ToString("N2"))</span>
+                                                </div>
+                                                @*<div>@p.StoreLocation</div>*@
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

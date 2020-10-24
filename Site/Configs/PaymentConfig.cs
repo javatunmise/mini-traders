@@ -9,6 +9,7 @@ namespace site.Configs
     {
         public string PaystackUrl { get; set; }
         public string SecretKey { get; set; }
-        public string ActivateStoreAmount { get; set; }
+        public decimal SignUpCharge { get; set; }
+        //public string ActivateStoreAmount { get; set; }
     }
 }
