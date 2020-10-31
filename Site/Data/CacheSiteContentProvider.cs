@@ -208,10 +208,10 @@ namespace site.Data
 
         public async Task<List<Product>> GetLatestProducts(int categoryId, int numOfRecords)
         {
-            return await _context.Products.Where(e => e.CategoryId == categoryId)
-                         .OrderByDescending(e => e.CreatedOn)
-                         .Take(numOfRecords)
-                         .ToListAsync();
+            var category = new SqlParameter("categoryId", categoryId);
+            var top = new SqlParameter("top", numOfRecords);
+
+            return await _context.Products.FromSqlRaw("EXEC LatestProductsPROC {0}, {1}", category, top).ToListAsync();
         }
 
         public async Task<List<Product>> GetFlashDeals()

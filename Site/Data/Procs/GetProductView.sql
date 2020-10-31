@@ -3,6 +3,7 @@
 	@productid int
 )
 AS
+
 SELECT 
 	p.Id,
 	p.[Name],
@@ -22,8 +23,12 @@ SELECT
 	st.PhoneNumber as VendorPhoneNumber,
 	st.StoreDescription as VendorDetails,
 	st.CampusId as VendorLocationId,
-	st.LogoPath as VendorLogoPath
+	st.LogoPath as VendorLogoPath,
+	cmp.[Name] as VendorLocationName,
+	h.[Name] as VendorSubLocationName
 FROM Products p (nolock)
 JOIN Stores st (nolock) ON p.StoreId = st.Id
 JOIN Categories c ON c.Id = p.CategoryId
+JOIN Campuses cmp ON cmp.Id = st.CampusId
+LEFT JOIN Hostels h ON h.Id = st.HostelId
 WHERE p.Id = @ProductId

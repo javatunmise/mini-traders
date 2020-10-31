@@ -36,7 +36,7 @@ namespace site.Pages
                 values: new { userId = user.Id, code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code)), area = "Identity" },
                 protocol: Request.Scheme);
 
-            await _emailSender.SendEmailAsync("javatunmise@gmail.com", "Confirm your email",
+            await _emailSender.SendEmailAsync(user.Email, "Confirm your email",
                 $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
             Success = true;

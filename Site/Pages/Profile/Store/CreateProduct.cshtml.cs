@@ -48,6 +48,12 @@ namespace site.Pages.Profile.Store
 
         [BindProperty]
         public Input FormInput { get; set; }
+        public IList<Category> CategoriesHierarchy { get; private set; }
+
+        [BindProperty]
+        public int? Level2Category { get; set; }
+        [BindProperty]
+        public int? Level3Category { get; set; }
 
         public async Task<IActionResult> OnGetAsync()
         {
@@ -87,18 +93,22 @@ namespace site.Pages.Profile.Store
 
             var categories = await _siteContentProvider.GetAllCategories();
 
+            var categoryId = FormInput.CategoryId;
+            if (Level2Category.HasValue) categoryId = Level2Category.Value;
+            if (Level3Category.HasValue) categoryId = Level3Category.Value;
+
             var product = new Shared.Entities.Product
             {
                 Name = FormInput.Name,
                 ProductDetails = FormInput.Description,
                 Price = FormInput.Price,
                 OldPrice = FormInput.Price,
-                CategoryId = FormInput.CategoryId,
+                CategoryId = categoryId,
                 ImageUrl = productImagePaths[0],
                 SmallImageUrl = productImagePaths[0],
                 StoreId = currentUser.Store.Id,
                 Specifications = FormInput.Specifications,
-                RenderedAsService = StoreUtil.IsServiceCategory(FormInput.CategoryId, categories.ToList()),
+                RenderedAsService = StoreUtil.IsServiceCategory(categoryId, categories.ToList()),
                 OtherImageUrlsJson = JsonConvert.SerializeObject(productImagePaths),
                 Status = Shared.ProductStatuses.Active
             };
@@ -149,10 +159,13 @@ namespace site.Pages.Profile.Store
         private async Task LoadDropdownCategories()
         {
             var categories = await _siteContentProvider.GetAllCategories();
+            CategoriesHierarchy = await _siteContentProvider.GetAllCategories(); 
+
             foreach (var c in categories)
             {
                 c.Children = categories.Where(ch => ch.Parent?.Id == c.Id);
             }
+
 
             foreach (var c in categories)
             {

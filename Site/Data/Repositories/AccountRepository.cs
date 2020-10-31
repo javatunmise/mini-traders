@@ -3,12 +3,6 @@ using Shared;
 using Shared.Entities;
 using site.Helpers;
 using Site.Data;
-using SQLitePCL;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Security.AccessControl;
 using System.Threading.Tasks;
 
 namespace site.Repositories

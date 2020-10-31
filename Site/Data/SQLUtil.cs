@@ -32,7 +32,8 @@ namespace site.Data
 					TOP 10
 					{ProductColumns}
 				FROM Products p
-				WHERE p.RenderedAsService = 1
+				JOIN Stores st ON st.Id = p.StoreId
+				WHERE st.Status=1 AND p.Status=1 AND p.RenderedAsService = 1
 				ORDER BY NEWID()
 			");
 		}
@@ -46,7 +47,7 @@ namespace site.Data
 					{ProductColumns}
 				FROM Products p
 				JOIN Stores st ON st.Id = p.StoreId
-				WHERE (@CampusId = 0 OR st.CampusId = @CampusId)
+				WHERE (@CampusId = 0 OR st.CampusId = @CampusId) AND st.Status=1 AND p.Status=1
 				ORDER BY NEWID()
 			");
 		}

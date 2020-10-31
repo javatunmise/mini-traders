@@ -16,6 +16,8 @@ using site.Repositories;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Shared;
+//using Shared.Entities;
+using System.Xml.XPath;
 
 namespace site.Pages.Profile.Store
 {
@@ -45,6 +47,10 @@ namespace site.Pages.Profile.Store
 
         public IEnumerable<Category> TopCategories { get; private set; }
         public SelectList StatusList { get; private set; }
+        [BindProperty]
+        public int? Level2Category { get; set; }
+        [BindProperty]
+        public int? Level3Category { get; set; }
 
         [FromForm]
         public string Action { get; set; }
@@ -52,6 +58,7 @@ namespace site.Pages.Profile.Store
 
         [BindProperty]
         public Input FormInput { get; set; }
+        public IList<site.Data.Category> CategoriesHierarchy { get; private set; }
 
         public async Task<IActionResult> OnGetAsync(int id)
         {
@@ -73,7 +80,26 @@ namespace site.Pages.Profile.Store
 
             await LoadDropdownCategories();
 
+            var categParentsChildren =  GetLevelsFromHierarchies(product);
+            FormInput.CategoryId = categParentsChildren[0].Id;
+            Level2Category = categParentsChildren.Count > 1 ? categParentsChildren[1].Id : (int?) null;
+            Level3Category = categParentsChildren.Count > 2 ? categParentsChildren[2].Id : (int?) null;
+
             return Page();
+        }
+
+        private List<Data.Category> GetLevelsFromHierarchies(Shared.Entities.Product product)
+        {
+            var curCategory = CategoriesHierarchy.First(e => e.Id == product.CategoryId);
+            if (curCategory.Parent == null) return new List<Data.Category> { curCategory };
+
+            var parent = CategoriesHierarchy.Where(e => e.Id == curCategory.Parent.Id).First();
+            var children = CategoriesHierarchy.Where(e => e.Parent?.Id == product.CategoryId);
+
+            var hasChildren = children.Any();
+            if (hasChildren || parent.Parent == null) return new List<Data.Category> { parent, curCategory };
+
+            return new List<Data.Category> { parent.Parent, parent, curCategory };
         }
 
         public async Task<IActionResult> OnPostAsync(int id)
@@ -105,7 +131,11 @@ namespace site.Pages.Profile.Store
                     return Page();
                 }
             }
-     
+
+            var categoryId = FormInput.CategoryId;
+            if (Level2Category.HasValue) categoryId = Level2Category.Value;
+            if (Level3Category.HasValue) categoryId = Level3Category.Value;
+
             var product = new Shared.Entities.Product
             {
                 Id = id,
@@ -113,7 +143,7 @@ namespace site.Pages.Profile.Store
                 ProductDetails = FormInput.Description,
                 Price = FormInput.Price,
                 OldPrice = FormInput.Price,
-                CategoryId = FormInput.CategoryId,
+                CategoryId = categoryId,
                 ImageUrl = productImagePaths[0],
                 SmallImageUrl = productImagePaths[0],
                 StoreId = currentUser.Store.Id,
@@ -176,6 +206,8 @@ namespace site.Pages.Profile.Store
         private async Task LoadDropdownCategories()
         {
             var categories = await _siteContentProvider.GetAllCategories();
+            CategoriesHierarchy = await _siteContentProvider.GetAllCategories();
+
             foreach (var c in categories)
             {
                 c.Children = categories.Where(ch => ch.Parent?.Id == c.Id);

@@ -48,9 +48,9 @@ namespace site.Pages.Sellers
             if (currentUser.HasStore)
                 return RedirectToPage("/Profile/Store/Index");
 
-            var identityUser = await _userManager.GetUserAsync(User);
-            if(!await _userManager.IsEmailConfirmedAsync(identityUser))
-                return RedirectToPage("/EmailNotConfirmed");
+            //var identityUser = await _userManager.GetUserAsync(User);
+            //if(!await _userManager.IsEmailConfirmedAsync(identityUser))
+            //    return RedirectToPage("/EmailNotConfirmed");
 
             Input = new InputModel { ReferrerCode = ref_id };
 

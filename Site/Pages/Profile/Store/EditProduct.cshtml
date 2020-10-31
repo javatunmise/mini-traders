@@ -3,7 +3,8 @@
 @{
     ViewData["Title"] = "CreateProduct";
     Layout = "~/Pages/Shared/_LayoutStore.cshtml";
-    var CategoriesListItems = new SelectList(Model.TopCategories, "Id", "Name", Model.FormInput.CategoryId);
+    var CategoriesListItems = new SelectList(Model.TopCategories.Where(e => e.Parent == null), "Id", "Name", Model.FormInput.CategoryId);
+    var hierarchies = Newtonsoft.Json.JsonConvert.SerializeObject(Model.CategoriesHierarchy.Select(x => new { x.Id, ParentId = x.Parent?.Id, x.Name }));
 }
 
 @section BreadCrumbs {
@@ -23,9 +24,24 @@
 
     <div class="">
         <label>Category <span class="required">*</span></label>
-        <select asp-for="FormInput.CategoryId" class="form-control" asp-items="CategoriesListItems">
+        <select asp-for="FormInput.CategoryId" class="form-control" asp-items="CategoriesListItems" onchange="loadLeve2Categories(this)">
         </select>
     </div>
+
+    <div id="level2dropdown_div">
+        <br />
+        <select id="level2dropdown" class="form-control" onchange="loadLeve3Categories(this)" asp-for="Level2Category">
+            <option value="">-- Select --</option>
+        </select>
+    </div>
+
+    <div id="level3dropdown_div">
+        <br />
+        <select id="level3dropdown" class="form-control" asp-for="Level3Category">
+            <option value="">-- Select --</option>
+        </select>
+    </div>
+
 
     <br />
     <div class="">
@@ -99,5 +115,90 @@
             form.submit();
         }
     </script>
+    <script type="text/javascript">
+        var hierarchies = @Html.Raw(hierarchies)
+
+        var twoLevels = ['level2dropdown', 'level3dropdown'];
+        var lastLevel = ['level3dropdown'];
+
+        function loadLeve2Categories(dd) {
+            var category = dd.value;
+
+            if (category === '') {
+                hidedropdowns(twoLevels);
+                return;
+            }
+
+            showNextDropdown(category, 2);
+        }
+
+        function loadLeve3Categories(dd) {
+            var category = dd.value;
+
+            if (category === '') {
+                hidedropdowns(lastLevel);
+                return;
+            }
+
+            showNextDropdown(category, 1);
+        }
+
+
+        function hidedropdowns(dds) {
+            for (var i = 0; i < dds.length; i++) {
+                document.getElementById(dds[i] + '_div').style.display = 'none';
+                $('#' + dds[i]).empty();
+            }
+        }
+
+        function showNextDropdown(category, levelDown) {
+            if (levelDown == 2) {
+                hidedropdowns(twoLevels);
+                var sub = hierarchies.filter(f => f.ParentId == category)
+
+                if (sub.length > 0) {
+                    document.getElementById('level2dropdown_div').style.display = 'block';
+                    var dd = $('#level2dropdown');
+                    dd.empty();
+
+                    dd.append($('<option></option>').val('').html('-- Select --'))
+                   for (var i = 0; i < sub.length; i++) {
+                        dd.append($('<option></option>').val(sub[i].Id).html(sub[i].Name))
+                    }
+                }
+            }
+
+            if (levelDown == 1) {
+                var sub = hierarchies.filter(f => f.ParentId == category)
+                if (sub.length == 0) {
+                    hidedropdowns(lastLevel)
+                    return;
+                }
+
+                document.getElementById('level3dropdown_div').style.display = 'block';
+                var dd = $('#level3dropdown');
+                dd.empty();
+
+                dd.append($('<option></option>').val('').html('-- Select --'))
+               for (var i = 0; i < sub.length; i++) {
+                    dd.append($('<option></option>').val(sub[i].Id).html(sub[i].Name))
+                }
+            }
+        }
+
+        @if (Model.Level2Category.HasValue) {
+            <text>
+                showNextDropdown(@Model.FormInput.CategoryId, 2);
+                $('#level2dropdown').val(@Model.Level2Category.Value)
+            </text>
+        }
+
+        @if (Model.Level3Category.HasValue && Model.Level2Category.HasValue) {
+            <text>showNextDropdown(@Model.Level2Category.Value, 1);
+            $('#level3dropdown').val(@Model.Level3Category.Value)
+            </text>
+        }
+    </script>
+
 
 }

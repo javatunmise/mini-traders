@@ -32,7 +32,6 @@ namespace site.ViewComponents
                 ThirdCategoryProducts = count > 2 ? await _provider.GetLatestProducts(_categories[2].Id, 10) : emptyProducts
             };
 
-            await Task.CompletedTask;
             return View(model);
         }
 

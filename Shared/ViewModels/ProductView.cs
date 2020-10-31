@@ -23,6 +23,15 @@ namespace Shared.ViewModels
         public string VendorPhoneNumber { get; set; }
         public string VendorDetails { get; set; }
         public string VendorLocationId { get; set; }
+        public string VendorLocationName { get; set; }
+        public string VendorSubLocationName { get; set; }
+        public string VendorLocation
+        {
+            get
+            {
+                return string.IsNullOrEmpty(VendorSubLocationName) ? VendorLocationName : $"{VendorLocationName}, {VendorSubLocationName}";
+            }
+        }
         public string VendorLogoPath { get; set; }
         public double AverageRating { get; set; }
         public double ReviewsCount { get; set; }

@@ -19,10 +19,10 @@ namespace Site
     {
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args)
-                .Build()
-                .SeedData(SeedLocations)
-                .Run();
+            var host = CreateWebHostBuilder(args)
+                .Build();
+
+            host.Run();
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
@@ -30,7 +30,7 @@ namespace Site
                 .UseStartup<Startup>();
 
 
-        private static void SeedLocations(ApplicationDbContext dbContext)
+        public static void SeedLocations(ApplicationDbContext dbContext)
         {
             var existingCampus = dbContext.Campuses.ToList();
             var locationNames = new[] { "Unilag" , "Yabatech" , "FCE AKOKA" , "Lagos State University" };
@@ -92,9 +92,9 @@ namespace Site
     {
         public static IWebHost SeedData(this IWebHost webHost, params Action<ApplicationDbContext>[] dbSeedAction)
         {
-            var serviceScopeFactory = (IServiceScopeFactory)webHost.Services.GetService(typeof(IServiceScopeFactory));
+            //var serviceScopeFactory = (IServiceScopeFactory)webHost.Services.GetService(typeof(IServiceScopeFactory));
 
-            using (var scope = serviceScopeFactory.CreateScope())
+            using (var scope = webHost.Services.CreateScope())
             {
                 var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 

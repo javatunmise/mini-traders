@@ -16,6 +16,8 @@ namespace Shared.Entities
         public int SiteUserId { get; set; }
         public SiteUser SiteUser { get; set; }
         public decimal Amount { get; set; }
+        public string AccountNumber { get; set; }
+        public string BankName { get; set; }
         public WithdrawRequestStatuses Status { get; set; }
         public DateTime CreatedOn { get; set; }
         public ICollection<WithdrawRequestWorkflowHistory> WorkflowHistories { get; set; }

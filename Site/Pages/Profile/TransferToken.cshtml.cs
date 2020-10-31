@@ -64,8 +64,9 @@ namespace site.Pages.Profile
 
             try
             {
-                await tokenTransferHandler.Handle(siteUser, ReceipientTokenId, Amount.Value, SenderName);
+                await tokenTransferHandler.Handle(siteUser, ReceipientWalletId, Amount.Value, SenderName);
                 Success = true;
+                return RedirectToPage();
             }
             catch(InvalidOperationException ioe)
             {
@@ -76,7 +77,7 @@ namespace site.Pages.Profile
         }
 
         [BindProperty]
-        [Required]
+        [Required(ErrorMessage = "Your names are empty on your profile. Pls fill before continuing")]
         public string SenderName { get; set; }
 
         [BindProperty]
@@ -86,8 +87,10 @@ namespace site.Pages.Profile
         [BindProperty]
         [Required]
         [Display(Name = "Vendor Token Id")]
-        public string ReceipientTokenId { get; set; }
-        public bool Success { get; private set; }
+        public string ReceipientWalletId { get; set; }
+
+        [TempData]
+        public bool Success { get; set; }
     }
 
     internal class TokenTransferHandler
@@ -103,6 +106,7 @@ namespace site.Pages.Profile
         {
             senderName = string.IsNullOrWhiteSpace(senderName) ? sender.FullName : senderName;
 
+            if (sender.WalletAccountCode == receipientWalletId) throw new InvalidOperationException("You cannot transfer to your own wallet");
             if (string.IsNullOrWhiteSpace(senderName)) throw new InvalidOperationException("Sender name cannot be empty");
             if (transferAmount <= 0) throw new InvalidOperationException("Invalid amount");
 

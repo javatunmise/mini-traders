@@ -7,8 +7,9 @@
 
     var product = Model.Product ?? new global::Shared.ViewModels.ProductView();
     var vendor = Model.Vendor ?? new site.Data.Vendor { Contact = new site.Data.VendorContact() };
+    var fbOtherParams = "kid_directed_site=0&sdk=joey&display=popup&ref=plugin&src=share_button";
 
-    Func<Microsoft.AspNetCore.Http.HttpRequest, string> absolutePath = (request) => $"http://rapidoiz.com{request.Path.Value}";
+    Func<Microsoft.AspNetCore.Http.HttpRequest, string> absolutePath = (request) => $"{Request.Scheme}://{Request.Host}{request.Path.Value}";
 }
 
 @section MetaTags {
@@ -18,7 +19,15 @@
     <meta property="og:type" content="website" />
     <meta property="og:title" content="@product.Name" />
     <meta property="og:description" content="@product.ProductDetails" />
-    <meta property="og:image" content="~/@product.SmallImageUrl" />
+    <meta property="og:image" content="@($"{Request.Scheme}://{Request.Host}/{product.SmallImageUrl}")" />
+
+    <meta name="twitter:card" content="summary">
+    @*<meta name="twitter:site" content="@nytimes">
+        <meta name="twitter:creator" content="@SarahMaslinNir">*@
+    <meta name="twitter:title" content="@product.Name">
+    <meta name="twitter:description" content="@product.ProductDetails">
+    <meta property="twitter:url" content="@absolutePath(Request)" />
+    <meta name="twitter:image" content="@($"{Request.Scheme}://{Request.Host}/{product.SmallImageUrl}")">
 }
 
 <style type="text/css">
@@ -142,12 +151,6 @@
 
 <div class="row custom-margin"></div>
 
-<a class="twitter-share-button"
-   href="https://twitter.com/intent/tweet">
-    Tweet
-</a>
-
-
 <div class="container">
 
     <div class="card site-page-content">
@@ -190,6 +193,8 @@
                             &nbsp;
                             <span>(@product.ReviewsCount customer review)</span>
                         </div>
+                        <div style="padding-top:5px;"><i class="fa fa-map-marker"></i> @product.VendorLocation</div>
+
 
                         <div class="divider"></div>
 
@@ -208,11 +213,14 @@
                             <div class="col-xs-12 col-sm-12 col-md-12 no-padding social" style="padding:0">
                                 <ul class="link">
                                     <li class="facebook">
-                                        <a href="https://www.facebook.com/sharer/sharer.php?kid_directed_site=0&sdk=joey&u=@(absolutePath(Request))&display=popup&ref=plugin&src=share_button" target="_blank"> 
-                                            <i class="fa fa-facebook"></i></a>
+                                        <a href="https://www.facebook.com/sharer/sharer.php?@fbOtherParams&u=@(absolutePath(Request))" target="_blank">
+                                            <i class="fa fa-facebook"></i>
+                                        </a>
                                     </li>
-                                    <li class="twitter"><a href="#" target="_blank"> <i class="fa fa-twitter"></i></a></li>
-                                    <li class="instagram"><a href="#" target="_blank"> <i class="fa fa-instagram"></i></a></li>
+                                    <li class="twitter">
+                                        <a href="https://twitter.com/intent/tweet?text=@absolutePath(Request)" target="_blank"> <i class="fa fa-twitter"></i></a>
+                                    </li>
+                                    @*<li class="instagram"><a href="#" target="_blank"> <i class="fa fa-instagram"></i></a></li>*@
                                 </ul>
                             </div>
                         </div>
@@ -231,7 +239,7 @@
 
                         <div class="divider"></div>
 
-                        <div><h4>@vendor.Contact?.PhoneNumber</h4></div>
+                        <div><h4><a href="tel:@vendor.Contact?.PhoneNumber">@vendor.Contact?.PhoneNumber</a></h4></div>
 
                         <div class="divider"></div>
 

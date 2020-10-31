@@ -66,6 +66,7 @@ namespace site.Pages.Admin
             return _dbContext.WithdrawRequests
                                    .Where(e => e.Status == Status)
                                    .Include(e => e.WorkflowHistories)
+                                   .OrderByDescending(e => e.CreatedOn)
                                    .ToListAsync();
         }
 

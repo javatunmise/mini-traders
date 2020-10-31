@@ -32,6 +32,7 @@
             <th>User</th>
             <th>Amount</th>
             <th>Charge</th>
+            <th>Bank Account</th>
             <th>Status</th>
             <th></th>
         </tr>
@@ -44,6 +45,7 @@
             <td>@request.SiteUser.FullName</td>
             <td>@request.Amount.ToString("N2")</td>
             <td>@request.Charge.ToString("N2")</td>
+            <td>@request.AccountNumber @request.BankName</td>
             <td>
                 <ul style="list-style-type: square; margin-left: 15px">
                     @{
@@ -57,11 +59,11 @@
                             else
                             {
                                 <li><b>@($"{history.CreatedOn:dd-MMM-yyyy hh:mm tt} {history.Status}")</b></li>
-                                }
-
-                                historyCount++;
                             }
+
+                            historyCount++;
                         }
+                    }
                 </ul>
             </td>
             <td>

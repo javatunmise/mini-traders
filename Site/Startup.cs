@@ -94,8 +94,11 @@ namespace Site
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IConfiguration configuration)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IConfiguration configuration, ApplicationDbContext dbContext)
         {
+            dbContext.Database.Migrate();
+            Program.SeedLocations(dbContext);
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -120,13 +123,9 @@ namespace Site
 
             app.UseAuthorization();
 
-            app.Use(async (context, next) =>
+            app.MapWhen(context => IsLogOutUrl(context), app =>
             {
-                if (IsLogOutUrl(context))
-                {
-                    context.Response.Redirect("/");
-                }
-                await next();
+                app.Run(async context => { context.Response.Redirect("/"); await Task.CompletedTask; });
             });
 
             app.MapWhen(context => AdminPagesButNotAdminUser(context), app =>

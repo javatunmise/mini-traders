@@ -58,7 +58,7 @@ namespace site.Areas.Identity.Pages.Account
                 ModelState.AddModelError(string.Empty, ErrorMessage);
             }
 
-            returnUrl = returnUrl ?? Url.Content("~/");
+            returnUrl = GetReturnUrl(returnUrl);
 
             // Clear the existing external cookie to ensure a clean login process
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
@@ -70,7 +70,7 @@ namespace site.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl = returnUrl ?? Url.Content("~/");
+            returnUrl = GetReturnUrl(returnUrl);
 
             if (ModelState.IsValid)
             {
@@ -105,6 +105,12 @@ namespace site.Areas.Identity.Pages.Account
 
             // If we got this far, something failed, redisplay form
             return Page();
+        }
+
+        private string GetReturnUrl(string returnUrl)
+        {
+           _logger.LogWarning(returnUrl);
+           return returnUrl ?? Url.Content("~/");
         }
     }
 }

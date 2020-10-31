@@ -81,15 +81,24 @@ namespace site.Pages.Profile
             {
                 var siteOWnerAccountCode = _configuration["SiteOwnerAccountCode"];
                 var tokenTransferHandler = new SubmitWithrawalRequestHandler(_dbContext, _serverDate);
-                await tokenTransferHandler.Handle(siteUser, siteOWnerAccountCode, Amount.Value, WithdrawalCharge, SenderName);
+                var withdrawDetails = new WithdrawalDetails
+                {
+                    withdrawAmount = Amount.Value,
+                    charge = WithdrawalCharge,
+                    AccountNumber = AccountNumber,
+                    BankName = BankName
+                };
+
+                await tokenTransferHandler.Handle(siteUser, siteOWnerAccountCode, withdrawDetails, SenderName);
                 Success = true;
+                return Page();
             }
             catch (InvalidOperationException ioe)
             {
                 ModelState.AddModelError("", ioe.Message);
             }
 
-            return RedirectToPage("/Profile/WithdrawRequests");
+            return Page();
         }
 
         [BindProperty]
@@ -97,11 +106,19 @@ namespace site.Pages.Profile
         public string SenderName { get; set; }
 
         [BindProperty]
-        [Required]
+        [Required(ErrorMessage = "Amount is required")]
         public decimal? Amount { get; set; }
 
         public bool Success { get; private set; }
         public decimal WithdrawalCharge { get; private set; }
+
+        [BindProperty]
+        [Required]
+        public string BankName { get; set; }
+        [BindProperty]
+        [Required]
+        public string AccountNumber { get; set; }
+
     }
 
     internal class SubmitWithrawalRequestHandler
@@ -119,13 +136,13 @@ namespace site.Pages.Profile
             this.serverDate = serverDate;
         }
 
-        internal async Task Handle(SiteUser siteUser, string siteOwnerAccountCode, decimal withdrawAmount, decimal charge, string senderName = "")
+        internal async Task Handle(SiteUser siteUser, string siteOwnerAccountCode, WithdrawalDetails withdrawDetails, string senderName = "")
         {
 
             senderName = string.IsNullOrWhiteSpace(senderName) ? siteUser.FullName : senderName;
             if (string.IsNullOrWhiteSpace(senderName)) throw new InvalidOperationException("Sender name cannot be empty");
 
-            if (withdrawAmount <= 0) throw new InvalidOperationException("Invalid amount");
+            if (withdrawDetails.withdrawAmount <= 0) throw new InvalidOperationException("Invalid amount");
 
             var userWalletAccount = await _dbContext.TransactionAccounts.SingleOrDefaultAsync(e => e.AccountId == siteUser.WalletAccountCode);
             if (userWalletAccount == null) throw new InvalidOperationException("Invalid sender account");
@@ -134,7 +151,7 @@ namespace site.Pages.Profile
                                    .Where(e => e.TransactionAccountId == userWalletAccount.Id)
                                    .SumAsync(e => e.Amount);
 
-            if (balance < withdrawAmount) throw new InvalidOperationException($"Insufficient balance: you need a total of N{withdrawAmount} in your wallet");
+            if (balance < withdrawDetails.withdrawAmount) throw new InvalidOperationException($"Insufficient balance: you need a total of N{withdrawDetails.withdrawAmount} in your wallet");
 
             var siteOwnerAccount = await _dbContext.TransactionAccounts
                                                 .Where(e => e.AccountId == siteOwnerAccountCode && e.AccountType == AccountTypes.SiteOwner)
@@ -146,8 +163,8 @@ namespace site.Pages.Profile
 
             var transEntries = new List<TransactionEntry>
             {
-                new DebitEntry(withdrawAmount, userWalletAccount.Id, "Withdrawal from Wallet"),
-                new CreditEntry(withdrawAmount, siteOwnerAccount.Id, $"Withdraw from Wallet: {siteUser.WalletAccountCode} ({senderName})")
+                new DebitEntry(withdrawDetails.withdrawAmount, userWalletAccount.Id, "Withdrawal from Wallet"),
+                new CreditEntry(withdrawDetails.withdrawAmount, siteOwnerAccount.Id, $"Withdraw from Wallet: {siteUser.WalletAccountCode} ({senderName})")
             };
 
             foreach (var tran in transEntries)
@@ -160,8 +177,10 @@ namespace site.Pages.Profile
                 CreatedOn = serverDate.Now(),
                 SiteUserId = siteUser.Id,
                 Status = WithdrawRequestStatuses.Submitted,
-                Amount = withdrawAmount - charge,
-                Charge = charge,
+                Amount = withdrawDetails.withdrawAmount - withdrawDetails.charge,
+                Charge = withdrawDetails.charge,
+                AccountNumber = withdrawDetails.AccountNumber,
+                BankName  = withdrawDetails.BankName,
                 TransactionAccountId = userWalletAccount.Id,
                 WalletCode = userWalletAccount.AccountId
             };
@@ -178,4 +197,11 @@ namespace site.Pages.Profile
         }
     }
 
+    class WithdrawalDetails
+    {
+        public decimal withdrawAmount { get; set; }
+        public decimal charge { get; set; }
+        public string AccountNumber { get; set; }
+        public string BankName { get; set; }
+    }
 }
