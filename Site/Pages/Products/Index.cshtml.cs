@@ -5,11 +5,13 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Shared.Entities;
 using Shared.ViewModels;
 using site.Data;
 using site.Repositories;
+using Site.Data;
 
 namespace site.Pages.Products
 {
@@ -21,18 +23,36 @@ namespace site.Pages.Products
         public List<Review> ProductReviews { get; set; }
         public List<Product> RelatedProducts { get; set; }
         private readonly ProductsRepository _productRepository;
+        private readonly ISiteContentProvider _provider;
+        private readonly ApplicationDbContext _dbContext;
 
-        public IndexModel(ProductsRepository productsRepository)
+        public IndexModel(ProductsRepository productsRepository, ISiteContentProvider provider, ApplicationDbContext context)
         {
             _productRepository = productsRepository;
+            _provider = provider;
+            _dbContext = context;
         }
 
-        public async Task<IActionResult> OnGet([FromRoute] int id)
+        public async Task<IActionResult> OnGet([FromRoute] int id, int flash_id = 0)
         {
             Product = await _productRepository.GetProductView(id);
             if (Product == null)
             {
                 return RedirectToPage("/Error404");
+            }
+
+            if(flash_id > 0)
+            {
+                var curFlashDeal = await _provider.GetCurrentFlashDeal();
+                if(curFlashDeal != null)
+                {
+                    var dealProduct = await _dbContext.FlashDealProducts.AsNoTracking().FirstOrDefaultAsync(x => x.ProductId == id && x.FlashDealId == flash_id);
+                    if(dealProduct != null)
+                    {
+                        Product.OldPrice = dealProduct.OldPrice;
+                        Product.Price = dealProduct.CurrentPrice;
+                    }
+                }
             }
 
             OtherImageUrls = JsonConvert.DeserializeObject<List<string>>(Product.OtherImageUrlsJson ?? "[]");

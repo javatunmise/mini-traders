@@ -325,6 +325,63 @@ namespace site.Migrations
                     b.ToTable("ChatMessages");
                 });
 
+            modelBuilder.Entity("Shared.Entities.FlashDeal", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("MinimumDiscount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("FlashDeals");
+                });
+
+            modelBuilder.Entity("Shared.Entities.FlashDealProduct", b =>
+                {
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FlashDealId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("CurrentPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Discount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("OldPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("StoreId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProductId", "FlashDealId");
+
+                    b.HasIndex("FlashDealId");
+
+                    b.HasIndex("StoreId");
+
+                    b.ToTable("FlashDealProducts");
+                });
+
             modelBuilder.Entity("Shared.Entities.Hostel", b =>
                 {
                     b.Property<int>("Id")
@@ -712,6 +769,9 @@ namespace site.Migrations
                     b.Property<int?>("CampusId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime?>("CreatedOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(255)")
                         .HasMaxLength(255);
@@ -763,6 +823,9 @@ namespace site.Migrations
 
                     b.Property<int>("CampusId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime?>("CreatedOn")
+                        .HasColumnType("datetime2");
 
                     b.Property<int?>("HostelId")
                         .HasColumnType("int");
@@ -1042,6 +1105,27 @@ namespace site.Migrations
                     b.HasOne("Shared.Entities.SiteUser", "SiteUser")
                         .WithMany()
                         .HasForeignKey("SiteUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Shared.Entities.FlashDealProduct", b =>
+                {
+                    b.HasOne("Shared.Entities.FlashDeal", "FlashDeal")
+                        .WithMany()
+                        .HasForeignKey("FlashDealId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Shared.Entities.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Shared.Entities.Store", "Store")
+                        .WithMany()
+                        .HasForeignKey("StoreId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

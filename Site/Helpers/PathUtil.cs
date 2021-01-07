@@ -12,7 +12,7 @@ namespace site.Helpers
     {
         public static string GetCategoryPath(Category category)
         {
-            return $"/categories/{category.Id}/{UrlEncoder.Default.Encode(category.Name)}";
+            return $"/categories/{category.Id}/{UrlEncoder.Default.Encode(category.Name.Replace("/", "|"))}";
         }
 
         public static string GetProductPath(Shared.Entities.Product product)
@@ -23,6 +23,11 @@ namespace site.Helpers
         public static string Escape(string path)
         {
             return path.TrimStart('/');
+        }
+
+        public static string EscapeUrl(string path)
+        {
+            return UrlEncoder.Default.Encode(path);
         }
     }
 }

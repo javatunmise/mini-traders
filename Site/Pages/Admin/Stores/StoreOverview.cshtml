@@ -1,0 +1,45 @@
+﻿@page "/Admin/Stores/Overview/{id}"
+@model site.Pages.Admin.Stores.StoreOverviewModel
+@{
+    ViewData["Title"] = "Site Information";
+    ViewData["Logo"] = Model.CurrentStore?.LogoPath;
+    Layout = "~/Pages/Shared/_LayoutAdminStore.cshtml";
+}
+
+@section BreadCrumbs {
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/Admin">Admin</a></li>
+        <li class="breadcrumb-item"><a href="/Admin/Stores">Stores</a></li>
+        <li class="breadcrumb-item">Store Overview</li>
+    </ol>
+}
+
+<h3 class="page-title-notpadded">Store Overview</h3>
+
+<hr />
+
+@if (Model.CurrentStore != null)
+{
+<table class="table table-striped">
+    <tbody>
+        <tr><td style="width: 20%">Name:</td><td>@Model.CurrentStore.StoreName</td></tr>
+        <tr><td>Description:</td><td>@Model.CurrentStore.StoreDescription</td></tr>
+        @*<tr><td>logoPath:</td><td>@Model.CurrentStore.logoPath</td></tr>
+        <tr><td>uploadedDocPath:</td><td>@Model.CurrentStore.uploadedDocPath</td></tr>*@
+        <tr><td>Email:</td><td>@Model.CurrentStore.User?.Email</td></tr>
+        <tr><td>Phone Number:</td><td><a href="tel:@Model.CurrentStore.PhoneNumber">@Model.CurrentStore.PhoneNumber</a></td></tr>
+        <tr><td>Campus:</td><td>@Model.CurrentStore.Campus?.Name</td></tr>
+        <tr><td>Hostel:</td><td>@Model.CurrentStore.Hostel?.Name</td></tr>
+        @*<tr><td>isDocumentVerified:</td><td>@Model.CurrentStore.IsDocumentVerified</td></tr>*@
+        <tr><td>Referrer Code:</td><td>@Model.CurrentStore.User.ReferralCode</td></tr>
+        <tr><td>Wallet:</td><td>@Model.CurrentStore.User?.WalletAccountCode</td></tr>
+        <tr><td>Token:</td><td>@Model.CurrentStore.User?.TokenAccountCode</td></tr>
+        <tr><td>Status:</td><td>@Model.CurrentStore.Status</td></tr>
+        <tr><td>Joined On:</td><td>@Model.CurrentStore.CreatedOn</td></tr>
+        <tr><td>First Activated On:</td><td>@Model.CurrentStore.ActivatedOn</td></tr>
+        @*<tr><td>Last Subscription:</td><td>@Model.CurrentStore.LastSubscribedOn</td></tr>
+        <tr><td>Subscription Amount:</td><td>@Model.CurrentStore.LastSubscriptionAmount</td></tr>
+        <tr><td>Subscription Expires On:</td><td>@Model.CurrentStore.SubscriptionExpiresOn</td></tr>*@
+    </tbody>
+</table>
+}

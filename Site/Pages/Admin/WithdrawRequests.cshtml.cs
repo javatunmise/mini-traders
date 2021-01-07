@@ -34,8 +34,6 @@ namespace site.Pages.Admin
 
         public async Task OnGet()
         {
-            var currentUser = await _accountRepo.FindByUsername(User.Identity.Name);
-
             Requests = await GetWithdrawalRequests();
         }
 
@@ -61,11 +59,12 @@ namespace site.Pages.Admin
             return request.Status == WithdrawRequestStatuses.Submitted && request.SiteUserId == currentUser.Id;
         }
 
-        private Task<List<WithdrawRequest>> GetWithdrawalRequests()
+        private async Task<List<WithdrawRequest>> GetWithdrawalRequests()
         {
-            return _dbContext.WithdrawRequests
+            return await _dbContext.WithdrawRequests
                                    .Where(e => e.Status == Status)
                                    .Include(e => e.WorkflowHistories)
+                                   .Include(e => e.SiteUser)
                                    .OrderByDescending(e => e.CreatedOn)
                                    .ToListAsync();
         }

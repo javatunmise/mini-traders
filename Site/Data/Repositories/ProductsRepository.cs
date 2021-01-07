@@ -18,6 +18,7 @@ using Shared;
 using System.Data;
 using System.Data.Common;
 using Microsoft.Extensions.Logging;
+using System.Security;
 
 namespace site.Repositories
 {
@@ -93,7 +94,7 @@ namespace site.Repositories
 
         private static string ToXML(List<string> tags)
         {
-            return string.Join("", tags.Select(e => $"<Tag>{e}</Tag>"));
+            return string.Join("", tags.Select(e => $"<Tag>{SecurityElement.Escape(e)}</Tag>"));
         }
 
         internal async Task<IEnumerable<Product>> GetRelatedProducts(string name, string productDetails)

@@ -25,6 +25,7 @@ namespace Shared.Entities
         public decimal LastSubscriptionAmount { get; set; }
         public DateTime? SubscriptionExpiresOn { get; set; }
         public DateTime? ActivatedOn { get; set; }
+        public DateTime? CreatedOn { get; set; }
     }
 
     public class StoreView

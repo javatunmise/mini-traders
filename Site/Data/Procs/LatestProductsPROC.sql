@@ -59,7 +59,7 @@ BEGIN
 	JOIN Stores st (nolock) ON p.StoreId = st.Id
 	JOIN Campuses c ON c.Id = st.CampusId
 	WHERE 
-		st.[Status] = 1 AND p.[Status] = 0 AND
+		st.[Status] = 1 AND p.[Status] = 1 AND
 		p.CategoryId IN (select id from @catids) --AND
 		--(st.CampusId = @LocationId OR @LocationId IS NULL) AND
 		--(st.HostelId = @SubLocationId OR @SubLocationId IS NULL)

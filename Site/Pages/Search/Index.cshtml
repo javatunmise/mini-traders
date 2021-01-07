@@ -186,17 +186,18 @@
                                                 <a class="vendor-name" href="~/sellers/@p.StoreId/@p.StoreName">@p.StoreName</a>
                                             </div>
                                             <div class="image">
-                                                <a href="~/products/@($"{p.Id}-{p.Name}")">
+                                                <a href="~/products/@($"{p.Id}-{PathUtil.EscapeUrl(p.Name)}")">
                                                     <img src="@Url.Content("~/" + p.SmallImageUrl)" />
                                                 </a>
                                             </div>
-                                            <div class="title"><a href="~/products/@($"{p.Id}-{p.Name}")">@p.Name</a></div>
+                                            <div class="title"><a href="~/products/@($"{p.Id}-{PathUtil.EscapeUrl(p.Name)}")">@p.Name</a></div>
                                             <div class="ratings">
                                                 <partial name="Shared/TempViews/_Ratings" model="@p.AverageRating" />
                                             </div>
                                             <div class="price">
                                                 <span class="price-before @(p.Price == p.OldPrice ? "hide" : "")">N@(p.OldPrice.ToString("N2"))</span>
                                                 <span class="price-current">N@(p.Price.ToString("N2"))</span>
+                                                <span class="@(p.Price < p.OldPrice ? "" : "hide")" style="background: #ecf0f1; padding: 4px;color: red;">-@AmountUtil.ToPercentage(p.OldPrice, p.Price)%</span>
                                             </div>
                                             <div>@p.StoreLocation</div>
                                         </div>

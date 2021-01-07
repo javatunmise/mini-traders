@@ -11,7 +11,7 @@ BEGIN
 		  ,CASE WHEN ISNULL([ReviewerName],'') = '' THEN 'Unknown' ELSE ReviewerName END ReviewerName
 		  ,[Rating]
 		  ,[HideUserIdentity]
-		  ,[CreatedOn],
+		  ,p.[CreatedOn],
 		  COALESCE(u.ProfilePicturePath, 'images/vendor-photo.png') ReviewerProfileImage
 	FROM [dbo].[ProductReviews] p
 	JOIN SiteUsers u ON u.Id = p.ReviewerId

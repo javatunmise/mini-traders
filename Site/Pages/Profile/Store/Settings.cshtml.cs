@@ -66,6 +66,8 @@ namespace site.Pages.Profile.Store
             store.CampusId = Input.CampusId;
             store.HostelId = Input.HostelId;
 
+            await InitFormData(store);
+
             if (VendorImageUpload != null)
             {
                 store.LogoPath = await CreateFile();

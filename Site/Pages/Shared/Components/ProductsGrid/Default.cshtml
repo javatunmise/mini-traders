@@ -48,8 +48,6 @@
                     @foreach (var product in Model.FirstCategoryProducts)
                     {
                         @await Html.PartialAsync("~/Pages/Shared/TempViews/_GridProductView.cshtml", product)
-
-                        counter++;
                     }
                 </div>
             </div>
@@ -60,8 +58,6 @@
                     @foreach (var product in Model.SecondCategoryProducts)
                     {
                         @await Html.PartialAsync("~/Pages/Shared/TempViews/_GridProductView.cshtml", product)
-
-                        counter++;
                     }
                 </div>
             </div>
@@ -72,8 +68,6 @@
                     @foreach (var product in Model.ThirdCategoryProducts)
                     {
                         @await Html.PartialAsync("~/Pages/Shared/TempViews/_GridProductView.cshtml", product)
-
-                        counter++;
                     }
                 </div>
             </div>

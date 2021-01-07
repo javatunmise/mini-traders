@@ -485,7 +485,8 @@ header {
 
 .home-flash-deals-header .timer-grid .box-time-date {
     background: #85014d;
-    width: 80px;
+    /*width: 80px;*/
+    width: 68px;
 }
 
 .home-services-bg-img {

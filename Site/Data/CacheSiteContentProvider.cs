@@ -214,21 +214,20 @@ namespace site.Data
             return await _context.Products.FromSqlRaw("EXEC LatestProductsPROC {0}, {1}", category, top).ToListAsync();
         }
 
-        public async Task<List<Product>> GetFlashDeals()
+        public async Task<List<FlashDealProduct>> GetFlashDeals(int curFlashDeal)
         {
-            await Task.CompletedTask;
-            return new List<Product>();
+            var products = await _context.FlashDealProducts.AsNoTracking()
+                                .Where(x => x.FlashDealId == curFlashDeal)
+                                .Include(x => x.Product)
+                                .ToListAsync();
+
+            return products;
         }
 
         public async Task<FlashDeal> GetCurrentFlashDeal()
         {
-            await Task.CompletedTask;
-            return new FlashDeal()
-            {
-                Name = "Easter Sales",
-                StartDate = DateTime.Now.AddDays(-5),
-                EndDate = DateTime.Now.AddDays(3)
-            };
+            return await _context.FlashDeals.AsNoTracking()
+                                .FirstOrDefaultAsync(x => x.EndDate > DateTime.Now && x.Status == FlashDealStatuses.Active);
         }
 
         public async Task<Shared.Entities.Site> GetCurrentSite()

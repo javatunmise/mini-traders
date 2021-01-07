@@ -1,0 +1,59 @@
+﻿@page "{id}"
+@model site.Pages.Admin.FlashDeals.EditModel
+
+@{
+    Layout = "~/Pages/Shared/_LayoutAdmin.cshtml";
+    var statuses = new List<KeyValuePair<int, string>> {
+        new KeyValuePair<int, string>(1, "Active"),
+        new KeyValuePair<int, string>(0, "Inactive"),
+    };
+
+    var statusesOptions = new SelectList(statuses, "Key", "Value", Model.Input.Status);
+}
+
+@section BreadCrumbs {
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+    </ol>
+}
+
+@section PageHeaderSection {
+    Edit Flash Deal
+}
+
+
+<form method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="form-group">
+        <label>Flash Deal Name</label>
+        <input asp-for="Input.Name" placeholder="Flash deal name or description" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Start Date</label>
+        <input asp-for="Input.StartDate" min="@DateTime.Now" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>End Date</label>
+        <input asp-for="Input.EndDate" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Minimum Allowed Discount</label>
+        <input asp-for="Input.MinDiscount" class="form-control" placeholder="1% - 99%" />
+    </div>
+    <div class="form-group">
+        <label>Status</label>
+        <select asp-for="Input.Status" class="form-control" asp-items="statusesOptions">
+        </select>
+    </div>
+
+    <p>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </p>
+</form>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+}

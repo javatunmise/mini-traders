@@ -36,6 +36,8 @@
                 <div><b>@store.StoreName</b></div>
                 <div style="padding:5px 0"><em>@store.StoreDescription</em></div>
                 <div>Status: <b>@store.Status</b> (@store.ActivatedOn?.ToString("dd-MMM-yyyy"))</div>
+
+                <a class="btn btn-secondary btn-xs mb-1" href="/Admin/Stores/Overview/@store.Id">More info &rarr;</a>
             </td>
             <td>
                 <div>Campus: @store.CampusName</div>
@@ -44,14 +46,14 @@
             <td>
                 @if (store.Status == global::Shared.Entities.StoreStatuses.Active)
                 {
-                    <a href="/Admin/Stores/Deactivate/@store.Id?pageindex=@Model.PageIndex">Deactivate</a>
+                    <a class="btn btn-secondary btn-xs mb-1" href="/Admin/Stores/Deactivate/@store.Id?pageindex=@Model.PageIndex">Deactivate</a>
                 }
                 else
                 {
-                    <a href="/Admin/Stores/Activate/@store.Id?pageindex=@Model.PageIndex">Activate</a>
+                    <a class="btn btn-secondary btn-xs" href="/Admin/Stores/Activate/@store.Id?pageindex=@Model.PageIndex">Activate</a>
                 }
 
-                | <a href="@Url.Content("~/" + store.UploadedDocPath)" target="_blank">View Uploaded Docs</a>
+                | <a class="btn btn-secondary btn-xs" href="@Url.Content("~/" + store.UploadedDocPath)" target="_blank">View Uploaded Docs</a>
             </td>
 
         </tr>

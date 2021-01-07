@@ -1,0 +1,80 @@
+﻿@page
+@model site.Pages.Admin.FlashDeals.IndexModel
+
+@{
+    Layout = "~/Pages/Shared/_LayoutAdmin.cshtml";
+}
+
+@section BreadCrumbs {
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+    </ol>
+}
+
+@section PageHeaderSection {
+    Flash Deals
+}
+
+<table class="table table-striped table-bordered ">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Minimum Discount</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var deal in Model.FlashDeals)
+        {
+        <tr>
+            <td>@deal.Name</td>
+            <td>@deal.StartDate.ToString("dd/MM/yyyy")</td>
+            <td>@deal.EndDate.ToString("dd/MM/yyyy")</td>
+            <td>@(deal.MinimumDiscount * 100)%</td>
+            <td>@deal.Status</td>
+            <td>
+                <a href="./FlashDeals/Edit/@deal.Id">Edit</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+
+<div class="alert alert-info">
+    <h4>Add New Flash Deal</h4>
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <form method="post">
+        <div class="form-group">
+            <label>Flash Deal Name</label>
+            <input asp-for="Input.Name" placeholder="Flash deal name or description" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label>Start Date</label>
+            <input asp-for="Input.StartDate" min="@DateTime.Now" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label>End Date</label>
+            <input asp-for="Input.EndDate" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label>Minimum Allowed Discount</label>
+            <input asp-for="Input.MinDiscount" class="form-control" placeholder="1% - 99%" />
+        </div>
+
+        <p>
+            <button type="submit" class="btn btn-primary">Save</button>
+        </p>
+    </form>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+}

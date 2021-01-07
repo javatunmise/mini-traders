@@ -9,18 +9,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using siteinfo;
 using site.Repositories;
-using Microsoft.CodeAnalysis;
 using site.Data.Repositories;
 using System.Threading.Tasks;
 using System;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Rewrite;
-using Shared.Entities;
 using Shared;
 using site.ViewComponents;
 using site.Configs;
 using site.Helpers.Services;
-using System.Linq;
 using site.Helpers;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using site.Data;
@@ -41,8 +36,8 @@ namespace Site
         {
             services.Configure<LatestProductsCategories>(Configuration.GetSection("LatestProductsCategories"));
             services.Configure<PaymentConfig>(Configuration.GetSection("PaymentConfiguration"));
-            services.Configure<EmailSetting>(Configuration.GetSection("EmailSetting"));
-            services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            services.Configure<EmailSetting>(Configuration.GetSection("EmailSetting"));            
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -78,14 +73,16 @@ namespace Site
             services.AddScoped<StoreActivationHandler>();
             services.AddScoped<IEmailSender, EmailSender>();
 
-            services.AddMvc()
-                //.SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-                .AddRazorPagesOptions(options =>
-                {
-                    options.Conventions.AuthorizeFolder("/Profile");
-                    options.Conventions.AuthorizeFolder("/Admin");
-                    options.Conventions.AuthorizePage("/Sellers/Registration");
-                });
+            services.AddControllersWithViews()
+                    .AddRazorRuntimeCompilation();
+
+            services.AddRazorPages(options =>
+            {
+                options.Conventions.AuthorizeFolder("/Profile");
+                options.Conventions.AuthorizeFolder("/Admin");
+                options.Conventions.AuthorizePage("/Sellers/Registration");
+            });
+
         }
 
         private PaymentConfig GetPaymentConfigSection()
@@ -115,12 +112,10 @@ namespace Site
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            //app.UseCookiePolicy();
+            app.UseCookiePolicy();
 
             app.UseRouting();
-
             app.UseAuthentication();
-
             app.UseAuthorization();
 
             app.MapWhen(context => IsLogOutUrl(context), app =>
@@ -128,19 +123,45 @@ namespace Site
                 app.Run(async context => { context.Response.Redirect("/"); await Task.CompletedTask; });
             });
 
-            app.MapWhen(context => AdminPagesButNotAdminUser(context), app =>
-                {
-                    app.Run(async context =>
-                    {
-                        context.Response.Redirect("/");
-                        await Task.CompletedTask;
-                    });
-                });
+            app.MapWhen(context => AdminPagesButNotAdminUser(context), HandleUnauthorisedUserForAdminPages);
+            app.MapWhen(context => LastSegmentIs(context, "/products"), app => RedirectTo(app, "/search"));
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapRazorPages();
                 endpoints.MapControllers();
+                endpoints.MapRazorPages();
+            });
+
+            
+        }
+
+        class RD
+        {
+            async Task Invoke(RequestDelegate d)
+            {
+                await Task.CompletedTask;
+            }
+        }
+
+        private bool LastSegmentIs(HttpContext context, string path)
+        {
+            return context.Request.Path.Value.EndsWith(path, StringComparison.OrdinalIgnoreCase);
+        }
+
+        private void RedirectTo(IApplicationBuilder app, string path)
+        {
+            app.Run(async context => {
+                context.Response.Redirect(path);
+                await Task.CompletedTask;
+            });
+        }
+
+        private void HandleUnauthorisedUserForAdminPages(IApplicationBuilder app)
+        {
+            app.Run(async context =>
+            {
+                context.Response.Redirect("/");
+                await Task.CompletedTask;
             });
         }
 

@@ -1,0 +1,104 @@
+﻿@page "/Profile/Store/FlashDeals"
+@model site.Pages.Profile.Store.FlashDealsModel
+@{
+    ViewData["Title"] = "FLASH DEALS";
+
+    Layout = "~/Pages/Shared/_LayoutStore.cshtml";
+    var dropdownFields = new[] { "Key", "Value" };
+    var productOptions = Model.Products?.Select(e => new KeyValuePair<int, string>(e.Id, $"{e.Name} ({e.Price})"));
+    var flashDealPercent = Model.FlashDeal == null ? 0 : (int)(Model.FlashDeal.MinimumDiscount * 100);
+
+}
+
+@section BreadCrumbs {
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page"><a href="/Profile">Profile</a></li>
+        <li class="breadcrumb-item active" aria-current="page"><a href="/Profile/Store">My Store</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Flash Deals</li>
+    </ol>
+}
+
+@if(Model.FlashDeal != null)
+{
+    <div class="alert alert-success">
+        Participate in <b>@Model.FlashDeal.Name</b> to attract more customers to your brands. To participate, enter the discount you are willing to offer.
+        Discount starts from @(flashDealPercent)% 
+        upward.
+    </div>
+}
+else
+{
+    <div class="alert alert-danger">Sorry, no ongoing flash deals.</div>
+    return;
+}
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Old Price</th>
+            <th>Discount</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model.FlashDealProducts)
+        {
+        <tr>
+            <td>@product.Product.Name</td>
+            <td>@product.CurrentPrice</td>
+            <td>@product.OldPrice</td>
+            <td>@string.Format("{0:f0}", product.Discount * 100)% off</td>
+            <td><a href="/Profile/Store/FlashDeals?a=rem&productid=@product.ProductId">Remove</a></td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+<div class="alert alert-info">
+    <h4>Add New Product to Flash Deal</h4>
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <form method="post">
+        <input type="hidden" asp-for="ProductPrice" />
+        <div class="form-group">
+            <label>Product/Service</label>
+            <select asp-for="ProductId" class="form-control" onchange="calculateDiscount()" 
+                    asp-items="new SelectList(productOptions, dropdownFields[0], dropdownFields[1])">
+               <option value="">-- Select Product --</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Discount (between @flashDealPercent to 100%)</label>
+            <input asp-for="Discount" class="form-control" placeholder="1% - 99%" onkeyup="calculateDiscount()" />
+        </div>
+        <div class="form-group">
+            <label><b>Flash Deal Price:</b></label> <span id="flash-deal-price">0.00</span>
+        </div>
+
+        <p>
+            <button type="submit" class="btn btn-primary">Save</button>
+        </p>
+    </form>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script type="text/javascript">
+        function calculateDiscount() {
+            var selectedIndex = document.getElementById('ProductId').selectedIndex;
+            var text = document.getElementById('ProductId').options[selectedIndex].innerText;
+            var amountStartIndex = text.lastIndexOf('(') + 1;
+            var amount = parseFloat(text.substring(amountStartIndex, text.length - 1))
+            document.getElementById('ProductPrice').value = amount;
+            var discount = parseFloat(document.getElementById('Discount').value) / 100;
+            document.getElementById('flash-deal-price').innerText = amount - amount * discount;
+        }
+    </script>
+}

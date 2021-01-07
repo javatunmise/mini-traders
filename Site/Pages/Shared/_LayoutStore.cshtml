@@ -150,8 +150,8 @@
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav mr-auto col-xs-12 text-sm-right text-left">
                                 @*<li class="nav-item">
-                                    <a class="nav-link" href="/pages/contact-us">Contact Us</a>
-                                </li>*@
+                                        <a class="nav-link" href="/pages/contact-us">Contact Us</a>
+                                    </li>*@
                             </ul>
                         </div>
                     </nav>
@@ -241,6 +241,7 @@
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item"><a href="/Profile/Store">My Store</a></li>
                                     <li class="list-group-item"><a href="/Profile/Store/CreateProduct">Create Product/Service</a></li>
+                                    <li class="list-group-item"><a href="/Profile/Store/FlashDeals">Flash Deals</a></li>
                                     <li class="list-group-item"><a href="/Profile/Store/Settings">Settings</a></li>
                                 </ul>
                             </div>
@@ -588,6 +589,10 @@
     </script>
 
     @RenderSection("sliderScript", false)
+    @if (_site.IsGoogleAnalyticsEnabled)
+    {
+        <partial name="Shared/TempViews/_GoogleAnalytics" model="_site.GoogleGACode" />
+    }
 
 </body>
 </html>

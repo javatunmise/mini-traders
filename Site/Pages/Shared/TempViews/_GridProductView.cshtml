@@ -7,10 +7,10 @@
 
     <div class="item item-carousel" style="">
         <div class="image">
-            <a href="/products/@($"{_product.Id}-{_product.Name}")"><img src="@Url.Content("~/"+_product.SmallImageUrl)" alt="@_product.Name"></a>
+            <a href="/products/@($"{_product.Id}-{PathUtil.EscapeUrl(_product.Name)}")"><img src="@Url.Content("~/"+_product.SmallImageUrl)" alt="@_product.Name"></a>
         </div>
 
-        <div class="title"><a href="/products/@($"{_product.Id}-{_product.Name}")">@_product.Name</a></div>
+        <div class="title"><a href="/products/@($"{_product.Id}-{PathUtil.EscapeUrl(_product.Name)}")">@_product.Name</a></div>
         <div class="rating">
             @for (int i = 0; i < _product.AverageRating; i++)
             {
@@ -20,5 +20,6 @@
         <div class="price">
             <span class="price-before @(_product.Price == _product.OldPrice ? "hide" : "")">N@(_product.OldPrice.ToString("N2"))</span>
             <span class="price-current">N@_product.Price.ToString("N2")</span>
+            <span class="@(_product.Price < _product.OldPrice ? "" : "hide")" style="background: #ecf0f1; padding: 4px;color: red;">-@AmountUtil.ToPercentage(_product.OldPrice, _product.Price)%</span>
         </div>
     </div>

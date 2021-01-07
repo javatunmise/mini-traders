@@ -39,10 +39,13 @@
     </thead>
     <tbody>
         @foreach (var request in Model.Requests)
-    {
+        {
+            if (request == null) throw new InvalidOperationException("REQUEST");
+            if (request.SiteUser == null) throw new InvalidOperationException("REQUEST_SITEUSER");
+            if (request.CreatedOn == null) throw new InvalidOperationException("REQUEST");
         <tr>
             <td>@request.CreatedOn.ToString("dd-MMM-yyyy hh:mm tt")</td>
-            <td>@request.SiteUser.FullName</td>
+            <td>@request.SiteUser?.FullName</td>
             <td>@request.Amount.ToString("N2")</td>
             <td>@request.Charge.ToString("N2")</td>
             <td>@request.AccountNumber @request.BankName</td>

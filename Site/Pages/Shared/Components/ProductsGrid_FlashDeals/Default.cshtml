@@ -1,17 +1,21 @@
-﻿@model site.ViewComponents.ProductsGrid_FlashDeals.FlashDealInfo
+﻿@using global::Shared.Entities; 
+@model site.ViewComponents.ProductsGrid_FlashDeals.FlashDealInfo
 
 @{   
     var isVisible = Model.FlashDeal != null && Model.FlashDealProducts.Any();
-    var timeLeft = Model.TimeLeft();
 }
 
+
+@if (isVisible)
+{
+    var timeLeft = Model.TimeLeft();
 
 <div class="container @(isVisible ? "" : "hide")">
     <div class="home-flash-deals">
         <div class="home-flash-deals-header row">
             <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12"><h2 style="color:#333" class="title">Flash Deals</h2></div>
             <div class="col-lg-8 col-md-6 col-sm-10 col-xs-9" style="padding-top: 15px; height:65px">
-                <div class="box-timer countdown" data-Date='2020/09/30 13:53:43'>
+                <div class="box-timer countdown" data-Date='@Model.FlashDeal.EndDate.ToString("yyyy/MM/dd HH:mm:ss")'>
                     
                     <div class="running">
                         <timer>
@@ -46,7 +50,9 @@
             <div class="owl-carousel two">
                 @foreach (var product in Model.FlashDealProducts)
                 {
-                    @await Html.PartialAsync("~/Pages/Shared/TempViews/_GridProductView.cshtml", product)
+                    product.Product.OldPrice = product.OldPrice;
+                    product.Product.Price = product.CurrentPrice;
+                    @await Html.PartialAsync("~/Pages/Shared/TempViews/_GridProductView_Flash.cshtml", product.Product)
                 }
             </div>
         </div>
@@ -54,3 +60,4 @@
     </div>
 </div>
 
+}

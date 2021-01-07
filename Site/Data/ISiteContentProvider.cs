@@ -16,7 +16,7 @@ namespace site.Data
 
         Task<IEnumerable<Carousel>> GetCarousel();
         Task<Site> GetSiteInfo();
-        Task<List<Product>> GetFlashDeals();
+        Task<List<FlashDealProduct>> GetFlashDeals(int flashDealId);
         Task<FlashDeal> GetCurrentFlashDeal();
         Task<IEnumerable<Product>> GetRecommended(SiteUser siteUser);
         Task<Shared.Entities.Site> GetCurrentSite();
@@ -83,6 +83,7 @@ namespace site.Data
                 InstagramUrl = site.InstagramUrl;
                 LinkedInUrl = site.LinkedInUrl;
                 TwitterUrl = site.TwitterUrl;
+                GoogleGACode = site.GoogleAnalyticsScript;
                 IsGoogleAnalyticsEnabled = site.IsGoogleAnalyticsEnabled;
             }
         }
@@ -98,7 +99,7 @@ namespace site.Data
         public string InstagramUrl { get; internal set; }
         public string LinkedInUrl { get; internal set; }
         public string TwitterUrl { get; internal set; }
-
+        public string GoogleGACode { get; private set; }
         public bool IsGoogleAnalyticsEnabled { get; set; }
     }
     

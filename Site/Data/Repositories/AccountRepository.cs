@@ -25,7 +25,8 @@ namespace site.Repositories
                 {
                     Email = username,
                     ReferralCode = StringUtil.GenerateReferralCode(username),
-                    ProfilePicturePath = "images/vendor-photo.png"
+                    ProfilePicturePath = "images/vendor-photo.png",
+                    CreatedOn = System.DateTime.Now
                 };
 
                 _context.SiteUsers.Add(user);

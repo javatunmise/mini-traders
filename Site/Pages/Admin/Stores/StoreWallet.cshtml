@@ -1,0 +1,60 @@
+﻿@page "/Admin/Stores/StoreWallet/{id}"
+@using global::Shared.Entities;
+
+@model site.Pages.Admin.Stores.StoreWalletModel
+
+@{
+    ViewData["Title"] = "Site Information";
+    ViewData["Logo"] = Model.CurrentStore?.LogoPath;
+    Layout = "~/Pages/Shared/_LayoutAdminStore.cshtml";
+}
+
+@section BreadCrumbs {
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/Admin">Admin</a></li>
+        <li class="breadcrumb-item"><a href="/Admin/Stores">Stores</a></li>
+        <li class="breadcrumb-item">Wallet</li>
+    </ol>
+}
+
+<h3 class="page-title-notpadded">Store Wallet (@Model.CurrentStore.StoreName)</h3>
+<hr />
+
+<div class="row">
+    <div class=" col-md-7">
+        <div class="alert alert-warning">
+            <h4>Wallet</h4>
+            <h3 class="card-title page-title-notpadded">N@(Model.WalletAccount.AccountId)</h3>
+        </div>
+    </div>    
+    <div class=" col-md-5">
+        <div class="alert alert-warning">
+            <h4>Balance</h4>
+            <h3 class="card-title page-title-notpadded">N@(Model.WalletBalance.ToString("N2"))</h3>
+        </div>
+    </div>
+</div>
+
+<h4>History</h4>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Description</th>
+            <th>Amount</th>
+            <th>Trans-Type</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var entry in Model.TransHistories ?? new List<TransactionEntry>())
+        {
+            <tr>
+                <td>@entry.CreatedOn.ToString("dd-MM-yyyy hh:mm tt")</td>
+                <td>@entry.Narration</td>
+                <td>@($"N{entry.Amount}")</td>
+                <td>@entry.EntryType.ToString()</td>
+            </tr>
+        }
+    </tbody>
+</table>

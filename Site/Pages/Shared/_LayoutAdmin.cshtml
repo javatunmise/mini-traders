@@ -237,6 +237,7 @@
                                     <li class="list-group-item"><a href="/Admin/SitePages">Pages</a></li>
                                     <li class="list-group-item"><a href="/Admin/FooterLinks">Footer Links</a></li>
                                     <li class="list-group-item"><a href="/Admin/WithdrawRequests">Withdrawal Requests</a></li>
+                                    <li class="list-group-item"><a href="/Admin/FlashDeals">Manage Flash Deals</a></li>
                                     <li class="list-group-item"><a href="/Admin/Stores">Stores</a></li>
                                 </ul>
                             </div>
@@ -246,6 +247,9 @@
                     <div class="col-md-9">
 
                         <div class="card store-items">
+                            <h3 class="page-title-notpadded card-header">
+                                @RenderSection("PageHeaderSection", false)
+                            </h3>
                             <div class="card-body">
 
                                 @RenderBody()

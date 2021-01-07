@@ -41,6 +41,9 @@
     </style>
     <link rel="stylesheet" type="text/css" href="~/css/site-3.css" media="all">
     <link href="~/css/site.css" rel="stylesheet" />
+    <style type="text/css">
+        .fade-consent { opacity: 1 }
+    </style>
     @*<style id="woo-variation-swatches-inline-css">
             .variable-item:not(.radio-variable-item) {
                 width: 30px;
@@ -436,30 +439,30 @@
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav mr-auto col-xs-12 text-sm-right text-left">
                                 @*<li class="nav-item">
-                                    <a class="nav-link" href="/pages/contact-us">Contact Us</a>
-                                </li>
-                                <li class="nav-item">
-                                        <a class="nav-link" href="/pages/faq">FAQ</a>
-                                    </li>
-
-
-                                <li class="nav-item">
-                                        <a class="nav-link" href="#">Link</a>
-                                    </li>
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Dropdown
-                                        </a>
-                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                        </div>
+                                        <a class="nav-link" href="/pages/contact-us">Contact Us</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                                    </li>*@
+                                            <a class="nav-link" href="/pages/faq">FAQ</a>
+                                        </li>
+
+
+                                    <li class="nav-item">
+                                            <a class="nav-link" href="#">Link</a>
+                                        </li>
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Dropdown
+                                            </a>
+                                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                <a class="dropdown-item" href="#">Action</a>
+                                                <a class="dropdown-item" href="#">Another action</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="#">Something else here</a>
+                                            </div>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                                        </li>*@
                             </ul>
                         </div>
                     </nav>
@@ -538,6 +541,7 @@
     </header>
     <div class="body-content" id="top-banner-and-menu">
         <div class="cnt-home">
+            <partial name="_CookieConsentPartial" />
             @RenderBody()
         </div>
 
@@ -917,11 +921,10 @@
     @RenderSection("Scripts", false)
 
     <script defer src='~/js/k0y3rg1s/f9ef0.js'></script>
-    <script defer src='~/joovenpm/f9ef0.js'></script>
 
     @if (_site.IsGoogleAnalyticsEnabled)
     {
-        <!-- Google Analytics -->
+        <partial name="Shared/TempViews/_GoogleAnalytics" model="_site.GoogleGACode" />
     }
 
 </body>

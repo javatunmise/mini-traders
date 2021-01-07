@@ -34,6 +34,8 @@ namespace Site.Data
         public DbSet<SiteLink> SiteLinks { get; set; }
         public DbSet<SitePage> SitePages { get; set; }
         public DbSet<WithdrawRequest> WithdrawRequests { get; set; }
+        public DbSet<FlashDeal> FlashDeals { get; set; }
+        public DbSet<FlashDealProduct> FlashDealProducts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -59,7 +61,9 @@ namespace Site.Data
                 new WithdrawRequestSchemaConfiguration(),
 
                 new TransactionAccountSchemaConfiguration(),
-                new TransactionEntrySchemaConfiguration()
+                new TransactionEntrySchemaConfiguration(),
+                new FlashDealsSchemaConfiguration(),
+                new FlashDealProductsSchemaConfiguration()
             };
 
             foreach (var schema in schemaConfigs)
@@ -70,7 +74,6 @@ namespace Site.Data
             base.OnModelCreating(builder);
 
             builder.Entity<ProductTag>().HasKey(e => new { e.ProductId, e.TagId });
-
         }
     }
 }

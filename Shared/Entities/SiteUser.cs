@@ -1,4 +1,6 @@
-﻿namespace Shared.Entities
+﻿using System;
+
+namespace Shared.Entities
 {
     public class SiteUser
     {
@@ -15,5 +17,6 @@
         public string WalletAccountCode { get; set; }
         public string TokenAccountCode { get; set; }
         public string FullName => $"{FirstName} {LastName}";
+        public DateTime? CreatedOn { get; set; }
     }
 }

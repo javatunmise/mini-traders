@@ -209,6 +209,7 @@
                                             <div class="price">
                                                 <span class="price-before @(p.Price == p.OldPrice ? "hide" : "")">N@(p.OldPrice.ToString("N2"))</span>
                                                 <span class="price-current">N@(p.Price.ToString("N2"))</span>
+                                                <span class="@(p.Price < p.OldPrice ? "" : "hide")" style="background: #ecf0f1; padding: 4px;color: red;">-@AmountUtil.ToPercentage(p.OldPrice, p.Price)%</span>
                                             </div>
                                             <div>@p.StoreLocation</div>
                                         </div>

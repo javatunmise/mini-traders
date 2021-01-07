@@ -51,7 +51,8 @@ namespace site.Repositories
                 PhoneNumber = store.PhoneNumber,
                 LogoPath = store.LogoPath,
                 UploadedDocPath = store.UploadedDocLocation,
-                SiteUserId = store.Owner.Id
+                SiteUserId = store.Owner.Id,
+                CreatedOn = _serverDate.Now()
             };
 
             if (!string.IsNullOrWhiteSpace(store.ReferrerCode))

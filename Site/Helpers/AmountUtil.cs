@@ -13,5 +13,12 @@ namespace site.Helpers
         {
             throw new NotImplementedException();
         }
+
+        public static int ToPercentage(decimal old, decimal newValue)
+        {
+            if (old == 0) return 0;
+            var ratio = (old - newValue) / old;
+            return Convert.ToInt32(ratio * 100);
+        }
     }
 }

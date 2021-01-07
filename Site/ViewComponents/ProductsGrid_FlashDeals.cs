@@ -19,10 +19,14 @@ namespace site.ViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
+            var f = await _provider.GetCurrentFlashDeal();
+            var dealProducts = new List<FlashDealProduct>();
+            if (f != null) dealProducts = await _provider.GetFlashDeals(f.Id);
+
             var flashDeals = new FlashDealInfo
             {
-                FlashDeal = await _provider.GetCurrentFlashDeal(),
-                FlashDealProducts = await _provider.GetFlashDeals()
+                FlashDeal = f,
+                FlashDealProducts = dealProducts
             };
 
             return View(flashDeals);
@@ -31,7 +35,7 @@ namespace site.ViewComponents
         public class FlashDealInfo
         {
             public FlashDeal FlashDeal { get; set; }
-            public List<Product> FlashDealProducts { get; set; }
+            public List<FlashDealProduct> FlashDealProducts { get; set; }
 
             public (int Days, int Hours, int Minutes, int Seconds) TimeLeft()
             {
