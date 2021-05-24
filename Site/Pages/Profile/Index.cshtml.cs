@@ -75,6 +75,9 @@ namespace site.Pages.Profile
             if (!StringUtil.TryGetSafeImageExtension(ImageUpload.FileName, out string extension))
                 return UPLOAD_NOT_SUPPORTED;
 
+            if (ImageUpload.Length > 200) //200kb
+                return UPLOAD_NOT_SUPPORTED;
+
             var fileName = $"profile_pic_{StringUtil.SafeGuid()}.{extension}";
             var relativePath = "images/uploads_docs/";
             var path = Path.Combine("wwwroot/" + relativePath, fileName);

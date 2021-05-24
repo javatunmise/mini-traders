@@ -15,6 +15,7 @@ namespace site.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Microsoft.AspNetCore.Authorization.Authorize]
     public class OperationsController : ControllerBase
     {
         private readonly ISiteContentProvider _provider;

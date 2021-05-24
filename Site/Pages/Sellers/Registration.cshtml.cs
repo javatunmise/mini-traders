@@ -22,6 +22,14 @@ namespace site.Pages.Sellers
     public class RegistrationModel : PageModel
     {
         private const string UPLOAD_NOT_SUPPORTED = "NOT_SUPPORTED";
+        private const string FILE_TOO_BIG = "FILE_TOO_BIG";
+
+        private readonly Dictionary<string, string> uploadErrors = new Dictionary<string, string>
+        {
+            { UPLOAD_NOT_SUPPORTED, "Uploaded file format not supported" },
+            { FILE_TOO_BIG, "Uploaded file too big" }
+        };
+
         private readonly ISiteContentProvider _provider;
         private readonly AccountRepository _accountRepository;
         private readonly IHostEnvironment _environment;
@@ -84,9 +92,9 @@ namespace site.Pages.Sellers
                 if (DocUpload != null)
                 {
                     filePath = await CreateFile();
-                    if (filePath == UPLOAD_NOT_SUPPORTED)
+                    if (filePath == UPLOAD_NOT_SUPPORTED || filePath == FILE_TOO_BIG)
                     {
-                        ModelState.AddModelError(nameof(DocUpload), "Uploaded file format not supported");
+                        ModelState.AddModelError(nameof(DocUpload), uploadErrors[filePath]);
                         await InitFormData();
                         return Page();
                     }
@@ -117,6 +125,9 @@ namespace site.Pages.Sellers
         private async Task<string> CreateFile()
         {
             if (!StringUtil.TryGetSafeImageExtension(DocUpload.FileName, out string extension))
+                return UPLOAD_NOT_SUPPORTED;
+
+            if (DocUpload.Length > 1024) //1MB
                 return UPLOAD_NOT_SUPPORTED;
 
             var fileName = $"logo_{StringUtil.SafeGuid()}.{extension}";

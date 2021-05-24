@@ -19,6 +19,14 @@ namespace site.Pages.Profile.Store
     {
         private readonly ISiteContentProvider _provider;
         private const string UPLOAD_NOT_SUPPORTED = "NOT_SUPPORTED";
+        private const string FILE_TOO_BIG = "FILE_TOO_BIG";
+
+        private readonly Dictionary<string, string> uploadErrors = new Dictionary<string, string>
+        {
+            { UPLOAD_NOT_SUPPORTED, "Uploaded file format not supported" },
+            { FILE_TOO_BIG, "Uploaded image too big" }
+        };
+
         private readonly AccountRepository _accountRepo;
         private readonly StoreRepository _storeRepo;
         private readonly IHostEnvironment _environment;
@@ -71,9 +79,9 @@ namespace site.Pages.Profile.Store
             if (VendorImageUpload != null)
             {
                 store.LogoPath = await CreateFile();
-                if(store.LogoPath == UPLOAD_NOT_SUPPORTED)
+                if(store.LogoPath == UPLOAD_NOT_SUPPORTED || store.LogoPath == FILE_TOO_BIG)
                 {
-                    ModelState.AddModelError(nameof(VendorImageUpload), "Uploaded file format not supported");
+                    ModelState.AddModelError(nameof(VendorImageUpload), uploadErrors[store.LogoPath]);
                     return Page();
                 }
             }
@@ -86,6 +94,9 @@ namespace site.Pages.Profile.Store
         private async Task<string> CreateFile()
         {
             if (!StringUtil.TryGetSafeImageExtension(VendorImageUpload.FileName, out string extension))
+                return UPLOAD_NOT_SUPPORTED;
+
+            if (VendorImageUpload.Length > 200) //200kb
                 return UPLOAD_NOT_SUPPORTED;
 
             var fileName = $"logo_{StringUtil.SafeGuid()}.{extension}";

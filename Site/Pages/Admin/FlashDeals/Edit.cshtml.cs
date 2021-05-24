@@ -47,8 +47,8 @@ namespace site.Pages.Admin.FlashDeals
                 return RedirectToPage("/Error404");
 
             var errorMessage = "";
-            if (Input.StartDate.Date < DateTime.Now) errorMessage = "Start date must be in the future";
-            if (Input.StartDate.Date > Input.EndDate) errorMessage = "Start date must be earlier than End date";
+            if (Input.StartDate < DateTime.Now) errorMessage = "Start date must be in the future";
+            if (Input.StartDate > Input.EndDate) errorMessage = "Start date must be earlier than End date";
             if (Input.MinDiscount < 1) errorMessage = "Percentage must be between 1 and 99";
 
             if (!string.IsNullOrEmpty(errorMessage))

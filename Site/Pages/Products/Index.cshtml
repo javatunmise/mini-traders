@@ -30,6 +30,8 @@
     <meta name="twitter:image" content="@($"{Request.Scheme}://{Request.Host}/{product.SmallImageUrl}")">
 }
 
+<link rel="stylesheet" href="~/css/magnific-popup.css">
+
 <style type="text/css">
     .product-area {
         padding-top: 15px;
@@ -162,7 +164,9 @@
 
                         <div class="product-image">
                             <!-- product-image -->
-                            <img src="~/@product.SmallImageUrl" />
+                            <a class="popup-image" href="~/@product.ImageUrl">
+                                <img alt="" src="~/@product.SmallImageUrl" />
+                            </a>
                         </div>
 
                         <br />
@@ -418,7 +422,14 @@
 
 @section Scripts {
 
+    <script src="~/js/image-popup/jquery.magnific-popup.min.js"></script>
+
     <script type="text/javascript">
+
+        $('.popup-image').magnificPopup({
+            type: 'image'
+            // other options
+        });
 
         function postReview() {
             showHideElements(false, ['#review-comment-error', '#review-rating-error', '#post-review-error'])
@@ -527,6 +538,7 @@
     <script type="text/javascript">
         function replaceImage(image) {
             $('.product-image img').attr('src', image);
+            $('.product-image a').attr('href', image);
         }
     </script>
 

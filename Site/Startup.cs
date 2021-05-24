@@ -128,7 +128,7 @@ namespace Site
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapControllers().WithMetadata(new Microsoft.AspNetCore.Authorization.AllowAnonymousAttribute());
                 endpoints.MapRazorPages();
             });
 
